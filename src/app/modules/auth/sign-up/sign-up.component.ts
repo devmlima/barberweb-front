@@ -36,12 +36,10 @@ export class AuthSignUpComponent implements OnInit {
     }
 
     signUp(): void {
+        // @TODO COMEÇAR A IMPLEMENTAR AQUI
         if (this.formGroup.valid) {
             this.showAlert = false;
             this._authService.signUp(this.formGroup.value).subscribe(
-                (response) => {
-                    this._router.navigateByUrl('/confirmation-required');
-                },
                 (response) => {
                     this.formGroup.enable();
                     this.formGroup.reset();
