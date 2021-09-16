@@ -1,3 +1,6 @@
+import { UserLoggedService } from './../../../api/services/userLogged.service';
+/* eslint-disable no-debugger */
+import { ApiService } from './../../../api/services/api.service';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -20,8 +23,9 @@ export class AuthSignUpComponent implements OnInit {
     showAlert: boolean = false;
 
     constructor(
-        private _authService: AuthService,
+        private _apiService: ApiService,
         private _formBuilder: FormBuilder,
+        private readonly _userLoggedService: UserLoggedService,
         private _router: Router
     ) {}
 
@@ -36,26 +40,50 @@ export class AuthSignUpComponent implements OnInit {
     }
 
     signUp(): void {
-        // @TODO COMEÇAR A IMPLEMENTAR AQUI
+        // @TODO IMPLEMENTAR LOADING
         if (this.formGroup.valid) {
             this.showAlert = false;
-            this._authService.signUp(this.formGroup.value).subscribe(
-                (response) => {
-                    this.formGroup.enable();
-                    this.formGroup.reset();
-                    this.alert = {
-                        type: 'error',
-                        message: 'Alguma coisa deu errado. Por favor tente outra vez.',
-                    };
-                    this.showAlert = true;
-                }
-            );
+            this._apiService
+                .signUp(this.convertModel(this.formGroup.value))
+                .subscribe((response) => {
+                    if (response) {
+                        this._userLoggedService.set(response);
+                        this._router.navigateByUrl('/signed-in-redirect');
+                    } else {
+                        this.alert = {
+                            type: 'error',
+                            message:
+                                'Ocorreu um erro ao efetuar o cadastro, tente novamente!',
+                        };
+                        this.showAlert = true;
+                    }
+                });
         } else {
             this.alert = {
                 type: 'error',
-                message: 'Por favor, verifique o preenchimento de todos os campos!',
+                message:
+                    'Por favor, verifique o preenchimento de todos os campos!',
             };
             this.showAlert = true;
         }
+    }
+
+    convertModel(objeto): any {
+        const newObj: any = {
+            ...objeto,
+            empresa: {
+                cpfCnpj: objeto.cpfCnpj,
+                razaoSocial: objeto.razaoSocial,
+            },
+        };
+
+        delete newObj.razaoSocial;
+        delete newObj.cpfCnpj;
+
+        return newObj;
+    }
+
+    desconvertForm(objeto): any {
+        return objeto;
     }
 }

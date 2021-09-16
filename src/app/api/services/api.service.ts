@@ -1,12 +1,16 @@
+import { environment } from './../../../environments/environment';
 /* eslint-disable arrow-body-style */
+/* eslint-disable @typescript-eslint/member-ordering */
+
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { environment } from './../../../environments/environment.prod';
-/* eslint-disable @typescript-eslint/member-ordering */
+
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injector, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+
 import { get } from 'lodash';
+
 import { UserLoggedService } from './userLogged.service';
 
 @Injectable()

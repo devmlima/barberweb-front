@@ -3,37 +3,65 @@ import { FuseNavigationItem } from '@fuse/components/navigation';
 
 export const defaultNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
-        title: 'Example',
+        id   : 'dashboard',
+        title: 'Dashboard',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
+        icon : 'grid_view',
+        link : '/dashboard'
+    },
+    {
+        id   : 'cortes',
+        title: 'Cortes Realizados',
+        type : 'basic',
+        icon : 'face',
+        link : '/cortes'
+    },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
-        title: 'Example',
+        id   : 'dashboard',
+        title: 'Dashboard',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
+        icon : 'grid_view',
+        link : '/dashboard'
+    },
+    {
+        id   : 'cortes',
+        title: 'Cortes Realizados',
+        type : 'basic',
+        icon : 'face',
+        link : '/cortes'
+    },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
-        title: 'Example',
+        id   : 'dashboard',
+        title: 'Dashboard',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
+        icon : 'grid_view',
+        link : '/dashboard'
+    },
+    {
+        id   : 'cortes',
+        title: 'Cortes Realizados',
+        type : 'basic',
+        icon : 'face',
+        link : '/cortes'
+    },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
-        title: 'Example',
+        id   : 'dashboard',
+        title: 'Dashboard',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
+        icon : 'grid_view',
+        link : '/dashboard'
+    },
+    {
+        id   : 'cortes',
+        title: 'Cortes Realizados',
+        type : 'basic',
+        icon : 'face',
+        link : '/cortes'
+    },
 ];
