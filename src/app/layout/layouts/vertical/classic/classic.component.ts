@@ -1,3 +1,4 @@
+import { UserLoggedService } from './../../../../api/services/userLogged.service';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -15,6 +16,8 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy
 {
     data: InitialData;
     isScreenSmall: boolean;
+    user: any = {};
+
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -24,33 +27,20 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy
         private _activatedRoute: ActivatedRoute,
         private _router: Router,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
-        private _fuseNavigationService: FuseNavigationService
+        private _fuseNavigationService: FuseNavigationService,
+        private _userLoggedService: UserLoggedService
     )
     {
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Getter for current year
-     */
     get currentYear(): number
     {
         return new Date().getFullYear();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
     ngOnInit(): void
     {
-        // Subscribe to the resolved route data
+        this.user = this._userLoggedService.get();
         this._activatedRoute.data.subscribe((data: Data) => {
             this.data = data.initialData;
         });

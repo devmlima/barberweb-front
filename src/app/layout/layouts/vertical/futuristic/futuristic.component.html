@@ -7,12 +7,6 @@
     [opened]="!isScreenSmall">
     <!-- Navigation header hook -->
     <ng-container fuseVerticalNavigationHeader>
-        <!-- Logo -->
-        <div class="flex items-center h-20 p-6 pb-0">
-            <img
-                class="w-30"
-                src="assets/images/logo/logo-text-on-dark.svg">
-        </div>
     </ng-container>
     <!-- Navigation footer hook -->
     <ng-container fuseVerticalNavigationFooter>
@@ -21,10 +15,10 @@
             <user-menu></user-menu>
             <div class="flex flex-col w-full ml-4 overflow-hidden">
                 <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden leading-normal text-current opacity-80">
-                    {{data.user.name}}
+                    Olá, {{user.nome}}
                 </div>
                 <div class="w-full mt-0.5 whitespace-nowrap text-sm overflow-ellipsis overflow-hidden leading-normal text-current opacity-50">
-                    brian.hughes@company.com
+                    {{user.email}}
                 </div>
             </div>
         </div>
@@ -45,12 +39,6 @@
         </button>
         <!-- Components -->
         <div class="flex items-center pl-2 ml-auto space-x-2">
-            <language></language>
-            <fuse-fullscreen></fuse-fullscreen>
-            <search [appearance]="'bar'"></search>
-            <shortcuts [shortcuts]="data.shortcuts"></shortcuts>
-            <messages [messages]="data.messages"></messages>
-            <notifications [notifications]="data.notifications"></notifications>
         </div>
     </div>
 

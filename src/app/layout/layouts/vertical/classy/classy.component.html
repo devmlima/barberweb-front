@@ -8,15 +8,8 @@
     <!-- Navigation header hook -->
     <ng-container fuseVerticalNavigationContentHeader>
         <div class="flex items-center w-full p-4 pl-6">
-            <!-- Logo -->
-            <div class="flex items-center justify-center">
-                <img
-                    class="w-8"
-                    src="assets/images/logo/logo.svg">
-            </div>
             <!-- Components -->
             <div class="flex items-center ml-auto">
-                <notifications [notifications]="data.notifications"></notifications>
                 <user-menu [showAvatar]="false"></user-menu>
             </div>
         </div>
@@ -35,20 +28,12 @@
             </div>
             <div class="flex flex-col items-center justify-center w-full mt-6">
                 <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
-                    {{data.user.name}}
+                    Olá, {{user.nome}}
                 </div>
                 <div class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
-                    {{data.user.email}}
+                    {{user.email}}
                 </div>
             </div>
-        </div>
-    </ng-container>
-    <!-- Navigation footer hook -->
-    <ng-container fuseVerticalNavigationContentFooter>
-        <div class="flex flex-0 items-center justify-center h-16 pr-6 pl-2 mt-2 mb-4 opacity-12">
-            <img
-                class="max-w-36"
-                src="assets/images/logo/logo-text-on-dark.svg">
         </div>
     </ng-container>
 </fuse-vertical-navigation>
@@ -66,11 +51,6 @@
         </button>
         <!-- Components -->
         <div class="flex items-center pl-2 ml-auto space-x-2">
-            <language></language>
-            <fuse-fullscreen></fuse-fullscreen>
-            <search [appearance]="'bar'"></search>
-            <shortcuts [shortcuts]="data.shortcuts"></shortcuts>
-            <messages [messages]="data.messages"></messages>
         </div>
     </div>
 

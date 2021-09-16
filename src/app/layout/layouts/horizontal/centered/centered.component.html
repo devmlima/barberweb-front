@@ -14,7 +14,7 @@
                 <div class="flex items-center h-20 pt-6 px-8">
                     <img
                         class="w-30"
-                        src="assets/images/logo/logo-text-on-dark.svg">
+                        src="assets/images/logo/logo_inicial.svg">
                 </div>
             </ng-container>
         </fuse-vertical-navigation>
@@ -37,7 +37,7 @@
                         <!-- Dark version -->
                         <img
                             class="hidden dark:flex w-24"
-                            src="assets/images/logo/logo-text-on-dark.svg"
+                            src="assets/images/logo/logo_inicial.svg"
                             alt="Logo image">
                     </div>
                     <!-- Small version -->
@@ -63,12 +63,6 @@
             </ng-container>
             <!-- Components -->
             <div class="flex items-center pl-2 ml-auto space-x-2">
-                <language></language>
-                <fuse-fullscreen></fuse-fullscreen>
-                <search [appearance]="'bar'"></search>
-                <shortcuts [shortcuts]="data.shortcuts"></shortcuts>
-                <messages [messages]="data.messages"></messages>
-                <notifications [notifications]="data.notifications"></notifications>
                 <user-menu></user-menu>
             </div>
         </div>

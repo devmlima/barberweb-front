@@ -31,22 +31,16 @@ export class InitialDataResolver implements Resolve<any>
     {
         // Fork join multiple API endpoint calls to wait all of them to finish
         return forkJoin([
-            this._httpClient.get<any>('api/common/messages'),
             this._httpClient.get<any>('api/common/navigation'),
-            this._httpClient.get<any>('api/common/notifications'),
-            this._httpClient.get<any>('api/common/shortcuts'),
             this._httpClient.get<any>('api/common/user')
         ]).pipe(
-            map(([messages, navigation, notifications, shortcuts, user]) => ({
-                    messages,
+            map(([navigation, user]) => ({
                     navigation: {
                         compact   : navigation.compact,
                         default   : navigation.default,
                         futuristic: navigation.futuristic,
                         horizontal: navigation.horizontal
                     },
-                    notifications,
-                    shortcuts,
                     user
                 })
             )

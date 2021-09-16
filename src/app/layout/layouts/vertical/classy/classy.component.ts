@@ -1,97 +1,63 @@
+import { UserLoggedService } from './../../../../api/services/userLogged.service';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
+import {
+    FuseNavigationService,
+    FuseVerticalNavigationComponent,
+} from '@fuse/components/navigation';
 import { InitialData } from 'app/app.types';
 
 @Component({
-    selector     : 'classy-layout',
-    templateUrl  : './classy.component.html',
-    encapsulation: ViewEncapsulation.None
+    selector: 'classy-layout',
+    templateUrl: './classy.component.html',
+    encapsulation: ViewEncapsulation.None,
 })
-export class ClassyLayoutComponent implements OnInit, OnDestroy
-{
+export class ClassyLayoutComponent implements OnInit, OnDestroy {
     data: InitialData;
     isScreenSmall: boolean;
+    user: any = {};
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-    /**
-     * Constructor
-     */
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _router: Router,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
-        private _fuseNavigationService: FuseNavigationService
-    )
-    {
-    }
+        private _fuseNavigationService: FuseNavigationService,
+        private _userLoggedService: UserLoggedService
+    ) {}
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Getter for current year
-     */
-    get currentYear(): number
-    {
+    get currentYear(): number {
         return new Date().getFullYear();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
-    ngOnInit(): void
-    {
-        // Subscribe to the resolved route data
+    ngOnInit(): void {
+        this.user = this._userLoggedService.get();
         this._activatedRoute.data.subscribe((data: Data) => {
             this.data = data.initialData;
         });
 
-        // Subscribe to media changes
         this._fuseMediaWatcherService.onMediaChange$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(({matchingAliases}) => {
-
-                // Check if the screen is small
+            .subscribe(({ matchingAliases }) => {
                 this.isScreenSmall = !matchingAliases.includes('md');
             });
     }
 
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void
-    {
-        // Unsubscribe from all subscriptions
+    ngOnDestroy(): void {
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+    toggleNavigation(name: string): void {
+        const navigation =
+            this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>(
+                name
+            );
 
-    /**
-     * Toggle navigation
-     *
-     * @param name
-     */
-    toggleNavigation(name: string): void
-    {
-        // Get the navigation
-        const navigation = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>(name);
-
-        if ( navigation )
-        {
-            // Toggle the opened status
+        if (navigation) {
             navigation.toggle();
         }
     }

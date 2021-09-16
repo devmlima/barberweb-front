@@ -9,7 +9,7 @@ import { FuseConfigModule } from '@fuse/services/config';
 import { FuseMockApiModule } from '@fuse/lib/mock-api';
 import { CoreModule } from 'app/core/core.module';
 import { appConfig } from 'app/core/config/app.config';
-import { mockApiServices } from 'app/api';
+import { apis } from 'app/api';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
@@ -29,7 +29,7 @@ const routerConfig: ExtraOptions = {
 
         FuseModule,
         FuseConfigModule.forRoot(appConfig),
-        FuseMockApiModule.forRoot(mockApiServices),
+        FuseMockApiModule.forRoot(apis),
 
         CoreModule,
         LayoutModule,
