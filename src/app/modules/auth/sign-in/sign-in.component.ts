@@ -1,12 +1,16 @@
 /* eslint-disable no-debugger */
 import { UserLoggedService } from './../../../api/services/userLogged.service';
 import { ApiService } from './../../../api/services/api.service';
+
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { fuseAnimations } from '@fuse/animations';
+
 import { FuseAlertType } from '@fuse/components/alert';
-import { AuthService } from 'app/core/auth/auth.service';
+import { fuseAnimations } from '@fuse/animations';
+
+import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
+
 
 @Component({
     selector: 'auth-sign-in',
@@ -24,26 +28,16 @@ export class AuthSignInComponent implements OnInit {
     signInForm: FormGroup;
     showAlert: boolean = false;
 
-    /**
-     * Constructor
-     */
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _apiService: ApiService,
         private _userLoggedService: UserLoggedService,
         private _formBuilder: FormBuilder,
-        private _router: Router
+        private _router: Router,
+        private _authService: SocialAuthService
     ) {}
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
     ngOnInit(): void {
-        // Create the form
         this.signInForm = this._formBuilder.group({
             email: [
                 '',
@@ -53,13 +47,6 @@ export class AuthSignInComponent implements OnInit {
         });
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Sign in
-     */
     signIn(): void {
         if (this.signInForm.invalid) {
             return;
@@ -92,5 +79,12 @@ export class AuthSignInComponent implements OnInit {
                 this.showAlert = true;
             }
         );
+    }
+
+    async authenticate(): Promise<void> {
+        debugger;
+        const response = await this._authService.signIn(GoogleLoginProvider.PROVIDER_ID);;
+
+        console.log(response);
     }
 }

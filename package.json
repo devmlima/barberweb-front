@@ -33,6 +33,7 @@
         "@fullcalendar/timegrid": "4.4.2",
         "@ngneat/transloco": "2.20.1",
         "angular-2-local-storage": "^3.0.2",
+        "angularx-social-login": "^4.0.1",
         "apexcharts": "3.26.3",
         "crypto-js": "3.3.0",
         "highlight.js": "10.7.2",
