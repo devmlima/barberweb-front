@@ -67,7 +67,7 @@ const routerConfig: ExtraOptions = {
                     {
                         id: GoogleLoginProvider.PROVIDER_ID,
                         provider: new GoogleLoginProvider(
-                            '459600388979-muh8nbqp7op0lv9fmu9vcdd6b37v2hl8.apps.googleusercontent.com'
+                            '713849256469-v0mte0datvl27lki4imdqgnuaaupv12k.apps.googleusercontent.com'
                         ),
                     },
                     // {
