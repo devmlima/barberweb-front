@@ -1,17 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'cpfCnpjPipe' })
-export class CpfPipe implements PipeTransform {
+export class CpfCnpjPipe implements PipeTransform {
     transform(
         value: string | number,
         ocultarAlgunsValores: boolean = false
     ): string {
         let valorFormatado = value + '';
+        console.log(valorFormatado.length);
         if (valorFormatado.length > 11) {
             valorFormatado = valorFormatado
                 .substr(0, 14)
                 .replace(/[^0-9]/, '')
-                .replace(/(\d{2})(\d{3})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+                .replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
         } else {
             valorFormatado = valorFormatado
                 .substr(0, 11)

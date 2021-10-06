@@ -134,6 +134,7 @@
                         matInput
                         [value]="formGroup.get('cpfCnpj').value | cpfCnpjPipe"
                         maxlength="18"
+                        numberOnly
                         formControlName="cpfCnpj">
                         <mat-error *ngIf="formGroup.get('cpfCnpj').hasError('required')">
                             Campo obrigatório

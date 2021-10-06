@@ -69,6 +69,7 @@ export class AuthSignUpComponent implements OnInit {
     }
 
     convertModel(objeto): any {
+        debugger;
         const newObj: any = {
             ...objeto,
             empresa: {
