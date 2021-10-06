@@ -70,6 +70,6 @@ export class ApiService {
             'filter',
             JSON.stringify({ include: ['PerfilUsuario'] })
         );
-        return this.http.get(environment.apiUrl + '/user/dataUser', params);
+        return this.http.get(environment.apiUrl + '/users/dataUser', params);
     }
 }

@@ -1,3 +1,4 @@
+import { CpfPipe } from './../../pipes/cpf.pipe';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,7 +15,8 @@ import { authSignupRoutes } from 'app/modules/auth/sign-up/sign-up.routing';
 
 @NgModule({
     declarations: [
-        AuthSignUpComponent
+        AuthSignUpComponent,
+        CpfPipe
     ],
     imports     : [
         RouterModule.forChild(authSignupRoutes),

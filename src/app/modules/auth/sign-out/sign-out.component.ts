@@ -5,42 +5,18 @@ import { finalize, takeUntil, takeWhile, tap } from 'rxjs/operators';
 import { AuthService } from 'app/core/auth/auth.service';
 
 @Component({
-    selector     : 'auth-sign-out',
-    templateUrl  : './sign-out.component.html',
-    encapsulation: ViewEncapsulation.None
+    selector: 'auth-sign-out',
+    templateUrl: './sign-out.component.html',
+    encapsulation: ViewEncapsulation.None,
 })
-export class AuthSignOutComponent implements OnInit, OnDestroy
-{
+export class AuthSignOutComponent implements OnInit, OnDestroy {
     countdown: number = 5;
-    countdownMapping: any = {
-        '=1'   : '# second',
-        'other': '# seconds'
-    };
+
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-    /**
-     * Constructor
-     */
-    constructor(
-        private _authService: AuthService,
-        private _router: Router
-    )
-    {
-    }
-
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
-    ngOnInit(): void
-    {
-        // Sign out
+    constructor(private _authService: AuthService, private _router: Router) {}
+    ngOnInit(): void {
         this._authService.signOut();
-
-        // Redirect after the countdown
         timer(1000, 1000)
             .pipe(
                 finalize(() => {
@@ -53,12 +29,7 @@ export class AuthSignOutComponent implements OnInit, OnDestroy
             .subscribe();
     }
 
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void
-    {
-        // Unsubscribe from all subscriptions
+    ngOnDestroy(): void {
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }

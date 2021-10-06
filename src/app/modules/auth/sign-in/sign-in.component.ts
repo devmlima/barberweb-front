@@ -11,7 +11,6 @@ import { fuseAnimations } from '@fuse/animations';
 
 import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
 
-
 @Component({
     selector: 'auth-sign-in',
     templateUrl: './sign-in.component.html',
@@ -39,10 +38,7 @@ export class AuthSignInComponent implements OnInit {
 
     ngOnInit(): void {
         this.signInForm = this._formBuilder.group({
-            email: [
-                '',
-                [Validators.required, Validators.email],
-            ],
+            email: ['', [Validators.required, Validators.email]],
             senha: ['', Validators.required],
         });
     }
@@ -57,7 +53,6 @@ export class AuthSignInComponent implements OnInit {
 
         this._apiService.login(this.signInForm.value).subscribe(
             (response) => {
-                debugger;
                 this._userLoggedService.set(response);
                 const redirectURL =
                     this._activatedRoute.snapshot.queryParamMap.get(
@@ -66,7 +61,7 @@ export class AuthSignInComponent implements OnInit {
                 this._router.navigateByUrl(redirectURL);
             },
             (err) => {
-                debugger;
+                this._userLoggedService.set(null);
                 this.signInForm.enable();
                 this.signInNgForm.resetForm();
 
@@ -83,7 +78,9 @@ export class AuthSignInComponent implements OnInit {
 
     async authenticate(): Promise<void> {
         debugger;
-        const response = await this._authService.signIn(GoogleLoginProvider.PROVIDER_ID);;
+        const response = await this._authService.signIn(
+            GoogleLoginProvider.PROVIDER_ID
+        );
 
         console.log(response);
     }

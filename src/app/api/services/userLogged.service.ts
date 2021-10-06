@@ -98,6 +98,7 @@ export class UserLoggedService {
                         },
                         (err) => {
                             if (err.statusCode === 401 || err.status === 401) {
+                                userLoggedService.set(null);
                                 router.navigate(['/sign-in']);
                             }
                             resolve(null);

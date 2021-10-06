@@ -82,17 +82,17 @@
                     <input
                         id="senha"
                         matInput
-                        type="senha"
+                        type="password"
                         [formControlName]="'senha'"
                         #senhaField>
                     <button
                         mat-icon-button
                         type="button"
-                        (click)="senhaField.type === 'senha' ? senhaField.type = 'text' : senhaField.type = 'senha'"
+                        (click)="senhaField.type === 'password' ? senhaField.type = 'text' : senhaField.type = 'password'"
                         matSuffix>
                         <mat-icon
                             class="icon-size-5"
-                            *ngIf="senhaField.type === 'senha'"
+                            *ngIf="senhaField.type === 'password'"
                             [svgIcon]="'heroicons_solid:eye'"></mat-icon>
                         <mat-icon
                             class="icon-size-5"
@@ -107,6 +107,7 @@
                 <!-- Actions -->
                 <div class="inline-flex items-end justify-between w-full mt-1.5">
                     <a
+                    style="text-decoration: underline; cursor: pointer;"
                         class="text-md font-medium hover:underline"
                         [routerLink]="['/forgot-password']">Esqueci minha senha
                     </a>
