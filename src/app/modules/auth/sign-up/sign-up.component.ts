@@ -1,6 +1,7 @@
+import { SignUpCompanyDialog } from './dialogs/signUpCompany.dialog';
 import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { DialogService } from './../../../../@fuse/services/dialogs/dialog.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { UserLoggedService } from './../../../api/services/userLogged.service';
 import { ApiService } from './../../../api/services/api.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
@@ -29,7 +30,8 @@ export class AuthSignUpComponent implements OnInit {
         private readonly _userLoggedService: UserLoggedService,
         private readonly _router: Router,
         private readonly _dialogService: DialogService,
-        private readonly _authService: SocialAuthService
+        private readonly _authService: SocialAuthService,
+        protected _dialog: MatDialog
     ) {}
 
     ngOnInit(): void {
@@ -71,12 +73,49 @@ export class AuthSignUpComponent implements OnInit {
         }
     }
 
-    async authenticate(): Promise<void> {
-        const response = await this._authService.signIn(
-            GoogleLoginProvider.PROVIDER_ID
-        );
+    async authenticate(auth: String): Promise<void> {
+        try {
+            const response = await this._authService.signIn(
+                GoogleLoginProvider.PROVIDER_ID
+            );
 
-        console.log(response);
+            if (response) {
+                this._dialog
+                    .open(SignUpCompanyDialog, {
+                        autoFocus: true,
+                        disableClose: true,
+                        width: '95vw',
+                        maxHeight: '95vh',
+                        data: {
+                            responseAuth: response,
+                        },
+                    })
+                    .afterClosed()
+                    .subscribe((res) => {
+                        if (!res) return;
+
+                        this._apiService
+                            .signUp(this.convertModel(res))
+                            .subscribe((response) => {
+                                if (response) {
+                                    this._userLoggedService.set(response);
+                                    this._router.navigateByUrl(
+                                        '/signed-in-redirect'
+                                    );
+                                } else {
+                                    this.alert = {
+                                        type: 'error',
+                                        message:
+                                            'Ocorreu um erro ao efetuar o cadastro, tente novamente!',
+                                    };
+                                    this.showAlert = true;
+                                }
+                            });
+                    });
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     convertModel(objeto): any {

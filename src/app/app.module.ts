@@ -1,3 +1,5 @@
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { environment } from 'environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER, Injector } from '@angular/core';
@@ -50,6 +52,10 @@ const routerConfig: ExtraOptions = {
         MarkdownModule.forRoot({}),
 
         SocialLoginModule,
+
+        // Material
+        MatButtonModule,
+        MatIconModule,
     ],
     bootstrap: [AppComponent],
     providers: [
