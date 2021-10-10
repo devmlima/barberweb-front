@@ -1,0 +1,36 @@
+:host {
+    width: 100%;
+    background-color: white;
+    display: block;
+    box-sizing: border-box;
+    font-size: 13px;
+}
+
+.cabecalho {
+    background-color: #039be5;
+    font-size: 1.8rem;
+    margin-top: -24px;
+    color: #fff;
+}
+
+.msg {
+    padding: 16px;
+    font-size: 1.5rem;
+    background-color: #fff;
+}
+
+.actions {
+    margin: 0px -24px -24px;
+    background-color: #fff;
+}
+
+#butCancelar {
+    background-color: #ef5350;
+    color: white;
+}
+
+#butConfimar {
+    background-color: #039be5;
+    margin-right: 10px;
+    color: white;
+}

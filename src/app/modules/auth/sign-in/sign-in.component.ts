@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import { UserLoggedService } from './../../../api/services/userLogged.service';
 import { ApiService } from './../../../api/services/api.service';
 
@@ -77,7 +76,6 @@ export class AuthSignInComponent implements OnInit {
     }
 
     async authenticate(): Promise<void> {
-        debugger;
         const response = await this._authService.signIn(
             GoogleLoginProvider.PROVIDER_ID
         );

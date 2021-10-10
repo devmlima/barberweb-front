@@ -1,3 +1,4 @@
+import { DialogsModule } from './../../../../@fuse/services/dialogs/dialogs.module';
 import { CpfCnpjPipe } from './../../pipes/cpfCnpj.pipe';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -12,6 +13,7 @@ import { FuseAlertModule } from '@fuse/components/alert';
 import { SharedModule } from 'app/shared/shared.module';
 import { AuthSignUpComponent } from 'app/modules/auth/sign-up/sign-up.component';
 import { authSignupRoutes } from 'app/modules/auth/sign-up/sign-up.routing';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [
@@ -26,9 +28,11 @@ import { authSignupRoutes } from 'app/modules/auth/sign-up/sign-up.routing';
         MatIconModule,
         MatInputModule,
         MatProgressSpinnerModule,
+        MatDialogModule,
         FuseCardModule,
         FuseAlertModule,
-        SharedModule
+        SharedModule,
+        DialogsModule
     ]
 })
 export class AuthSignUpModule

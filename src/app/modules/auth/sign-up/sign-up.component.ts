@@ -1,12 +1,13 @@
+import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { DialogService } from './../../../../@fuse/services/dialogs/dialog.service';
+import { MatDialogRef } from '@angular/material/dialog';
 import { UserLoggedService } from './../../../api/services/userLogged.service';
-/* eslint-disable no-debugger */
 import { ApiService } from './../../../api/services/api.service';
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertType } from '@fuse/components/alert';
-import { AuthService } from 'app/core/auth/auth.service';
 
 @Component({
     selector: 'auth-sign-up',
@@ -23,10 +24,12 @@ export class AuthSignUpComponent implements OnInit {
     showAlert: boolean = false;
 
     constructor(
-        private _apiService: ApiService,
-        private _formBuilder: FormBuilder,
+        private readonly _apiService: ApiService,
+        private readonly _formBuilder: FormBuilder,
         private readonly _userLoggedService: UserLoggedService,
-        private _router: Router
+        private readonly _router: Router,
+        private readonly _dialogService: DialogService,
+        private readonly _authService: SocialAuthService
     ) {}
 
     ngOnInit(): void {
@@ -68,8 +71,15 @@ export class AuthSignUpComponent implements OnInit {
         }
     }
 
+    async authenticate(): Promise<void> {
+        const response = await this._authService.signIn(
+            GoogleLoginProvider.PROVIDER_ID
+        );
+
+        console.log(response);
+    }
+
     convertModel(objeto): any {
-        debugger;
         const newObj: any = {
             ...objeto,
             empresa: {
