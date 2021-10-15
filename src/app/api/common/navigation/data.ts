@@ -5,7 +5,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
     {
         id: 'dashboard',
         title: 'Dashboards',
+        subtitle: 'Responsável por exibir informações agendamentos, financeiro, etc...',
         type: 'group',
+        classes: {
+            title: 'color-navigation'
+        },
         children: [
             {
                 id: 'dashboard',
@@ -17,8 +21,16 @@ export const defaultNavigation: FuseNavigationItem[] = [
         ],
     },
     {
+        id: 'divider',
+        type: 'divider'
+    },
+    {
         id: 'operations',
         title: 'Operações',
+        classes: {
+            title: 'color-navigation'
+        },
+        subtitle: 'Responsável por cadastros de todas as funcionalidades do sistema',
         type: 'group',
         children: [
             {
@@ -45,8 +57,16 @@ export const defaultNavigation: FuseNavigationItem[] = [
         ],
     },
     {
+        id: 'divider',
+        type: 'divider'
+    },
+    {
         id: 'auth',
         title: 'Autenticação',
+        classes: {
+            title: 'color-navigation'
+        },
+        subtitle: 'Responsável por rotinas específicas do usuário que influencia no uso do sistema',
         type: 'group',
         children: [
             {

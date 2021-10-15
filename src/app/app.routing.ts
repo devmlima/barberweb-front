@@ -9,10 +9,9 @@ import { InitialDataResolver } from 'app/app.resolvers';
 // @formatter:off
 // tslint:disable:max-line-length
 export const appRoutes: Route[] = [
+    { path: '', pathMatch: 'full', redirectTo: 'admin' },
 
-    {path: '', pathMatch : 'full', redirectTo: 'admin'},
-
-    {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'admin'},
+    { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'admin' },
 
     // Auth routes for guests
     {
@@ -21,14 +20,38 @@ export const appRoutes: Route[] = [
         canActivateChild: [NoAuthGuard],
         component: LayoutComponent,
         data: {
-            layout: 'empty'
+            layout: 'empty',
         },
         children: [
-            {path: 'forgot-password', loadChildren: () => import('app/modules/auth/forgot-password/forgot-password.module').then(m => m.AuthForgotPasswordModule)},
-            {path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.module').then(m => m.AuthResetPasswordModule)},
-            {path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.module').then(m => m.AuthSignInModule)},
-            {path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.module').then(m => m.AuthSignUpModule)}
-        ]
+            {
+                path: 'forgot-password',
+                loadChildren: () =>
+                    import(
+                        'app/modules/auth/forgot-password/forgot-password.module'
+                    ).then((m) => m.AuthForgotPasswordModule),
+            },
+            {
+                path: 'reset-password',
+                loadChildren: () =>
+                    import(
+                        'app/modules/auth/reset-password/reset-password.module'
+                    ).then((m) => m.AuthResetPasswordModule),
+            },
+            {
+                path: 'sign-in',
+                loadChildren: () =>
+                    import('app/modules/auth/sign-in/sign-in.module').then(
+                        (m) => m.AuthSignInModule
+                    ),
+            },
+            {
+                path: 'sign-up',
+                loadChildren: () =>
+                    import('app/modules/auth/sign-up/sign-up.module').then(
+                        (m) => m.AuthSignUpModule
+                    ),
+            },
+        ],
     },
 
     // Auth routes for authenticated users
@@ -38,25 +61,63 @@ export const appRoutes: Route[] = [
         canActivateChild: [AuthGuard],
         component: LayoutComponent,
         data: {
-            layout: 'empty'
+            layout: 'empty',
         },
         children: [
-            {path: 'sign-out', loadChildren: () => import('app/modules/auth/sign-out/sign-out.module').then(m => m.AuthSignOutModule)},
-            {path: 'unlock-session', loadChildren: () => import('app/modules/auth/unlock-session/unlock-session.module').then(m => m.AuthUnlockSessionModule)}
-        ]
+            {
+                path: 'sign-out',
+                loadChildren: () =>
+                    import('app/modules/auth/sign-out/sign-out.module').then(
+                        (m) => m.AuthSignOutModule
+                    ),
+            },
+            {
+                path: 'unlock-session',
+                loadChildren: () =>
+                    import(
+                        'app/modules/auth/unlock-session/unlock-session.module'
+                    ).then((m) => m.AuthUnlockSessionModule),
+            },
+        ],
     },
 
     // Admin routes
     {
-        path       : '',
+        path: '',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
-        component  : LayoutComponent,
-        resolve    : {
+        component: LayoutComponent,
+        resolve: {
             initialData: InitialDataResolver,
         },
-        children   : [
-            {path: 'admin', loadChildren: () => import('app/modules/admin/init/init.module').then(m => m.InitModule)},
-        ]
-    }
+        children: [
+            {
+                path: 'admin',
+                loadChildren: () =>
+                    import('app/modules/admin/init/init.module').then(
+                        (m) => m.InitModule
+                    ),
+            },
+        ],
+    },
+
+    // Autentication routes
+    {
+        path: 'authentication',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        children: [
+            {
+                path: 'user',
+                loadChildren: () =>
+                    import('app/modules/authentication/user/user.module').then(
+                        (m) => m.UserModule
+                    ),
+            },
+        ],
+    },
 ];
