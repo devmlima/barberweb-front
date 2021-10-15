@@ -1,3 +1,4 @@
+import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { FuseCardModule } from './../../@fuse/components/card/card.module';
 import { FuseAlertModule } from './../../@fuse/components/alert/alert.module';
@@ -38,6 +39,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         MatProgressSpinnerModule,
         MatTableModule,
         MatPaginatorModule,
+        MatMenuModule,
 
         FuseCardModule,
         FuseAlertModule,

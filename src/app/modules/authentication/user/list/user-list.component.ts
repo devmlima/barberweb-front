@@ -1,3 +1,4 @@
+import { ApiService } from './../../../../api/services/api.service';
 import { FuseAlertType } from './../../../../../@fuse/components/alert/alert.types';
 import { fuseAnimations } from './../../../../../@fuse/animations/public-api';
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
@@ -18,11 +19,11 @@ export class UserListComponent implements OnInit {
     dataSource: any = [];
     displayedColumns: string[] = ['name', 'email', 'actions'];
 
-    constructor() {}
+    constructor(private readonly _api: ApiService) {}
 
     ngOnInit(): void {
-        // FAZER A CHAMADA DA API AQUI PARA POVOAR O DATASOURCE COM OS USUÁRIOS CADASTRADOS NO SISTEMA
+        this._api.getUsers().subscribe((res) => {
+            this.dataSource = res;
+        });
     }
-
-    
 }
