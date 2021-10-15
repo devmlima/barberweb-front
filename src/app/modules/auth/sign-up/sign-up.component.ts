@@ -96,25 +96,36 @@ export class AuthSignUpComponent implements OnInit {
 
                         this._apiService
                             .signUp(this.convertModel(res))
-                            .subscribe((response) => {
-                                if (response) {
+                            .subscribe(
+                                (response) => {
                                     this._userLoggedService.set(response);
                                     this._router.navigateByUrl(
                                         '/signed-in-redirect'
                                     );
-                                } else {
+                                    this.showAlert = true;
+                                },
+                                (err) => {
+                                    this._userLoggedService.set(null);
                                     this.alert = {
                                         type: 'error',
                                         message:
-                                            'Ocorreu um erro ao efetuar o cadastro, tente novamente!',
+                                            'Ocorreu um erro, favor tentar novamente!',
                                     };
+
                                     this.showAlert = true;
                                 }
-                            });
+                            );
                     });
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
+            this._userLoggedService.set(null);
+            this.alert = {
+                type: 'error',
+                message:
+                    'Ocorreu um erro ao efetuar o cadastro, tente novamente!',
+            };
+            this.showAlert = true;
         }
     }
 

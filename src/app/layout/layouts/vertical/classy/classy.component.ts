@@ -35,6 +35,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.user = this._userLoggedService.get();
+        console.log(this.user);
+        
         this._activatedRoute.data.subscribe((data: Data) => {
             this.data = data.initialData;
         });

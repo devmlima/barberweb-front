@@ -9,6 +9,5 @@ export class InitComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {
-        console.log('Entrando no onInit');
     }
 }

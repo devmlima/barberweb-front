@@ -80,6 +80,28 @@ export class AuthSignInComponent implements OnInit {
             GoogleLoginProvider.PROVIDER_ID
         );
 
-        console.log(response);
+        this._apiService.login({email: response.email, provider: 'GOOGLE'}).subscribe(
+            (res) => {
+                this._userLoggedService.set(res);
+                const redirectURL =
+                    this._activatedRoute.snapshot.queryParamMap.get(
+                        'redirectURL'
+                    ) || '/signed-in-redirect';
+                this._router.navigateByUrl(redirectURL);
+            },
+            (err) => {
+                this._userLoggedService.set(null);
+                this.signInForm.enable();
+                this.signInNgForm.resetForm();
+
+                this.alert = {
+                    type: 'error',
+                    message:
+                        'Email ou senha incorretos, favor tentar novamente!',
+                };
+
+                this.showAlert = true;
+            }
+        );
     }
 }

@@ -7,7 +7,6 @@ export class CpfCnpjPipe implements PipeTransform {
         ocultarAlgunsValores: boolean = false
     ): string {
         let valorFormatado = value + '';
-        console.log(valorFormatado.length);
         if (valorFormatado.length > 11) {
             valorFormatado = valorFormatado
                 .substr(0, 14)
