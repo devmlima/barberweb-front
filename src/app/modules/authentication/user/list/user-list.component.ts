@@ -16,7 +16,7 @@ export class UserListComponent implements OnInit {
     };
     showAlert: boolean = false;
     dataSource: any = [];
-    displayedColumns: string[] = ['position', 'name'];
+    displayedColumns: string[] = ['name', 'email', 'actions'];
 
     constructor() {}
 

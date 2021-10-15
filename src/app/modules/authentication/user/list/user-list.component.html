@@ -81,14 +81,31 @@
     <div class="flex-auto p-6 sm:p-10 overflow-y-auto" cdkScrollable>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <div [ngClass]="{ hidden: dataSource.length == 0 }">
-                <ng-container matColumnDef="position">
-                    <th mat-header-cell *matHeaderCellDef> No. </th>
-                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                  </ng-container>
                 <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> Nome. </th>
+                    <th mat-header-cell *matHeaderCellDef> Nome </th>
                     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                   </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> Email </th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell class="actions-cell" *matHeaderCellDef>
+                    </mat-header-cell>
+                    <mat-cell class="actions-cell" *matCellDef="let element">
+                        <button type="button" mat-icon-button [matMenuTriggerFor]="actionsMenu"
+                            (click)="$event.stopPropagation()">
+                            <mat-icon>more_horiz</mat-icon>
+                        </button>
+                        <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">
+                            <button mat-menu-item>
+                                <span>Excluir</span>
+                            </button>
+                        </mat-menu>
+                    </mat-cell>
+                </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
