@@ -15,8 +15,14 @@ export class UserListComponent implements OnInit {
         message: '',
     };
     showAlert: boolean = false;
+    dataSource: any = [];
+    displayedColumns: string[] = ['position', 'name'];
 
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        // FAZER A CHAMADA DA API AQUI PARA POVOAR O DATASOURCE COM OS USUÁRIOS CADASTRADOS NO SISTEMA
+    }
+
+    
 }
