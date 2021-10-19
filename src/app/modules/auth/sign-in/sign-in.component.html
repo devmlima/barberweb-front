@@ -99,7 +99,7 @@
                             *ngIf="senhaField.type === 'text'"
                             [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
                     </button>
-                    <mat-error>
+                    <mat-error *ngIf="signInForm.get('senha').hasError('required')">
                         Campo obrigatório
                     </mat-error>
                 </mat-form-field>

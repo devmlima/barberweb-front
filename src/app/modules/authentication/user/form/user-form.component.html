@@ -1,0 +1,280 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+    <!-- Header -->
+    <div
+        class="
+            flex flex-col
+            sm:flex-row
+            flex-0
+            sm:items-center sm:justify-between
+            p-6
+            sm:py-8 sm:px-10
+            border-b
+            bg-card
+            dark:bg-transparent
+        "
+    >
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div>
+                <div class="hidden sm:flex flex-wrap items-center font-medium">
+                    <div>
+                        <a class="whitespace-nowrap text-primary-500"
+                            >Autenticação</a
+                        >
+                    </div>
+                    <div class="flex items-center ml-1 whitespace-nowrap">
+                        <mat-icon
+                            class="icon-size-5 text-secondary"
+                            [svgIcon]="'heroicons_solid:chevron-right'"
+                        ></mat-icon>
+                        <span class="ml-1 text-secondary">Usuários</span>
+                    </div>
+                    <div class="flex items-center ml-1 whitespace-nowrap">
+                        <mat-icon
+                            class="icon-size-5 text-secondary"
+                            [svgIcon]="'heroicons_solid:chevron-right'"
+                        ></mat-icon>
+                        <span class="ml-1 text-secondary">Form</span>
+                    </div>
+                </div>
+                <div class="flex sm:hidden">
+                    <a
+                        class="
+                            inline-flex
+                            items-center
+                            -ml-1.5
+                            text-secondary
+                            font-medium
+                        "
+                    >
+                        <mat-icon
+                            class="icon-size-5 text-secondary"
+                            [svgIcon]="'heroicons_solid:chevron-left'"
+                        ></mat-icon>
+                        <span class="ml-1">Back</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2
+                    class="
+                        text-3xl
+                        md:text-4xl
+                        font-extrabold
+                        tracking-tight
+                        leading-7
+                        sm:leading-10
+                        truncate
+                    "
+                >
+                    Formulario de Usuários
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10 overflow-y-auto" cdkScrollable>
+        <form
+            class="p-4 bg-card shadow rounded overflow-hidden"
+            [formGroup]="formGroup"
+        >
+            <mat-vertical-stepper [linear]="true" #verticalStepper>
+                <mat-step
+                    [formGroupName]="'step1'"
+                    [stepControl]="formGroup.get('step1')"
+                    #verticalStepperStep1
+                >
+                    <ng-template matStepLabel>Informações Básicas</ng-template>
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Email</mat-label>
+                            <input
+                                matInput
+                                [formControlName]="'email'"
+                                [placeholder]="'Email'"
+                                required
+                            />
+                            <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'heroicons_solid:mail'"
+                            ></mat-icon>
+                            <mat-error *ngIf="formGroup.get('step1').get('email').hasError('required')">
+                                Campo obrigatório
+                            </mat-error>
+                            <mat-error *ngIf="formGroup.get('step1').get('email').hasError('email')">
+                                Preencha um Email válido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Nome</mat-label>
+                            <input
+                                matInput
+                                [formControlName]="'nome'"
+                                [placeholder]="'Nome'"
+                                required
+                            />
+                            <mat-icon class="icon-size-5" matPrefix
+                                >person</mat-icon
+                            >
+                            <mat-error *ngIf="formGroup.get('step1').get('nome').hasError('required')">
+                                Campo obrigatório
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <input
+                                matInput
+                                [formControlName]="'cpf'"
+                                [placeholder]="'CPF'"
+                            />
+                            <mat-icon class="icon-size-5" matPrefix
+                                >assessment</mat-icon
+                            >
+                        </mat-form-field>
+                    </div>
+                    <div class="flex justify-end">
+                        <button
+                            class="px-8"
+                            mat-flat-button
+                            [color]="'primary'"
+                            [disabled]="
+                                verticalStepperStep1.stepControl.pristine ||
+                                verticalStepperStep1.stepControl.invalid
+                            "
+                            type="button"
+                            matStepperNext
+                        >
+                            Próximo
+                        </button>
+                    </div>
+                </mat-step>
+
+                <mat-step
+                    [formGroupName]="'step2'"
+                    [stepControl]="formGroup.get('step2')"
+                    #verticalStepperStep2
+                >
+                    <ng-template matStepLabel>Autenticação</ng-template>
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Senha</mat-label>
+                            <input
+                                [placeholder]="'Senha'"
+                                required
+                                type="password"
+                                id="senha"
+                                matInput
+                                [formControlName]="'senha'"
+                                #senhaField>
+                            <mat-icon class="icon-size-5" matPrefix
+                                >lock</mat-icon
+                            >
+                            <button
+                            mat-icon-button
+                            type="button"
+                            (click)="senhaField.type === 'password' ? senhaField.type = 'text' : senhaField.type = 'password'"
+                            matSuffix>
+                            <mat-icon
+                                class="icon-size-5"
+                                *ngIf="senhaField.type === 'password'"
+                                [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                            <mat-icon
+                                class="icon-size-5"
+                                *ngIf="senhaField.type === 'text'"
+                                [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                        </button>
+                        <mat-error *ngIf="formGroup.get('step2').get('senha').hasError('required')">
+                            Campo obrigatório
+                        </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex justify-end">
+                        <button
+                            class="px-8 mr-2"
+                            mat-flat-button
+                            [color]="'accent'"
+                            type="button"
+                            matStepperPrevious
+                        >
+                            Voltar
+                        </button>
+                        <button
+                            class="px-8"
+                            mat-flat-button
+                            [color]="'primary'"
+                            [disabled]="
+                                verticalStepperStep2.stepControl.pristine ||
+                                verticalStepperStep2.stepControl.invalid
+                            "
+                            type="button"
+                            matStepperNext
+                        >
+                            Próximo
+                        </button>
+                    </div>
+                </mat-step>
+
+                <mat-step
+                    [formGroupName]="'step3'"
+                    [stepControl]="formGroup.get('step3')"
+                    #verticalStepperStep3
+                >
+                    <ng-template matStepLabel>Endereço</ng-template>
+                    <div class="flex"></div>
+                    <div class="flex justify-end">
+                        <button
+                            class="px-8 mr-2"
+                            mat-flat-button
+                            [color]="'accent'"
+                            type="button"
+                            matStepperPrevious
+                        >
+                            Voltar
+                        </button>
+                        <button
+                            class="px-8"
+                            mat-flat-button
+                            [color]="'primary'"
+                            type="button"
+                            matStepperNext
+                        >
+                            Próximo
+                        </button>
+                    </div>
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Finalizar</ng-template>
+                    <p class="my-6 font-medium">
+                        Formulário completo e liberado para salvar
+                    </p>
+                    <div class="flex justify-end mt-8">
+                        <button
+                            class="px-8 mr-2"
+                            mat-flat-button
+                            [color]="'warn'"
+                            type="button"
+                            (click)="back()"
+                        >
+                            Cancelar
+                        </button>
+                        <button
+                            class="px-8"
+                            mat-flat-button
+                            [color]="'primary'"
+                            type="submit"
+                            (click)="save()"
+                        >
+                            Salvar
+                        </button>
+                    </div>
+                </mat-step>
+            </mat-vertical-stepper>
+        </form>
+    </div>
+</div>

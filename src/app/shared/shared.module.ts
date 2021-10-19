@@ -1,3 +1,4 @@
+import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { FuseCardModule } from './../../@fuse/components/card/card.module';
@@ -15,6 +16,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
     imports: [
@@ -40,6 +43,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         MatTableModule,
         MatPaginatorModule,
         MatMenuModule,
+        MatRadioModule,
+        MatSelectModule,
+        MatStepperModule,
 
         FuseCardModule,
         FuseAlertModule,

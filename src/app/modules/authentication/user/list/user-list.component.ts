@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ApiService } from './../../../../api/services/api.service';
 import { FuseAlertType } from './../../../../../@fuse/components/alert/alert.types';
 import { fuseAnimations } from './../../../../../@fuse/animations/public-api';
@@ -17,13 +18,22 @@ export class UserListComponent implements OnInit {
     };
     showAlert: boolean = false;
     dataSource: any = [];
-    displayedColumns: string[] = ['name', 'email', 'actions'];
+    displayedColumns: string[] = ['name', 'email', 'profile', 'actions'];
 
-    constructor(private readonly _api: ApiService) {}
+    rota = 'authentication/user';
+
+    constructor(
+        private readonly _api: ApiService,
+        private readonly router: Router
+    ) {}
 
     ngOnInit(): void {
         this._api.getUsers().subscribe((res) => {
             this.dataSource = res;
         });
+    }
+
+    navigation() {
+        this.router.navigate([`${this.rota}/form`]);
     }
 }

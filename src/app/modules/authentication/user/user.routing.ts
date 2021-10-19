@@ -1,3 +1,4 @@
+import { UserFormComponent } from './form/user-form.component';
 import { UserListComponent } from './list/user-list.component';
 import { Route } from '@angular/router';
 
@@ -8,6 +9,6 @@ export const userRoutes: Route[] = [
     },
     {
         path: 'form',
-        // component: meu component de form aqui
+        component: UserFormComponent
     },
 ];
