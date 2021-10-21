@@ -12,6 +12,7 @@ import { SharedModule } from './../../../shared/shared.module';
 import { userRoutes } from './user.routing';
 import { UserListComponent } from './list/user-list.component';
 import { UserFormComponent } from './form/user-form.component';
+import { DialogsModule } from '@fuse/services/dialogs/dialogs.module';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { UserFormComponent } from './form/user-form.component';
         MatInputModule,
         MatProgressSpinnerModule,
         SharedModule,
+        DialogsModule
     ],
 })
 export class UserModule {}

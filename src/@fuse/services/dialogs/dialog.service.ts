@@ -8,10 +8,10 @@ import { get } from 'lodash-es';
 @Injectable()
 export class DialogService {
 
-    public static ultimoDialog: MatDialogRef<any>;
-    public static dialogAberto = false;
+    public static lastDialog: MatDialogRef<any>;
+    public static openDialog = false;
 
-    private filaDialogs: Array<MatDialogRef<any>> = new Array<MatDialogRef<any>>();
+    private queueDialogs: Array<MatDialogRef<any>> = new Array<MatDialogRef<any>>();
 
 
     // Exemplo de injeção de servicos
@@ -20,23 +20,23 @@ export class DialogService {
         private snackbar: MatSnackBar
     ) {
         this._dialog.afterAllClosed.subscribe(() => {
-            DialogService.dialogAberto = false;
-            DialogService.ultimoDialog = null;
+            DialogService.openDialog = false;
+            DialogService.lastDialog = null;
         });
         this._dialog.afterOpened.subscribe((dialog: MatDialogRef<any>) => {
-            this.filaDialogs.push(dialog);
-            DialogService.ultimoDialog = dialog;
+            this.queueDialogs.push(dialog);
+            DialogService.lastDialog = dialog;
             dialog.afterClosed().subscribe(() => {
-                this.filaDialogs.pop();
-                DialogService.ultimoDialog = this.filaDialogs[this.filaDialogs.length - 1];
+                this.queueDialogs.pop();
+                DialogService.lastDialog = this.queueDialogs[this.queueDialogs.length - 1];
             });
-            DialogService.dialogAberto = true;
+            DialogService.openDialog = true;
         });
     }
 
-    public static fechaDialogAberto(): void {
-        if (this.ultimoDialog) {
-            this.ultimoDialog.close();
+    public static closeOpenDialog(): void {
+        if (this.lastDialog) {
+            this.lastDialog.close();
         }
     }
 
@@ -50,7 +50,7 @@ export class DialogService {
     protected default(options: DialogParams, dialogConfig: MatDialogConfig = {}): Promise<any> {
         return new Promise((resolve, reject) => {
             dialogConfig.data = options;
-            dialogConfig.minWidth = dialogConfig.minWidth = '300px';
+            dialogConfig.width = options.width || '412px';
             dialogConfig.disableClose = true;
             dialogConfig.panelClass = 'dialog-default';
             const dialogRef = this._dialog.open(DefaultDialog, dialogConfig);
@@ -74,10 +74,10 @@ export class DialogService {
         });
     }
 
-    public confirm(message: string, title: string = 'Confirmar!', focusConfirmar: boolean = false, dialogConfig: DialogParams = {}): Promise<any> {
+    public confirm(message: string, title: string = 'Confirmar!', focusConfirm: boolean = false, dialogConfig: DialogParams = {}): Promise<any> {
         dialogConfig.title = title;
         dialogConfig.message = message;
-        dialogConfig.focusConfirmar = focusConfirmar;
+        dialogConfig.focusConfirm = focusConfirm;
         dialogConfig.type = DialogType.Confirm;
         return this.default(dialogConfig);
     }
@@ -132,10 +132,11 @@ export interface DialogParams {
     type?: DialogType;
     btnCancelText?: string;
     btnOkText?: string;
+    width?: string;
     hideCloseButton?: boolean;
     placeholder?: string;
     inputFormat?: DialogInputFormat;
-    focusConfirmar?: boolean;
+    focusConfirm?: boolean;
 }
 
 export enum DialogInputFormat {

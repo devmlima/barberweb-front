@@ -6,13 +6,6 @@
     font-size: 13px;
 }
 
-.cabecalho {
-    background-color: #039be5;
-    font-size: 1.8rem;
-    margin-top: -24px;
-    color: #fff;
-}
-
 .msg {
     padding: 16px;
     font-size: 1.5rem;
@@ -25,12 +18,56 @@
 }
 
 #butCancelar {
-    background-color: #ef5350;
-    color: white;
+    color: #1b2535;
 }
 
 #butConfimar {
-    background-color: #039be5;
+    background-color: #1b2535;
     margin-right: 10px;
     color: white;
+}
+
+.icon {
+    font-size: 36px;
+}
+
+.text {
+    font-size: 20px;
+    margin-left: 16px;
+}
+
+#warning {
+    color: #ef5350;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.msg {
+    color: #ADADAD;
+    font-size: 18px;
+    margin-left: 16px;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 16px;
+}
+
+#butCancelar, #butConfimar {
+    margin: 8px;
+}
+
+::ng-deep .mat-dialog-container {
+    border-radius: 26px !important;
 }

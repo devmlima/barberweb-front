@@ -1,3 +1,5 @@
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuseCardModule } from './../../@fuse/components/card/card.module';
 import { FuseAlertModule } from './../../@fuse/components/alert/alert.module';
 
@@ -23,6 +25,7 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     imports: [
@@ -51,6 +54,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         MatRadioModule,
         MatSelectModule,
         MatStepperModule,
+        MatDialogModule,
+        MatTooltipModule,
+        MatSnackBarModule,
 
         FuseCardModule,
         FuseAlertModule,

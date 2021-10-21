@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -35,6 +36,7 @@ import { LoadingDialog } from './loading/loading.dialog';
         MatFormFieldModule,
         MatCheckboxModule,
         MatAutocompleteModule,
+        MatIconModule,
         CommonModule,
         MatDatepickerModule,
         FlexLayoutModule,

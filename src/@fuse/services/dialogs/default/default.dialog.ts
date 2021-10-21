@@ -16,10 +16,9 @@ import { each } from 'lodash-es';
  */
 @Component({
     templateUrl: './default.dialog.html',
-    styleUrls: ['./default.dialog.scss']
+    styleUrls: ['./default.dialog.scss'],
 })
 export class DefaultDialog implements OnInit {
-
     title: string;
     message: string;
     type: DialogType;
@@ -43,10 +42,10 @@ export class DefaultDialog implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<DefaultDialog>,
         @Inject(MAT_DIALOG_DATA) public data: any
-    ) { }
+    ) {}
 
     onNoClick(): void {
-        this.cancel()
+        this.cancel();
     }
 
     ngOnInit(): void {
@@ -54,9 +53,7 @@ export class DefaultDialog implements OnInit {
             this[key] = value;
         });
         if (this.type === DialogType.Input) {
-            this.inputControl = new FormControl('', [
-                Validators.required
-            ]);
+            this.inputControl = new FormControl('', [Validators.required]);
         } else {
             this.dialogRef.afterOpened().subscribe(() => {
                 setTimeout(() => {
@@ -97,7 +94,8 @@ export class DefaultDialog implements OnInit {
             return;
         }
         const target = $(event.target);
-        const targetId: string = target.attr('id') || target.prop('tagName').toLowerCase();
+        const targetId: string =
+            target.attr('id') || target.prop('tagName').toLowerCase();
         if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
             if (targetId === 'butCancelar') {
                 this.butConfimar.focus();
@@ -106,12 +104,11 @@ export class DefaultDialog implements OnInit {
             }
         }
     }
-
 }
 
 export enum DialogType {
     Alert,
     Error,
     Confirm,
-    Input
+    Input,
 }

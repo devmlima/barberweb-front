@@ -1,29 +1,69 @@
-<mat-dialog-content class="cabecalho">
-    <div mat-dialog-title [ngClass]="getClass()" fxLayout="row" 
-    style="align-items: flex-end; justify-content: center;">
-        {{title}}
-        <button tabindex="-1" mat-icon-button [hidden]="hideCloseButton" (click)="cancel()" matTooltip="Fechar">
-            <div class="icon-cancelar"></div>
-        </button>
+<mat-dialog-content class="header">
+    <div class="title">
+        <div class="container-header">
+            <div class="icon">
+                <mat-icon id="warning">warning_amber</mat-icon>
+            </div>
+            <div class="text">{{title}}</div>
+        </div>
+        <div class="close">
+            <button
+                tabindex="-1"
+                mat-icon-button
+                [hidden]="hideCloseButton"
+                (click)="cancel()"
+                matTooltip="Fechar"
+            >
+                <div class="icon-cancelar"></div>
+            </button>
+        </div>
     </div>
 </mat-dialog-content>
 <mat-dialog-content class="msg">
     <div *ngIf="enumDialogType.Input == type">
-        <div class="mb-10">{{message}}</div>
+        <div class="msg">{{message}}</div>
         <mat-form-field class="example-full-width">
-            <input matInput placeholder="{{placeholder}}" [type]="inputFormat" [formControl]="inputControl" (keyup.enter)="ok()">
-            <mat-error *ngIf="inputControl.hasError('required')">Por favor preencha o campo!</mat-error>
+            <input
+                matInput
+                placeholder="{{placeholder}}"
+                [type]="inputFormat"
+                [formControl]="inputControl"
+                (keyup.enter)="ok()"
+            />
+            <mat-error *ngIf="inputControl.hasError('required')"
+                >Por favor preencha o campo!</mat-error
+            >
         </mat-form-field>
     </div>
     <div *ngIf="enumDialogType.Input != type" [innerHTML]="message"></div>
 </mat-dialog-content>
-<mat-dialog-actions fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center" class="actions">
+<div class="actions">
     <ng-container *ngIf="!focusConfirmar">
-        <button mat-raised-button (click)="cancel()" #butCancelar [hidden]="type != enumDialogType.Confirm && type != enumDialogType.Input" id="butCancelar">{{btnCancelText}}</button>
-        <button mat-raised-button (click)="ok()" #butConfimar id="butConfimar">{{btnOkText}}</button>
+        <button
+            mat-raised-button
+            (click)="cancel()"
+            #butCancelar
+            [hidden]="type != enumDialogType.Confirm && type != enumDialogType.Input"
+            id="butCancelar"
+        >
+            {{btnCancelText}}
+        </button>
+        <button mat-raised-button (click)="ok()" #butConfimar id="butConfimar">
+            {{btnOkText}}
+        </button>
     </ng-container>
     <ng-container *ngIf="focusConfirmar">
-        <button mat-raised-button (click)="ok()" #butConfimar id="butConfimar">{{btnOkText}}</button>
-        <button mat-raised-button (click)="cancel()" #butCancelar [hidden]="type != enumDialogType.Confirm && type != enumDialogType.Input" id="butCancelar">{{btnCancelText}}</button>
+        <button mat-raised-button (click)="ok()" #butConfimar id="butConfimar">
+            {{btnOkText}}
+        </button>
+        <button
+            mat-raised-button
+            (click)="cancel()"
+            #butCancelar
+            [hidden]="type != enumDialogType.Confirm && type != enumDialogType.Input"
+            id="butCancelar"
+        >
+            {{btnCancelText}}
+        </button>
     </ng-container>
-</mat-dialog-actions>
+</div>
