@@ -41,7 +41,6 @@ export class UserMenuComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.user = this._userLoggedService.get();
-        console.log(this.user);
     }
 
     ngOnDestroy(): void {

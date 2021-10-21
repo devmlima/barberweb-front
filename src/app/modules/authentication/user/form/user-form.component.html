@@ -94,17 +94,30 @@
                                 matInput
                                 [formControlName]="'email'"
                                 [placeholder]="'Email'"
-                                required
                             />
                             <mat-icon
                                 class="icon-size-5"
                                 matPrefix
                                 [svgIcon]="'heroicons_solid:mail'"
                             ></mat-icon>
-                            <mat-error *ngIf="formGroup.get('step1').get('email').hasError('required')">
+                            <mat-error
+                                *ngIf="
+                                    formGroup
+                                        .get('step1')
+                                        .get('email')
+                                        .hasError('required')
+                                "
+                            >
                                 Campo obrigatório
                             </mat-error>
-                            <mat-error *ngIf="formGroup.get('step1').get('email').hasError('email')">
+                            <mat-error
+                                *ngIf="
+                                    formGroup
+                                        .get('step1')
+                                        .get('email')
+                                        .hasError('email')
+                                "
+                            >
                                 Preencha um Email válido
                             </mat-error>
                         </mat-form-field>
@@ -116,18 +129,25 @@
                                 matInput
                                 [formControlName]="'nome'"
                                 [placeholder]="'Nome'"
-                                required
                             />
                             <mat-icon class="icon-size-5" matPrefix
                                 >person</mat-icon
                             >
-                            <mat-error *ngIf="formGroup.get('step1').get('nome').hasError('required')">
+                            <mat-error
+                                *ngIf="
+                                    formGroup
+                                        .get('step1')
+                                        .get('nome')
+                                        .hasError('required')
+                                "
+                            >
                                 Campo obrigatório
                             </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="flex">
                         <mat-form-field class="flex-auto">
+                            <mat-label>CPF (Opcional)</mat-label>
                             <input
                                 matInput
                                 [formControlName]="'cpf'"
@@ -143,10 +163,7 @@
                             class="px-8"
                             mat-flat-button
                             [color]="'primary'"
-                            [disabled]="
-                                verticalStepperStep1.stepControl.pristine ||
-                                verticalStepperStep1.stepControl.invalid
-                            "
+                            [disabled]="formGroup.get('step1').invalid"
                             type="button"
                             matStepperNext
                         >
@@ -156,6 +173,7 @@
                 </mat-step>
 
                 <mat-step
+                    *ngIf="isNew"
                     [formGroupName]="'step2'"
                     [stepControl]="formGroup.get('step2')"
                     #verticalStepperStep2
@@ -166,32 +184,56 @@
                             <mat-label>Senha</mat-label>
                             <input
                                 [placeholder]="'Senha'"
-                                required
                                 type="password"
                                 id="senha"
                                 matInput
                                 [formControlName]="'senha'"
-                                #senhaField>
+                                #senhaField
+                            />
                             <mat-icon class="icon-size-5" matPrefix
                                 >lock</mat-icon
                             >
                             <button
-                            mat-icon-button
-                            type="button"
-                            (click)="senhaField.type === 'password' ? senhaField.type = 'text' : senhaField.type = 'password'"
-                            matSuffix>
-                            <mat-icon
-                                class="icon-size-5"
-                                *ngIf="senhaField.type === 'password'"
-                                [svgIcon]="'heroicons_solid:eye'"></mat-icon>
-                            <mat-icon
-                                class="icon-size-5"
-                                *ngIf="senhaField.type === 'text'"
-                                [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
-                        </button>
-                        <mat-error *ngIf="formGroup.get('step2').get('senha').hasError('required')">
-                            Campo obrigatório
-                        </mat-error>
+                                mat-icon-button
+                                type="button"
+                                (click)="
+                                    senhaField.type === 'password'
+                                        ? (senhaField.type = 'text')
+                                        : (senhaField.type = 'password')
+                                "
+                                matSuffix
+                            >
+                                <mat-icon
+                                    class="icon-size-5"
+                                    *ngIf="senhaField.type === 'password'"
+                                    [svgIcon]="'heroicons_solid:eye'"
+                                ></mat-icon>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    *ngIf="senhaField.type === 'text'"
+                                    [svgIcon]="'heroicons_solid:eye-off'"
+                                ></mat-icon>
+                            </button>
+                            <mat-error
+                                *ngIf="
+                                    formGroup
+                                        .get('step2')
+                                        .get('senha')
+                                        .hasError('required')
+                                "
+                            >
+                                Campo obrigatório
+                            </mat-error>
+                            <mat-error
+                                *ngIf="
+                                    formGroup
+                                        .get('step2')
+                                        .get('senha')
+                                        .hasError('minlength')
+                                "
+                            >
+                                A senha precisa ter no mínimo 8 caracteres
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="flex justify-end">
@@ -220,34 +262,6 @@
                     </div>
                 </mat-step>
 
-                <mat-step
-                    [formGroupName]="'step3'"
-                    [stepControl]="formGroup.get('step3')"
-                    #verticalStepperStep3
-                >
-                    <ng-template matStepLabel>Endereço</ng-template>
-                    <div class="flex"></div>
-                    <div class="flex justify-end">
-                        <button
-                            class="px-8 mr-2"
-                            mat-flat-button
-                            [color]="'accent'"
-                            type="button"
-                            matStepperPrevious
-                        >
-                            Voltar
-                        </button>
-                        <button
-                            class="px-8"
-                            mat-flat-button
-                            [color]="'primary'"
-                            type="button"
-                            matStepperNext
-                        >
-                            Próximo
-                        </button>
-                    </div>
-                </mat-step>
                 <mat-step>
                     <ng-template matStepLabel>Finalizar</ng-template>
                     <p class="my-6 font-medium">

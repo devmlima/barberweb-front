@@ -2,7 +2,12 @@ import { Router } from '@angular/router';
 import { ApiService } from './../../../../api/services/api.service';
 import { FuseAlertType } from './../../../../../@fuse/components/alert/alert.types';
 import { fuseAnimations } from './../../../../../@fuse/animations/public-api';
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import {
+    Component,
+    ViewEncapsulation,
+    OnInit,
+    ChangeDetectorRef,
+} from '@angular/core';
 
 @Component({
     selector: 'user-list',
@@ -24,16 +29,45 @@ export class UserListComponent implements OnInit {
 
     constructor(
         private readonly _api: ApiService,
-        private readonly router: Router
+        private readonly router: Router,
+        private readonly dc: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
+        this.loadingRows();
+    }
+
+    loadingRows(): void {
         this._api.getUsers().subscribe((res) => {
             this.dataSource = res;
         });
     }
 
-    navigation() {
+    newForm(): void {
         this.router.navigate([`${this.rota}/form`]);
+    }
+
+    editRow(row): void {
+        this.router.navigate([`${this.rota}/form`, { id: row.id }]);
+    }
+
+    deleteRow(row) {
+        this._api.deleteUser(row.id).subscribe(
+            (res) => {
+                this.loadingRows();
+                this.dc.detectChanges();
+                
+                this.alert = {
+                    type: 'success',
+                    message: 'Registro removido com sucesso',
+                };
+            },
+            (err) => {
+                this.alert = {
+                    type: 'error',
+                    message: 'Ocorreu um erro, tente novamente!',
+                };
+            }
+        );
     }
 }

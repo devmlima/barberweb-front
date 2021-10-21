@@ -67,7 +67,7 @@
         </div>
         <!-- Actions -->
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <button class="ml-3" mat-flat-button [color]="'accent'" (click)="navigation()">
+            <button class="ml-3" mat-flat-button [color]="'accent'" (click)="newForm()">
                 <mat-icon
                     class="icon-size-5 mr-2"
                     [svgIcon]="'heroicons_solid:pencil-alt'"
@@ -105,11 +105,11 @@
                             <mat-icon>more_horiz</mat-icon>
                         </button>
                         <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">
-                            <button mat-menu-item>
+                            <button mat-menu-item (click)="editRow(element)">
                                 <mat-icon>edit</mat-icon>
                                 <span>Editar</span>
                             </button>
-                            <button mat-menu-item>
+                            <button mat-menu-item (click)="deleteRow(element)">
                                 <mat-icon>delete</mat-icon>
                                 <span>Excluir</span>
                             </button>

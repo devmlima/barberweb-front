@@ -118,7 +118,6 @@ export class AuthSignUpComponent implements OnInit {
                     });
             }
         } catch (e) {
-            console.error(e);
             this._userLoggedService.set(null);
             this.alert = {
                 type: 'error',
