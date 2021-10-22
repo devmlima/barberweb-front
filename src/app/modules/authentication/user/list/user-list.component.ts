@@ -8,7 +8,14 @@ import {
     ViewEncapsulation,
     OnInit,
     ChangeDetectorRef,
+    ViewChild,
 } from '@angular/core';
+import { MatTable } from '@angular/material/table';
+
+export interface UserModel {
+    nome: string;
+    email: string;
+}
 
 @Component({
     selector: 'user-list',
@@ -28,7 +35,9 @@ export class UserListComponent implements OnInit {
 
     rota = 'authentication/user';
     widthScreen = window.screen.width;
-    
+
+    @ViewChild(MatTable) table: MatTable<UserModel>;
+
     constructor(
         private readonly _api: ApiService,
         private readonly router: Router,
@@ -57,8 +66,8 @@ export class UserListComponent implements OnInit {
     deleteRow(row) {
         let width = null;
 
-        if (+this.widthScreen < 450 ) {
-            width = '265px;'
+        if (+this.widthScreen < 450) {
+            width = '265px;';
         }
 
         this.dialogService

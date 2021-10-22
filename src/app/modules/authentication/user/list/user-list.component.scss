@@ -1,3 +1,15 @@
 table {
     width: 100%;
 }
+
+td {
+    padding: 22px !important;
+}
+
+th {
+    padding-left: 24px !important;
+}
+
+::ng-deep .actions-cell {
+    padding-left: 24px !important;
+}
