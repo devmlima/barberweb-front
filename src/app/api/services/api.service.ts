@@ -116,10 +116,6 @@ export class ApiService {
 
     dataUser(): Observable<any> {
         const params: any = this.getHeaders(true);
-        params.params = new HttpParams().set(
-            'filter',
-            JSON.stringify({ include: ['PerfilUsuario'] })
-        );
         return this.http.get(environment.apiUrl + '/users/dataUser', params);
     }
 

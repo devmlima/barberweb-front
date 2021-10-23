@@ -9,9 +9,9 @@ import { InitialDataResolver } from 'app/app.resolvers';
 // @formatter:off
 // tslint:disable:max-line-length
 export const appRoutes: Route[] = [
-    { path: '', pathMatch: 'full', redirectTo: 'admin' },
+    { path: '', pathMatch: 'full', redirectTo: 'dashboards/dashboard-principal' },
 
-    { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'admin' },
+    { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'dashboards/dashboard-principal' },
 
     // Auth routes for guests
     {
@@ -101,6 +101,26 @@ export const appRoutes: Route[] = [
         ],
     },
 
+    // Dashboards routes
+    {
+        path: 'dashboards',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        children: [
+            {
+                path: 'dashboard-principal',
+                loadChildren: () =>
+                    import('app/modules/dashboards/dashboard-principal/dashboard-principal.module').then(
+                        (m) => m.DashboardModule
+                    ),
+            },
+        ],
+    },
+
     // Autentication routes
     {
         path: 'authentication',
@@ -123,6 +143,13 @@ export const appRoutes: Route[] = [
                 loadChildren: () =>
                     import('app/modules/authentication/profile/profile.module').then(
                         (m) => m.ProfileModule
+                    ),
+            },
+            {
+                path: 'mydata',
+                loadChildren: () =>
+                    import('app/modules/authentication/my-data/my-data.module').then(
+                        (m) => m.MyDataModule
                     ),
             },
         ],
