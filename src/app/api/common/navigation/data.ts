@@ -82,6 +82,10 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'perm_contact_calendar',
                 link: '/authentication/profile',
+                badge: {
+                    title: 'NOVO',
+                    classes: 'px-2.5 bg-teal-400 text-black rounded-full'
+                }
             },
         ],
     },

@@ -1,8 +1,5 @@
-/* eslint-disable no-debugger */
 import { ApiService } from './api.service';
 import { Router } from '@angular/router';
-/* eslint-disable arrow-body-style */
-/* eslint-disable @typescript-eslint/member-ordering */
 import { BehaviorSubject } from 'rxjs';
 import { Injectable, Injector } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';

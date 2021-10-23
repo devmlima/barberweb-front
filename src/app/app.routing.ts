@@ -118,6 +118,13 @@ export const appRoutes: Route[] = [
                         (m) => m.UserModule
                     ),
             },
+            {
+                path: 'profile',
+                loadChildren: () =>
+                    import('app/modules/authentication/profile/profile.module').then(
+                        (m) => m.ProfileModule
+                    ),
+            },
         ],
     },
 ];

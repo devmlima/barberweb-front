@@ -8,20 +8,20 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { iif } from 'rxjs';
 
 @Component({
-    selector: 'user-form',
-    templateUrl: './user-form.component.html',
-    styleUrls: ['./user-form.component.scss'],
+    selector: 'profile-form',
+    templateUrl: './profile-form.component.html',
+    styleUrls: ['./profile-form.component.scss'],
     encapsulation: ViewEncapsulation.None,
     animations: fuseAnimations,
 })
-export class UserFormComponent implements OnInit {
+export class ProfileFormComponent implements OnInit {
     alert: { type: FuseAlertType; message: string } = {
         type: 'success',
         message: '',
     };
     showAlert: boolean = false;
     formGroup: FormGroup;
-    rota = 'authentication/user';
+    rota = 'authentication/profile';
     isNew = true;
     id: number = null;
 
@@ -35,14 +35,9 @@ export class UserFormComponent implements OnInit {
     ngOnInit(): void {
         this.formGroup = this._formBuilder.group({
             step1: this._formBuilder.group({
-                email: ['', [Validators.required, Validators.email]],
-                nome: ['', Validators.required],
-                cpf: ['', []],
+                descricao: ['', [Validators.required]],
+                permissoes: ['', []],
             }),
-            step2: this._formBuilder.group({
-                senha: ['', [Validators.minLength(8)]],
-            }),
-            step3: this._formBuilder.group({}),
         });
 
         this.loadingInstance();
@@ -52,7 +47,7 @@ export class UserFormComponent implements OnInit {
         this._route.params.subscribe((params) => {
             this.id = params.id;
             if (this.id) {
-                this._apiService.userFindById(params.id).subscribe((res) => {
+                this._apiService.profileFindById(params.id).subscribe((res) => {
                     if (res) {
                         this.convertForm(res);
                         this.isNew = false;
@@ -69,8 +64,8 @@ export class UserFormComponent implements OnInit {
             const object = this.convertModel(this.formGroup.value);
             iif(
                 () => this.isNew,
-                this._apiService.createUser(object),
-                this._apiService.updateUser(object)
+                this._apiService.createProfile(object),
+                this._apiService.updateProfile(object)
             ).subscribe(
                 (res) => {
                     this.alert = {
@@ -105,41 +100,24 @@ export class UserFormComponent implements OnInit {
     private convertModel(object) {
         const objectReturn = {
             id: null,
-            nome: null,
-            cpf: null,
-            email: null,
-            celular: null,
-            senha: null,
-            dataNascimento: null,
+            descricao: null,
+            permissoes: null,
         };
 
         objectReturn.id = this.id;
-        objectReturn.nome = get(object, 'step1.nome', '');
-        objectReturn.cpf = get(object, 'step1.cpf', '');
-        objectReturn.email = get(object, 'step1.email', '');
-        objectReturn.celular = get(object, 'step1.celular', '');
-        objectReturn.dataNascimento = get(object, 'step1.dataNascimento', '');
-
-        if (this.id) {
-            delete objectReturn.senha;
-        } else {
-            objectReturn.senha = get(object, 'step2.senha', '');
-        }
+        objectReturn.descricao = get(object, 'step1.descricao', '');
+        objectReturn.permissoes = get(object, 'step1.permissoes', '');
 
         return objectReturn;
     }
 
     private convertForm(object) {
         const step1 = {
-            email: object.email,
-            nome: object.nome,
-            cpf: object.cpf,
+            descricao: object.descricao,
+            permissoes: object.permissoes,
         };
 
-        const step2 = {};
-
         this.formGroup.get('step1').patchValue(step1);
-        this.formGroup.get('step2').patchValue(step2);
 
         return object;
     }
