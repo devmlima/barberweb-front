@@ -1,0 +1,157 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+    <!-- Header -->
+    <div
+        class="
+            flex flex-col
+            sm:flex-row
+            flex-0
+            sm:items-center sm:justify-between
+            p-6
+            sm:py-8 sm:px-10
+            border-b
+            bg-card
+            dark:bg-transparent
+        "
+    >
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div>
+                <div class="hidden sm:flex flex-wrap items-center font-medium">
+                    <div>
+                        <a class="whitespace-nowrap text-primary-500"
+                            >Autenticação</a
+                        >
+                    </div>
+                    <div class="flex items-center ml-1 whitespace-nowrap">
+                        <mat-icon
+                            class="icon-size-5 text-secondary"
+                            [svgIcon]="'heroicons_solid:chevron-right'"
+                        ></mat-icon>
+                        <span class="ml-1 text-secondary">Cliente</span>
+                    </div>
+                    <div class="flex items-center ml-1 whitespace-nowrap">
+                        <mat-icon
+                            class="icon-size-5 text-secondary"
+                            [svgIcon]="'heroicons_solid:chevron-right'"
+                        ></mat-icon>
+                        <span class="ml-1 text-secondary">Form</span>
+                    </div>
+                </div>
+                <div class="flex sm:hidden">
+                    <a
+                        class="
+                            inline-flex
+                            items-center
+                            -ml-1.5
+                            text-secondary
+                            font-medium
+                        "
+                    >
+                        <mat-icon
+                            class="icon-size-5 text-secondary"
+                            [svgIcon]="'heroicons_solid:chevron-left'"
+                        ></mat-icon>
+                        <span class="ml-1">Back</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2
+                    class="
+                        text-3xl
+                        md:text-4xl
+                        font-extrabold
+                        tracking-tight
+                        leading-7
+                        sm:leading-10
+                        truncate
+                    "
+                >
+                    Formulario de Perfis
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10 overflow-y-auto" cdkScrollable>
+        <form
+            class="p-4 bg-card shadow rounded overflow-hidden"
+            [formGroup]="formGroup"
+        >
+            <mat-vertical-stepper [linear]="true" #verticalStepper>
+                <mat-step
+                    [formGroupName]="'step1'"
+                    [stepControl]="formGroup.get('step1')"
+                    #verticalStepperStep1
+                >
+                    <ng-template matStepLabel>Informações Básicas</ng-template>
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Descrição</mat-label>
+                            <input
+                                matInput
+                                [formControlName]="'descricao'"
+                                [placeholder]="'Descrição'"
+                            />
+                            <mat-icon class="icon-size-5" matPrefix
+                                >badge</mat-icon
+                            >
+                            <mat-error
+                                *ngIf="
+                                    formGroup
+                                        .get('step1')
+                                        .get('descricao')
+                                        .hasError('required')
+                                "
+                            >
+                                Campo obrigatório
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button
+                            class="px-8"
+                            mat-flat-button
+                            [color]="'primary'"
+                            [disabled]="formGroup.get('step1').invalid"
+                            type="button"
+                            matStepperNext
+                        >
+                            Próximo
+                        </button>
+                    </div>
+                </mat-step>
+
+                <mat-step>
+                    <ng-template matStepLabel>Finalizar</ng-template>
+                    <p class="my-6 font-medium">
+                        Formulário completo e liberado para salvar
+                    </p>
+                    <div class="flex justify-end mt-8">
+                        <button
+                            class="px-8 mr-2"
+                            mat-flat-button
+                            [color]="'warn'"
+                            type="button"
+                            (click)="back()"
+                        >
+                            Cancelar
+                        </button>
+                        <button
+                            class="px-8"
+                            mat-flat-button
+                            [color]="'primary'"
+                            type="submit"
+                            (click)="save()"
+                        >
+                            Salvar
+                        </button>
+                    </div>
+                </mat-step>
+            </mat-vertical-stepper>
+        </form>
+    </div>
+</div>

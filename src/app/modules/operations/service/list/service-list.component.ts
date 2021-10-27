@@ -12,30 +12,30 @@ import {
 } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 
-export interface ClientModel {
-    nome: string;
+export interface ServiceModel {
+    descricao: string;
 }
 
 @Component({
-    selector: 'client-list',
-    templateUrl: './client-list.component.html',
-    styleUrls: ['./client-list.component.scss'],
+    selector: 'service-list',
+    templateUrl: './service-list.component.html',
+    styleUrls: ['./service-list.component.scss'],
     encapsulation: ViewEncapsulation.None,
     animations: fuseAnimations,
 })
-export class ClientListComponent implements OnInit {
+export class ServiceListComponent implements OnInit {
     alert: { type: FuseAlertType; message: string } = {
         type: 'success',
         message: '',
     };
     showAlert: boolean = false;
     dataSource: any = [];
-    displayedColumns: string[] = ['nome', 'actions'];
+    displayedColumns: string[] = ['descricao', 'actions'];
 
-    rota = 'operations/client';
+    rota = 'operations/services';
     widthScreen = window.screen.width;
 
-    @ViewChild(MatTable) table: MatTable<ClientModel>;
+    @ViewChild(MatTable) table: MatTable<ServiceModel>;
 
     constructor(
         private readonly _api: ApiService,
@@ -49,7 +49,7 @@ export class ClientListComponent implements OnInit {
     }
 
     loadingRows(): void {
-        this._api.clientFindAll().subscribe((res) => {
+        this._api.serviceFindAll().subscribe((res) => {
             this.dataSource = res;
         });
     }
@@ -78,7 +78,7 @@ export class ClientListComponent implements OnInit {
             )
             .then((res) => {
                 if (res) {
-                    this._api.deleteClient(row.id).subscribe(
+                    this._api.deleteService(row.id).subscribe(
                         (res) => {
                             this.loadingRows();
                             this.dc.detectChanges();

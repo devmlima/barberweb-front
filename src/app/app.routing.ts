@@ -172,6 +172,13 @@ export const appRoutes: Route[] = [
                         (m) => m.ClientModule
                     ),
             },
+            {
+                path: 'services',
+                loadChildren: () =>
+                    import('app/modules/operations/service/service.module').then(
+                        (m) => m.ServiceModule
+                    ),
+            },
         ],
     },
 ];

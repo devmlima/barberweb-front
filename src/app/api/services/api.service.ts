@@ -238,4 +238,59 @@ export class ApiService {
             params
         );
     }
+
+    createService(dados: any): Observable<any> {
+        return this.http
+            .post(
+                environment.apiUrl + '/service/create',
+                dados,
+                this.getHeaders(true)
+            )
+            .pipe(
+                catchError((error) => {
+                    return throwError(
+                        get(error, 'error.message', null) ||
+                            'Erro ao realizar criar o usuário, verifique sua rede de dados.'
+                    );
+                })
+            );
+    }
+
+    updateService(dados: any): Observable<any> {
+        return this.http
+            .put(
+                environment.apiUrl + '/service/update',
+                dados,
+                this.getHeaders(true)
+            )
+            .pipe(
+                catchError((error) => {
+                    return throwError(
+                        get(error, 'error.message', null) ||
+                            'Erro ao atualizar o usuário, verifique sua rede de dados.'
+                    );
+                })
+            );
+    }
+
+    serviceFindById(id: number): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(
+            environment.apiUrl + `/service/findById/${id}`,
+            params
+        );
+    }
+
+    serviceFindAll(): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(environment.apiUrl + `/service/find`, params);
+    }
+
+    deleteService(id): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.delete(
+            environment.apiUrl + `/service/delete/${id}`,
+            params
+        );
+    }
 }
