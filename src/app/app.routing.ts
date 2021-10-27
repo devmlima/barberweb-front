@@ -154,4 +154,24 @@ export const appRoutes: Route[] = [
             },
         ],
     },
+
+    // Operations routes
+    {
+        path: 'operations',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        children: [
+            {
+                path: 'client',
+                loadChildren: () =>
+                    import('app/modules/operations/client/client.module').then(
+                        (m) => m.ClientModule
+                    ),
+            },
+        ],
+    },
 ];

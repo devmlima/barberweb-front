@@ -173,16 +173,68 @@ export class ApiService {
 
     profileFindAll(): Observable<any> {
         const params: any = this.getHeaders(true);
-        return this.http.get(
-            environment.apiUrl + `/profile/find`,
-            params
-        );
+        return this.http.get(environment.apiUrl + `/profile/find`, params);
     }
 
     deleteProfile(id): Observable<any> {
         const params: any = this.getHeaders(true);
         return this.http.delete(
             environment.apiUrl + `/profile/delete/${id}`,
+            params
+        );
+    }
+
+    createClient(dados: any): Observable<any> {
+        return this.http
+            .post(
+                environment.apiUrl + '/client/create',
+                dados,
+                this.getHeaders(true)
+            )
+            .pipe(
+                catchError((error) => {
+                    return throwError(
+                        get(error, 'error.message', null) ||
+                            'Erro ao realizar criar o usuário, verifique sua rede de dados.'
+                    );
+                })
+            );
+    }
+
+    updateClient(dados: any): Observable<any> {
+        return this.http
+            .put(
+                environment.apiUrl + '/client/update',
+                dados,
+                this.getHeaders(true)
+            )
+            .pipe(
+                catchError((error) => {
+                    return throwError(
+                        get(error, 'error.message', null) ||
+                            'Erro ao atualizar o usuário, verifique sua rede de dados.'
+                    );
+                })
+            );
+    }
+
+    clientFindById(id: number): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(
+            environment.apiUrl + `/client/findById/${id}`,
+            params
+        );
+    }
+
+    clientFindAll(): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(environment.apiUrl + `/client/find`, params);
+    }
+
+    deleteClient(id): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.delete(
+            environment.apiUrl + `/client/delete/${id}`,
             params
         );
     }
