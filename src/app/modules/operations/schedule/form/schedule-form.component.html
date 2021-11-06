@@ -27,7 +27,7 @@
                             class="icon-size-5 text-secondary"
                             [svgIcon]="'heroicons_solid:chevron-right'"
                         ></mat-icon>
-                        <span class="ml-1 text-secondary">Cliente</span>
+                        <span class="ml-1 text-secondary">Agenda</span>
                     </div>
                     <div class="flex items-center ml-1 whitespace-nowrap">
                         <mat-icon
@@ -68,7 +68,7 @@
                         truncate
                     "
                 >
-                    Formulario de Cliente
+                    Formulario de Agendamento
                 </h2>
             </div>
         </div>
@@ -89,20 +89,20 @@
                     <ng-template matStepLabel>Informações Básicas</ng-template>
                     <div class="flex">
                         <mat-form-field class="flex-auto">
-                            <mat-label>Nome</mat-label>
+                            <mat-label>Serviço</mat-label>
                             <input
                                 matInput
-                                [formControlName]="'nome'"
-                                [placeholder]="'Nome'"
+                                [formControlName]="'servicoId'"
+                                [placeholder]="'Serviço'"
                             />
                             <mat-icon class="icon-size-5" matPrefix
-                                >badge</mat-icon
+                                >settings</mat-icon
                             >
                             <mat-error
                                 *ngIf="
                                     formGroup
                                         .get('step1')
-                                        .get('nome')
+                                        .get('servicoId')
                                         .hasError('required')
                                 "
                             >
@@ -113,31 +113,49 @@
 
                     <div class="flex">
                         <mat-form-field class="flex-auto">
-                            <mat-label>CPF ou CNPJ (Opcional)</mat-label>
+                            <mat-label>Cliente</mat-label>
                             <input
                                 matInput
-                                [formControlName]="'cpfCnpj'"
-                                [placeholder]="'CPF ou CNPJ'"
-                                maxlength="14"
+                                [formControlName]="'clienteId'"
+                                [placeholder]="'Cliente'"
                             />
                             <mat-icon class="icon-size-5" matPrefix
-                                >assessment</mat-icon
+                                >person</mat-icon
                             >
+                            <mat-error
+                                *ngIf="
+                                    formGroup
+                                        .get('step1')
+                                        .get('clienteId')
+                                        .hasError('required')
+                                "
+                            >
+                                Campo obrigatório
+                            </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="flex">
                         <mat-form-field class="flex-auto">
-                            <mat-label>Celular (Opcional)</mat-label>
+                            <mat-label>Hora</mat-label>
                             <input
                                 matInput
-                                [formControlName]="'celular'"
-                                [placeholder]="'Celular'"
-                                maxlength="14"
+                                [formControlName]="'hora'"
+                                [placeholder]="'Hora'"
                             />
                             <mat-icon class="icon-size-5" matPrefix
-                                >assessment</mat-icon
+                                >schedule</mat-icon
                             >
+                            <mat-error
+                                *ngIf="
+                                    formGroup
+                                        .get('step1')
+                                        .get('hora')
+                                        .hasError('required')
+                                "
+                            >
+                                Campo obrigatório
+                            </mat-error>
                         </mat-form-field>
                     </div>
 

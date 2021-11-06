@@ -48,11 +48,15 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 link: '/operations/services',
             },
             {
-                id: 'schedules',
+                id: 'schedule',
                 title: 'Agenda',
                 type: 'basic',
                 icon: 'event',
-                link: '/operations/schedules',
+                link: '/operations/schedule',
+                badge: {
+                    title: 'NOVO',
+                    classes: 'px-2.5 bg-teal-400 text-black rounded-full'
+                }
             },
         ],
     },

@@ -9,9 +9,17 @@ import { InitialDataResolver } from 'app/app.resolvers';
 // @formatter:off
 // tslint:disable:max-line-length
 export const appRoutes: Route[] = [
-    { path: '', pathMatch: 'full', redirectTo: 'dashboards/dashboard-principal' },
+    {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'dashboards/dashboard-principal',
+    },
 
-    { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'dashboards/dashboard-principal' },
+    {
+        path: 'signed-in-redirect',
+        pathMatch: 'full',
+        redirectTo: 'dashboards/dashboard-principal',
+    },
 
     // Auth routes for guests
     {
@@ -114,9 +122,9 @@ export const appRoutes: Route[] = [
             {
                 path: 'dashboard-principal',
                 loadChildren: () =>
-                    import('app/modules/dashboards/dashboard-principal/dashboard-principal.module').then(
-                        (m) => m.DashboardModule
-                    ),
+                    import(
+                        'app/modules/dashboards/dashboard-principal/dashboard-principal.module'
+                    ).then((m) => m.DashboardModule),
             },
         ],
     },
@@ -141,16 +149,16 @@ export const appRoutes: Route[] = [
             {
                 path: 'profile',
                 loadChildren: () =>
-                    import('app/modules/authentication/profile/profile.module').then(
-                        (m) => m.ProfileModule
-                    ),
+                    import(
+                        'app/modules/authentication/profile/profile.module'
+                    ).then((m) => m.ProfileModule),
             },
             {
                 path: 'mydata',
                 loadChildren: () =>
-                    import('app/modules/authentication/my-data/my-data.module').then(
-                        (m) => m.MyDataModule
-                    ),
+                    import(
+                        'app/modules/authentication/my-data/my-data.module'
+                    ).then((m) => m.MyDataModule),
             },
         ],
     },
@@ -175,9 +183,16 @@ export const appRoutes: Route[] = [
             {
                 path: 'services',
                 loadChildren: () =>
-                    import('app/modules/operations/service/service.module').then(
-                        (m) => m.ServiceModule
-                    ),
+                    import(
+                        'app/modules/operations/service/service.module'
+                    ).then((m) => m.ServiceModule),
+            },
+            {
+                path: 'schedule',
+                loadChildren: () =>
+                    import(
+                        'app/modules/operations/schedule/schedule.module'
+                    ).then((m) => m.ScheduleModule),
             },
         ],
     },

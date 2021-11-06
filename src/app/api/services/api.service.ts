@@ -293,4 +293,59 @@ export class ApiService {
             params
         );
     }
+
+    createSchedule(dados: any): Observable<any> {
+        return this.http
+            .post(
+                environment.apiUrl + '/schedule/create',
+                dados,
+                this.getHeaders(true)
+            )
+            .pipe(
+                catchError((error) => {
+                    return throwError(
+                        get(error, 'error.message', null) ||
+                            'Erro ao realizar criar o usuário, verifique sua rede de dados.'
+                    );
+                })
+            );
+    }
+
+    updateSchedule(dados: any): Observable<any> {
+        return this.http
+            .put(
+                environment.apiUrl + '/schedule/update',
+                dados,
+                this.getHeaders(true)
+            )
+            .pipe(
+                catchError((error) => {
+                    return throwError(
+                        get(error, 'error.message', null) ||
+                            'Erro ao atualizar o usuário, verifique sua rede de dados.'
+                    );
+                })
+            );
+    }
+
+    scheduleFindById(id: number): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(
+            environment.apiUrl + `/schedule/findById/${id}`,
+            params
+        );
+    }
+
+    scheduleFindAll(): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(environment.apiUrl + `/schedule/find`, params);
+    }
+
+    deleteSchedule(id): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.delete(
+            environment.apiUrl + `/schedule/delete/${id}`,
+            params
+        );
+    }
 }
