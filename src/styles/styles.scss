@@ -3,6 +3,9 @@
 /*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
 /* ----------------------------------------------------------------------------------------------------- */
 
+// Import Fuse core library
+@import "../@fuse/scss/core";
+
 .color-navigation {
     color: #FF941A;
 }

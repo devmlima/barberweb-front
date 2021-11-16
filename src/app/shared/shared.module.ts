@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuseCardModule } from './../../@fuse/components/card/card.module';
@@ -26,10 +27,11 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
     imports: [
-        CommonModule,
         FormsModule,
         ReactiveFormsModule,
         LocalStorageModule.forRoot({
@@ -38,9 +40,14 @@ import { MatDialogModule } from '@angular/material/dialog';
         }),
     ],
     exports: [
-        CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        NgSelectModule,
+
+        // Core
+        OverlayModule,
+        RouterModule,
+        CommonModule,
 
         MatButtonModule,
         MatCheckboxModule,

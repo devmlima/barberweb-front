@@ -1,0 +1,16 @@
+<div class="w-100p flex align-left align-bottom gap-10 body-container">
+    <ng-select
+        #select
+        [items]="filtered | async"
+        [loading]="loading"
+        [typeahead]="search"
+        class="custom-select"
+        appendTo="body"
+        placeholder="Escolha a cidade"
+        [(ngModel)]="innerValue"
+        [disabled]="_disabled"
+    >
+        <ng-template ng-label-tmp let-item="item">{{ item.descricao }}</ng-template>
+        <ng-template ng-option-tmp let-item="item">{{ item.descricao }}</ng-template>
+    </ng-select>
+</div>

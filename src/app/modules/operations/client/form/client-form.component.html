@@ -155,6 +155,30 @@
                     </div>
                 </mat-step>
 
+                <mat-step
+                    [formGroupName]="'step1'"
+                    [stepControl]="formGroup.get('step1')"
+                    #verticalStepperStep1
+                >
+                    <ng-template matStepLabel>Endereço</ng-template>
+                    <div>
+                        <city-select></city-select>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button
+                            class="px-8"
+                            mat-flat-button
+                            [color]="'primary'"
+                            [disabled]="formGroup.get('step1').invalid"
+                            type="button"
+                            matStepperNext
+                        >
+                            Próximo
+                        </button>
+                    </div>
+                </mat-step>
+
                 <mat-step>
                     <ng-template matStepLabel>Finalizar</ng-template>
                     <p class="my-6 font-medium">

@@ -1,0 +1,60 @@
+ng-select.custom-select {
+    min-width: 0px;
+    width: 100% !important;
+    padding-bottom: 0 !important;
+
+    .ng-option {
+        .custom-option {
+            height: auto !important;
+            line-height: normal !important;
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
+        }
+    }
+
+    &.no-padding {
+        padding-bottom: 0px !important;
+    }
+
+    &.ng-invalid.ng-touched {
+        .ng-placeholder {
+            color: #f44336 !important;
+        }
+
+        .ng-select-container:after {
+            border-bottom-color: #f44336 !important;
+        }
+    }
+
+    &.ng-select-single {
+        .ng-select-container {
+            .ng-clear-wrapper {
+                bottom: 0 !important;
+                height: 18px !important;
+                text-align: center !important;
+            }
+
+            .ng-arrow-wrapper {
+                bottom: 3px !important;
+            }
+        }
+    }
+
+    .ng-select-container {
+        min-height: 18px !important;
+
+        .ng-value-container {
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+            border-top: 0px !important;
+
+            .ng-input {
+                bottom: 0px !important;
+            }
+        }
+
+        &:after {
+            border: 0px !important;
+        }
+    }
+}

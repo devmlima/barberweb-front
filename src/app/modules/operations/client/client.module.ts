@@ -1,3 +1,4 @@
+import { CustomsSelectModule } from './../../../customs-select/customs-select.module';
 import { ClientFormComponent } from './form/client-form.component';
 import { ClientListComponent } from './list/client-list.component';
 import { clientRoutes } from './client.routing';
@@ -29,7 +30,8 @@ import { SharedModule } from '../../../shared/shared.module';
         MatInputModule,
         MatProgressSpinnerModule,
         SharedModule,
-        DialogsModule
+        DialogsModule,
+        CustomsSelectModule,
     ],
 })
 export class ClientModule {}
