@@ -156,10 +156,26 @@ export class ClientFormComponent implements OnInit {
 
     private convertForm(object) {
         const step1 = {
+            id: object.id,
             nome: object.nome,
+            celular: object.celular,
+            cpfCnpj: object.cpfCnpj,
+        };
+
+        const address = object.address;
+
+        const step2 = {
+            cidadeId: address.city,
+            estadoId: address.state,
+            rua: address.rua,
+            bairro: address.bairro,
+            numero: address.numero,
+            cep: address.cep,
         };
 
         this.formGroup.get('step1').patchValue(step1);
+        this.formGroup.get('step2').patchValue(step2);
+        this.uf = step2.estadoId.sigla;
 
         return object;
     }
