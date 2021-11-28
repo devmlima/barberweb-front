@@ -30,7 +30,7 @@ export class ClientListComponent implements OnInit {
     };
     showAlert: boolean = false;
     dataSource: any = [];
-    displayedColumns: string[] = ['nome', 'actions'];
+    displayedColumns: string[] = ['id', 'nome', 'actions'];
 
     rota = 'operations/client';
     widthScreen = window.screen.width;

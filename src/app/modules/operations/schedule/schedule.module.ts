@@ -1,3 +1,4 @@
+import { CustomsSelectModule } from './../../../customs-select/customs-select.module';
 import { ScheduleFormComponent } from './form/schedule-form.component';
 import { ScheduleListComponent } from './list/schedule-list.component';
 import { scheduleRoutes } from './schedule.routing';
@@ -20,6 +21,8 @@ import { DialogsModule } from '@fuse/services/dialogs/dialogs.module';
         ScheduleFormComponent
     ],
     imports: [
+        CustomsSelectModule,
+
         RouterModule.forChild(scheduleRoutes),
         MatButtonModule,
         MatCheckboxModule,
@@ -28,7 +31,7 @@ import { DialogsModule } from '@fuse/services/dialogs/dialogs.module';
         MatInputModule,
         MatProgressSpinnerModule,
         SharedModule,
-        DialogsModule
+        DialogsModule,
     ],
 })
 export class ScheduleModule {}

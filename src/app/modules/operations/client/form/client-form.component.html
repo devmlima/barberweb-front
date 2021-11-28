@@ -1,7 +1,6 @@
 <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
     <!-- Header -->
-    <div
-        class="
+    <div class="
             flex flex-col
             sm:flex-row
             flex-0
@@ -11,54 +10,42 @@
             border-b
             bg-card
             dark:bg-transparent
-        "
-    >
+        ">
         <div class="flex-1 min-w-0">
             <!-- Breadcrumbs -->
             <div>
                 <div class="hidden sm:flex flex-wrap items-center font-medium">
                     <div>
-                        <a class="whitespace-nowrap text-primary-500"
-                            >Autenticação</a
-                        >
+                        <a class="whitespace-nowrap text-primary-500">Autenticação</a>
                     </div>
                     <div class="flex items-center ml-1 whitespace-nowrap">
-                        <mat-icon
-                            class="icon-size-5 text-secondary"
-                            [svgIcon]="'heroicons_solid:chevron-right'"
-                        ></mat-icon>
+                        <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-right'">
+                        </mat-icon>
                         <span class="ml-1 text-secondary">Cliente</span>
                     </div>
                     <div class="flex items-center ml-1 whitespace-nowrap">
-                        <mat-icon
-                            class="icon-size-5 text-secondary"
-                            [svgIcon]="'heroicons_solid:chevron-right'"
-                        ></mat-icon>
+                        <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-right'">
+                        </mat-icon>
                         <span class="ml-1 text-secondary">Form</span>
                     </div>
                 </div>
                 <div class="flex sm:hidden">
-                    <a
-                        class="
+                    <a class="
                             inline-flex
                             items-center
                             -ml-1.5
                             text-secondary
                             font-medium
-                        "
-                    >
-                        <mat-icon
-                            class="icon-size-5 text-secondary"
-                            [svgIcon]="'heroicons_solid:chevron-left'"
-                        ></mat-icon>
+                        ">
+                        <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-left'">
+                        </mat-icon>
                         <span class="ml-1">Back</span>
                     </a>
                 </div>
             </div>
             <!-- Title -->
             <div class="mt-2">
-                <h2
-                    class="
+                <h2 class="
                         text-3xl
                         md:text-4xl
                         font-extrabold
@@ -66,8 +53,7 @@
                         leading-7
                         sm:leading-10
                         truncate
-                    "
-                >
+                    ">
                     Formulario de Cliente
                 </h2>
             </div>
@@ -76,36 +62,21 @@
 
     <!-- Main -->
     <div class="flex-auto p-6 sm:p-10 overflow-y-auto" cdkScrollable>
-        <form
-            class="p-4 bg-card shadow rounded overflow-hidden"
-            [formGroup]="formGroup"
-        >
+        <form class="p-4 bg-card shadow rounded overflow-hidden" [formGroup]="formGroup">
             <mat-vertical-stepper [linear]="true" #verticalStepper>
-                <mat-step
-                    [formGroupName]="'step1'"
-                    [stepControl]="formGroup.get('step1')"
-                    #verticalStepperStep1
-                >
+                <mat-step [formGroupName]="'step1'" [stepControl]="formGroup.get('step1')" #verticalStepperStep1>
                     <ng-template matStepLabel>Informações Básicas</ng-template>
                     <div class="flex">
                         <mat-form-field class="flex-auto">
                             <mat-label>Nome</mat-label>
-                            <input
-                                matInput
-                                [formControlName]="'nome'"
-                                [placeholder]="'Nome'"
-                            />
-                            <mat-icon class="icon-size-5" matPrefix
-                                >badge</mat-icon
-                            >
-                            <mat-error
-                                *ngIf="
+                            <input matInput [formControlName]="'nome'" [placeholder]="'Nome'" />
+                            <mat-icon class="icon-size-5" matPrefix>badge</mat-icon>
+                            <mat-error *ngIf="
                                     formGroup
                                         .get('step1')
                                         .get('nome')
                                         .hasError('required')
-                                "
-                            >
+                                ">
                                 Campo obrigatório
                             </mat-error>
                         </mat-form-field>
@@ -114,123 +85,117 @@
                     <div class="flex">
                         <mat-form-field class="flex-auto">
                             <mat-label>CPF ou CNPJ (Opcional)</mat-label>
-                            <input
-                                matInput
-                                [formControlName]="'cpfCnpj'"
-                                [placeholder]="'CPF ou CNPJ'"
-                                maxlength="14"
-                            />
-                            <mat-icon class="icon-size-5" matPrefix
-                                >assessment</mat-icon
-                            >
+                            <input matInput [formControlName]="'cpfCnpj'" [placeholder]="'CPF ou CNPJ'"
+                                maxlength="14" />
+                            <mat-icon class="icon-size-5" matPrefix>assessment</mat-icon>
                         </mat-form-field>
                     </div>
 
                     <div class="flex">
                         <mat-form-field class="flex-auto">
                             <mat-label>Celular (Opcional)</mat-label>
-                            <input
-                                matInput
-                                [formControlName]="'celular'"
-                                [placeholder]="'Celular'"
-                                maxlength="14"
-                            />
-                            <mat-icon class="icon-size-5" matPrefix
-                                >assessment</mat-icon
-                            >
+                            <input matInput [formControlName]="'celular'" [placeholder]="'Celular'" maxlength="14" />
+                            <mat-icon class="icon-size-5" matPrefix>assessment</mat-icon>
                         </mat-form-field>
                     </div>
 
                     <div class="flex justify-end">
-                        <button
-                            class="px-8"
-                            mat-flat-button
-                            [color]="'primary'"
-                            [disabled]="formGroup.get('step1').invalid"
-                            type="button"
-                            matStepperNext
-                        >
+                        <button class="px-8" mat-flat-button [color]="'primary'"
+                            [disabled]="formGroup.get('step1').invalid" type="button" matStepperNext>
                             Próximo
                         </button>
                     </div>
                 </mat-step>
 
-                <mat-step
-                    [formGroupName]="'step2'"
-                    [stepControl]="formGroup.get('step2')"
-                    #verticalStepperStep1
-                >
+                <mat-step [formGroupName]="'step2'" [stepControl]="formGroup.get('step2')" #verticalStepperStep1>
                     <ng-template matStepLabel>Endereço</ng-template>
 
                     <div class="flex">
                         <mat-form-field class="flex-auto">
                             <mat-label>CEP</mat-label>
-                            <input
-                                matInput
-                                [formControlName]="'cep'"
-                                [placeholder]="'CEP'"
-                                (change)="searchCep()"
-                            />
-                            <mat-icon class="icon-size-5" matPrefix
-                                >home</mat-icon
-                            >
+                            <input matInput [formControlName]="'cep'" [placeholder]="'CEP'" (change)="searchCep()" />
+                            <mat-icon class="icon-size-5" matPrefix>home</mat-icon>
+                            <mat-error *ngIf="
+                                formGroup
+                                    .get('step2')
+                                    .get('cep')
+                                    .hasError('required')
+                            ">
+                                Campo obrigatório
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="flex">
                         <mat-form-field class="flex-auto">
                             <mat-label>Rua</mat-label>
-                            <input
-                                matInput
-                                [formControlName]="'rua'"
-                                [placeholder]="'Rua'"
-                            />
-                            <mat-icon class="icon-size-5" matPrefix
-                                >streetview</mat-icon
-                            >
+                            <input matInput [formControlName]="'rua'" [placeholder]="'Rua'" />
+                            <mat-icon class="icon-size-5" matPrefix>streetview</mat-icon>
+                            <mat-error *ngIf="
+                                formGroup
+                                    .get('step2')
+                                    .get('rua')
+                                    .hasError('required')
+                            ">
+                                Campo obrigatório
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="flex">
                         <mat-form-field class="flex-auto">
                             <mat-label>Bairro</mat-label>
-                            <input
-                                matInput
-                                [formControlName]="'bairro'"
-                                [placeholder]="'Bairro'"
-                            />
-                            <mat-icon class="icon-size-5" matPrefix
-                                >location_city</mat-icon
-                            >
+                            <input matInput [formControlName]="'bairro'" [placeholder]="'Bairro'" />
+                            <mat-icon class="icon-size-5" matPrefix>location_city</mat-icon>
+                            <mat-error *ngIf="
+                                formGroup
+                                    .get('step2')
+                                    .get('bairro')
+                                    .hasError('required')
+                            ">
+                                Campo obrigatório
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="flex">
                         <mat-form-field class="flex-auto">
                             <mat-label>Número</mat-label>
-                            <input
-                                matInput
-                                [formControlName]="'numero'"
-                                [placeholder]="'Número'"
-                            />
-                            <mat-icon class="icon-size-5" matPrefix
-                                >looks_one</mat-icon
-                            >
+                            <input matInput [formControlName]="'numero'" [placeholder]="'Número'" />
+                            <mat-icon class="icon-size-5" matPrefix>looks_one</mat-icon>
+                            <mat-error *ngIf="
+                                formGroup
+                                    .get('step2')
+                                    .get('numero')
+                                    .hasError('required')
+                            ">
+                                Campo obrigatório
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div>
                         <state-select (selectState)="selectState($event)" formControlName="estadoId"></state-select>
+                        <mat-error *ngIf="
+                            formGroup
+                                .get('step2')
+                                .get('estadoId')
+                                .hasError('required')
+                        ">
+                            Campo obrigatório
+                        </mat-error>
                     </div>
                     <div *ngIf="uf">
                         <city-select [uf]="uf" formControlName="cidadeId"></city-select>
+                        <mat-error *ngIf="
+                            formGroup
+                                .get('step2')
+                                .get('cidadeId')
+                                .hasError('required')
+                        ">
+                            Campo obrigatório
+                        </mat-error>
                     </div>
 
                     <div class="flex justify-end">
-                        <button
-                            class="px-8"
-                            mat-flat-button
-                            [color]="'primary'"
-                            [disabled]="formGroup.get('step2').invalid"
-                            type="button"
-                            matStepperNext
-                        >
+                        <button class="px-8" mat-flat-button [color]="'primary'"
+                            [disabled]="formGroup.get('step2').invalid" type="button" matStepperNext>
                             Próximo
                         </button>
                     </div>
@@ -242,22 +207,10 @@
                         Formulário completo e liberado para salvar
                     </p>
                     <div class="flex justify-end mt-8">
-                        <button
-                            class="px-8 mr-2"
-                            mat-flat-button
-                            [color]="'warn'"
-                            type="button"
-                            (click)="back()"
-                        >
+                        <button class="px-8 mr-2" mat-flat-button [color]="'warn'" type="button" (click)="back()">
                             Cancelar
                         </button>
-                        <button
-                            class="px-8"
-                            mat-flat-button
-                            [color]="'primary'"
-                            type="submit"
-                            (click)="save()"
-                        >
+                        <button class="px-8" mat-flat-button [color]="'primary'" type="submit" (click)="save()">
                             Salvar
                         </button>
                     </div>

@@ -22,6 +22,8 @@ import { SharedModule } from '../../../shared/shared.module';
         ClientFormComponent,
     ],
     imports: [
+        CustomsSelectModule,
+
         RouterModule.forChild(clientRoutes),
         MatButtonModule,
         MatCheckboxModule,
@@ -31,7 +33,6 @@ import { SharedModule } from '../../../shared/shared.module';
         MatProgressSpinnerModule,
         SharedModule,
         DialogsModule,
-        CustomsSelectModule,
     ],
 })
 export class ClientModule {}

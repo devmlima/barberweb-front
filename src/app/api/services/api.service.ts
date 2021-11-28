@@ -171,8 +171,14 @@ export class ApiService {
         );
     }
 
-    profileFindAll(): Observable<any> {
+    profileFindAll(filter = null): Observable<any> {
         const params: any = this.getHeaders(true);
+        if (filter) {
+            params.params = new HttpParams().set(
+                'filter',
+                JSON.stringify(filter)
+            );
+        }
         return this.http.get(environment.apiUrl + `/profile/find`, params);
     }
 
@@ -226,8 +232,14 @@ export class ApiService {
         );
     }
 
-    clientFindAll(): Observable<any> {
+    clientFindAll(filter = null): Observable<any> {
         const params: any = this.getHeaders(true);
+        if (filter) {
+            params.params = new HttpParams().set(
+                'filter',
+                JSON.stringify(filter)
+            );
+        }
         return this.http.get(environment.apiUrl + `/client/find`, params);
     }
 
@@ -281,8 +293,14 @@ export class ApiService {
         );
     }
 
-    serviceFindAll(): Observable<any> {
+    serviceFindAll(filter = null): Observable<any> {
         const params: any = this.getHeaders(true);
+        if (filter) {
+            params.params = new HttpParams().set(
+                'filter',
+                JSON.stringify(filter)
+            );
+        }
         return this.http.get(environment.apiUrl + `/service/find`, params);
     }
 
@@ -336,8 +354,14 @@ export class ApiService {
         );
     }
 
-    scheduleFindAll(): Observable<any> {
+    scheduleFindAll(filter = null): Observable<any> {
         const params: any = this.getHeaders(true);
+        if (filter) {
+            params.params = new HttpParams().set(
+                'filter',
+                JSON.stringify(filter)
+            );
+        }
         return this.http.get(environment.apiUrl + `/schedule/find`, params);
     }
 

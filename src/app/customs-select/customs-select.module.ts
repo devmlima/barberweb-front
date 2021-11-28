@@ -9,6 +9,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 
 import { NgModule } from '@angular/core';
+import { ServiceSelectModule } from './services-select/services-select.module';
 
 @NgModule({
     imports: [
@@ -21,10 +22,12 @@ import { NgModule } from '@angular/core';
 
         CitySelectModule,
         StateSelectModule,
+        ServiceSelectModule,
     ],
     exports: [
         CitySelectModule,
         StateSelectModule,
+        ServiceSelectModule,
     ],
 })
 export class CustomsSelectModule {}

@@ -43,12 +43,12 @@ export class ClientFormComponent implements OnInit {
             }),
             step2: this._formBuilder.group({
                 addressId: ['', []],
-                cidadeId: ['', []],
-                estadoId: ['', []],
-                rua: ['', []],
-                bairro: ['', []],
-                numero: ['', []],
-                cep: ['', []],
+                cidadeId: [null, [Validators.required]],
+                estadoId: [null, [Validators.required]],
+                rua: ['', [Validators.required]],
+                bairro: ['', [Validators.required]],
+                numero: ['', [Validators.required]],
+                cep: ['', [Validators.required]],
             }),
         });
 
