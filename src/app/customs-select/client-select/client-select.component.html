@@ -1,0 +1,7 @@
+<label for="client">Cliente</label>
+<ng-select #select labelForId="client" [items]="filtered | async" [loading]="loading"
+    [typeahead]="pesquisa" class="custom-select" [(ngModel)]="value" notFoundText="Não encontrei nenhum cliente :("
+    (change)="handleSelectState(value)">
+    <ng-template  class="container" ng-label-tmp let-item="item">{{item.id}} - {{item.nome}}</ng-template>
+    <ng-template class="container" ng-option-tmp let-item="item">{{item.id}} - {{item.nome}}</ng-template>
+</ng-select>

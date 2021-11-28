@@ -1,5 +1,5 @@
-<label for="state">Serviço</label>
-<ng-select #select labelForId="state" [items]="filtered | async" [loading]="loading"
+<label for="service">Serviço</label>
+<ng-select #select labelForId="service" [items]="filtered | async" [loading]="loading"
     [typeahead]="pesquisa" class="custom-select" [(ngModel)]="value" notFoundText="Não encontrei nenhum serviço :("
     (change)="handleSelectState(value)">
     <ng-template  class="container" ng-label-tmp let-item="item">{{item.descricao}}</ng-template>

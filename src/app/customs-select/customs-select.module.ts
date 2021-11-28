@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { NgModule } from '@angular/core';
 import { ServiceSelectModule } from './services-select/services-select.module';
+import { ClientSelectModule } from './client-select/client-select.module';
 
 @NgModule({
     imports: [
@@ -23,11 +24,13 @@ import { ServiceSelectModule } from './services-select/services-select.module';
         CitySelectModule,
         StateSelectModule,
         ServiceSelectModule,
+        ClientSelectModule,
     ],
     exports: [
         CitySelectModule,
         StateSelectModule,
         ServiceSelectModule,
+        ClientSelectModule,
     ],
 })
 export class CustomsSelectModule {}

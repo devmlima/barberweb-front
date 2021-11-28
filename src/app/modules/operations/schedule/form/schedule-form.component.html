@@ -68,30 +68,10 @@
                     <ng-template matStepLabel>Informações Básicas</ng-template>
                     <div>
                         <service-select formControlName="servicoId"></service-select>
-                        <mat-error *ngIf="
-                                    formGroup
-                                        .get('step1')
-                                        .get('servicoId')
-                                        .hasError('required')
-                                ">
-                            Campo obrigatório
-                        </mat-error>
                     </div>
 
-                    <div class="flex">
-                        <mat-form-field class="flex-auto">
-                            <mat-label>Cliente</mat-label>
-                            <input matInput [formControlName]="'clienteId'" [placeholder]="'Cliente'" />
-                            <mat-icon class="icon-size-5" matPrefix>person</mat-icon>
-                            <mat-error *ngIf="
-                                    formGroup
-                                        .get('step1')
-                                        .get('clienteId')
-                                        .hasError('required')
-                                ">
-                                Campo obrigatório
-                            </mat-error>
-                        </mat-form-field>
+                    <div>
+                        <client-select formControlName="clienteId"></client-select>
                     </div>
 
                     <div class="flex">
