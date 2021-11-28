@@ -1,3 +1,6 @@
+import { ElementRef, Self } from '@angular/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { BaseSelectComponent } from './../../core/base/base-select.component';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { City } from './../../api/models/city';
@@ -10,7 +13,6 @@ import {
     Optional,
     Input,
 } from '@angular/core';
-import { BaseComboComponentFormField } from 'app/core/base/BaseComboComponentFormField.component';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -21,12 +23,13 @@ import { ErrorStateMatcher } from '@angular/material/core';
     encapsulation: ViewEncapsulation.None,
     animations: fuseAnimations,
 })
-export class CitySelectComponent extends BaseComboComponentFormField<
-    City,
-    ApiService
-> {
+export class CitySelectComponent extends BaseSelectComponent<any> {
     _disabled = false;
+    controlType = 'base-select';
 
+    @Input()
+    uf: string
+    
     @Input()
     get disabled() {
         return this._disabled;
@@ -36,37 +39,50 @@ export class CitySelectComponent extends BaseComboComponentFormField<
         this.stateChanges.next();
     }
 
-    constructor(
-        _service: ApiService,
-        _dialog: MatDialog,
-        _cd: ChangeDetectorRef,
-        @Optional() ngControl: NgControl,
+    /**
+     * Constructor
+     *
+     * @param {NgControl} ngControl
+     * @param {FocusMonitor} fm
+     * @param {ElementRef<HTMLElement>} elRef
+     */
+     constructor(
+        @Optional() @Self() ngControl: NgControl,
+        fm: FocusMonitor,
+        elRef: ElementRef<HTMLElement>,
         @Optional() _parentForm: NgForm,
         @Optional() _parentFormGroup: FormGroupDirective,
-        _defaultErrorStateMatcher: ErrorStateMatcher
+        @Optional() _defaultErrorStateMatcher: ErrorStateMatcher,
+        _dialog: MatDialog,
+        _cd: ChangeDetectorRef,
+        protected _service: ApiService,
     ) {
-        super(
-            _service,
-            _dialog,
-            _cd,
-            ngControl,
-            _parentForm,
-            _parentFormGroup,
-            _defaultErrorStateMatcher
-        );
+        super(ngControl, fm, elRef, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, _dialog, _cd);
     }
 
+    ngOnChanges() {
+        this.pesquisaFn(null);
+    }
+
+
     pesquisaFn(filtro: any): Observable<City[]> {
+        if (!this.uf) {
+            this.loading = false;
+            return;
+        }
+
         const whereObj: any = {
-            $and: [
-                {
-                    $or: [{ descricao: { $iLike: `%${filtro}%` } }],
-                },
-            ],
+            estadoId: this.uf,
         };
+
+        if (filtro) {
+            whereObj.where.descricao =  { $iLike: `%${filtro}%` };
+        }
 
         return this._service.cityFind({
             where: whereObj,
+            offset: 0,
+            order: [['descricao', 'asc']],
             limit: 30,
         });
     }
