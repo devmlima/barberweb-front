@@ -104,6 +104,13 @@ export class ClientFormComponent implements OnInit {
             nome: null,
             cpfCnpj: null,
             celular: null,
+            endereco: {
+                cidadeId: null,
+                estadoId: null,
+                rua: null,
+                numero: null,
+                cep: null,
+            },
         };
 
         objectReturn.id = this.id;
