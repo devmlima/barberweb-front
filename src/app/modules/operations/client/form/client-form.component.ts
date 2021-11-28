@@ -1,3 +1,4 @@
+import { State } from './../../../../api/models/state';
 import { get } from 'lodash';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -24,6 +25,7 @@ export class ClientFormComponent implements OnInit {
     rota = 'operations/client';
     isNew = true;
     id: number = null;
+    uf: string = '';
 
     constructor(
         private readonly _formBuilder: FormBuilder,
@@ -38,6 +40,14 @@ export class ClientFormComponent implements OnInit {
                 nome: ['', [Validators.required]],
                 cpfCnpj: ['', []],
                 celular: ['', []],
+            }),
+            step2: this._formBuilder.group({
+                cidadeId: ['', []],
+                estadoId: ['', []],
+                rua: ['', []],
+                bairro: ['', []],
+                numero: ['', []],
+                cep: ['', []],
             }),
         });
 
@@ -98,6 +108,19 @@ export class ClientFormComponent implements OnInit {
         this._router.navigate([`${this.rota}`]);
     }
 
+    selectState(event: State) {
+        this.uf = event ? event.sigla : '';
+    }
+
+    searchCep(){
+        this._apiService.searchCep({cep: this.formGroup.value.step2.cep}).subscribe( res => {
+            if (res) {
+                this.formGroup.controls.step2.patchValue(res);
+                this.uf = res.estadoId.sigla;
+            }
+        })
+    }
+
     private convertModel(object) {
         const objectReturn = {
             id: null,
@@ -110,6 +133,7 @@ export class ClientFormComponent implements OnInit {
                 rua: null,
                 numero: null,
                 cep: null,
+                bairro: null,
             },
         };
 
@@ -117,6 +141,15 @@ export class ClientFormComponent implements OnInit {
         objectReturn.nome = get(object, 'step1.nome', '');
         objectReturn.cpfCnpj = get(object, 'step1.cpfCnpj', '');
         objectReturn.celular = get(object, 'step1.celular', '');
+
+        objectReturn.endereco = {
+            cidadeId: get(object, 'step2.cidadeId.id', ''),
+            estadoId: get(object, 'step2.estadoId.sigla', ''),
+            rua: get(object, 'step2.rua', ''),
+            numero: get(object, 'step2.numero', ''),
+            cep: get(object, 'step2.cep', ''),
+            bairro: get(object, 'step2.bairro', ''),
+        };
 
         return objectReturn;
     }

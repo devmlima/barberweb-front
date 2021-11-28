@@ -76,7 +76,7 @@ export class CitySelectComponent extends BaseSelectComponent<any> {
         };
 
         if (filtro) {
-            whereObj.where.descricao =  { $iLike: `%${filtro}%` };
+            whereObj.descricao =  { $iLike: `%${filtro}%` };
         }
 
         return this._service.cityFind({

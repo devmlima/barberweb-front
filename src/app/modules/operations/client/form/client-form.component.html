@@ -156,13 +156,70 @@
                 </mat-step>
 
                 <mat-step
-                    [formGroupName]="'step1'"
-                    [stepControl]="formGroup.get('step1')"
+                    [formGroupName]="'step2'"
+                    [stepControl]="formGroup.get('step2')"
                     #verticalStepperStep1
                 >
                     <ng-template matStepLabel>Endereço</ng-template>
+
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>CEP</mat-label>
+                            <input
+                                matInput
+                                [formControlName]="'cep'"
+                                [placeholder]="'CEP'"
+                                (change)="searchCep()"
+                            />
+                            <mat-icon class="icon-size-5" matPrefix
+                                >home</mat-icon
+                            >
+                        </mat-form-field>
+                    </div>
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Rua</mat-label>
+                            <input
+                                matInput
+                                [formControlName]="'rua'"
+                                [placeholder]="'Rua'"
+                            />
+                            <mat-icon class="icon-size-5" matPrefix
+                                >streetview</mat-icon
+                            >
+                        </mat-form-field>
+                    </div>
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Bairro</mat-label>
+                            <input
+                                matInput
+                                [formControlName]="'bairro'"
+                                [placeholder]="'Bairro'"
+                            />
+                            <mat-icon class="icon-size-5" matPrefix
+                                >location_city</mat-icon
+                            >
+                        </mat-form-field>
+                    </div>
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Número</mat-label>
+                            <input
+                                matInput
+                                [formControlName]="'numero'"
+                                [placeholder]="'Número'"
+                            />
+                            <mat-icon class="icon-size-5" matPrefix
+                                >looks_one</mat-icon
+                            >
+                        </mat-form-field>
+                    </div>
                     <div>
-                        <city-select></city-select>
+                        <state-select (selectState)="selectState($event)" formControlName="estadoId"></state-select>
+                    </div>
+                    <div *ngIf="uf">
+                        <city-select [uf]="uf" formControlName="cidadeId"></city-select>
                     </div>
 
                     <div class="flex justify-end">
@@ -170,7 +227,7 @@
                             class="px-8"
                             mat-flat-button
                             [color]="'primary'"
-                            [disabled]="formGroup.get('step1').invalid"
+                            [disabled]="formGroup.get('step2').invalid"
                             type="button"
                             matStepperNext
                         >

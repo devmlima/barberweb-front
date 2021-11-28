@@ -1,4 +1,4 @@
-import { ElementRef, Self } from '@angular/core';
+import { ElementRef, Output, Self, EventEmitter } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { BaseSelectComponent } from './../../core/base/base-select.component';
 import { Observable } from 'rxjs';
@@ -36,6 +36,9 @@ export class StateSelectComponent extends BaseSelectComponent<any> {
         this.stateChanges.next();
     }
 
+    @Output()
+    selectState: EventEmitter<any> = new EventEmitter<any>();
+
     /**
      * Constructor
      *
@@ -66,7 +69,7 @@ export class StateSelectComponent extends BaseSelectComponent<any> {
         const whereObj: any = { };
 
         if (filtro) {
-            whereObj.where.descricao =  { $iLike: `%${filtro}%` };
+            whereObj.descricao =  { $iLike: `%${filtro}%` };
         }
 
         return this._service.stateFind({
@@ -75,5 +78,9 @@ export class StateSelectComponent extends BaseSelectComponent<any> {
             order: [['descricao', 'asc']],
             limit: 30,
         });
+    }
+
+    handleSelectState(value: State) {
+        this.selectState.next(value);
     }
 }

@@ -1,6 +1,7 @@
 <label for="state">Estado</label>
 <ng-select #select labelForId="state" [items]="filtered | async" [loading]="loading"
-    [typeahead]="pesquisa" class="custom-select" [(ngModel)]="value" notFoundText="Não encontrei nenhum estado :(">
-    <ng-template class="container" ng-label-tmp let-item="item">{{item.descricao}}</ng-template>
+    [typeahead]="pesquisa" class="custom-select" [(ngModel)]="value" notFoundText="Não encontrei nenhum estado :("
+    (change)="handleSelectState(value)">
+    <ng-template  class="container" ng-label-tmp let-item="item">{{item.descricao}}</ng-template>
     <ng-template class="container" ng-option-tmp let-item="item">{{item.descricao}}</ng-template>
 </ng-select>

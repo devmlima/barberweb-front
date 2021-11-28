@@ -60,7 +60,6 @@ export class BaseSelectComponent<T> extends BaseInputComponent<T> {
     }
 
     ngAfterViewInit() {
-        console.log(this.filtered)
         this.select.focusEvent.subscribe(() => {
             this.focused = true;
             this.stateChanges.next();
