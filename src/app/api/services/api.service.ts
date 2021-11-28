@@ -359,4 +359,15 @@ export class ApiService {
         }
         return this.http.get(environment.apiUrl + `/city/find`, params);
     }
+
+    stateFind(filter = null): Observable<any> {
+        const params: any = this.getHeaders(true);
+        if (filter) {
+            params.params = new HttpParams().set(
+                'filter',
+                JSON.stringify(filter)
+            );
+        }
+        return this.http.get(environment.apiUrl + `/state/find`, params);
+    }
 }

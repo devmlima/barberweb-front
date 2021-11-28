@@ -1,3 +1,4 @@
+import { StateSelectModule } from './state-select/state-select.module';
 import { CitySelectModule } from './city-select/city-select.module';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -19,7 +20,11 @@ import { NgModule } from '@angular/core';
         MatProgressSpinnerModule,
 
         CitySelectModule,
+        StateSelectModule,
     ],
-    exports: [CitySelectModule],
+    exports: [
+        CitySelectModule,
+        StateSelectModule,
+    ],
 })
 export class CustomsSelectModule {}

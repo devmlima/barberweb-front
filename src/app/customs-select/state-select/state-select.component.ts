@@ -3,7 +3,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { BaseSelectComponent } from './../../core/base/base-select.component';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { City } from './../../api/models/city';
+import { State } from './../../api/models/state';
 import { ApiService } from './../../api/services/api.service';
 import { fuseAnimations } from './../../../@fuse/animations/public-api';
 import {
@@ -17,19 +17,16 @@ import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
-    selector: 'city-select',
-    templateUrl: './city-select.component.html',
-    styleUrls: ['../customs-select.scss', './city-select.component.scss'],
+    selector: 'state-select',
+    templateUrl: './state-select.component.html',
+    styleUrls: ['../customs-select.scss', './state-select.component.scss'],
     encapsulation: ViewEncapsulation.None,
     animations: fuseAnimations,
 })
-export class CitySelectComponent extends BaseSelectComponent<any> {
+export class StateSelectComponent extends BaseSelectComponent<any> {
     _disabled = false;
     controlType = 'base-select';
 
-    @Input()
-    uf: string
-    
     @Input()
     get disabled() {
         return this._disabled;
@@ -65,21 +62,14 @@ export class CitySelectComponent extends BaseSelectComponent<any> {
     }
 
 
-    pesquisaFn(filtro: any): Observable<City[]> {
-        if (!this.uf) {
-            this.loading = false;
-            return;
-        }
-
-        const whereObj: any = {
-            estadoId: this.uf,
-        };
+    pesquisaFn(filtro: any): Observable<State[]> {
+        const whereObj: any = { };
 
         if (filtro) {
             whereObj.where.descricao =  { $iLike: `%${filtro}%` };
         }
 
-        return this._service.cityFind({
+        return this._service.stateFind({
             where: whereObj,
             offset: 0,
             order: [['descricao', 'asc']],
