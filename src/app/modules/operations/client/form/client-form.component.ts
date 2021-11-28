@@ -42,6 +42,7 @@ export class ClientFormComponent implements OnInit {
                 celular: ['', []],
             }),
             step2: this._formBuilder.group({
+                addressId: ['', []],
                 cidadeId: ['', []],
                 estadoId: ['', []],
                 rua: ['', []],
@@ -128,6 +129,7 @@ export class ClientFormComponent implements OnInit {
             cpfCnpj: null,
             celular: null,
             endereco: {
+                addressId: null,
                 cidadeId: null,
                 estadoId: null,
                 rua: null,
@@ -149,6 +151,7 @@ export class ClientFormComponent implements OnInit {
             numero: get(object, 'step2.numero', ''),
             cep: get(object, 'step2.cep', ''),
             bairro: get(object, 'step2.bairro', ''),
+            addressId: get(object, 'step2.addressId', ''),
         };
 
         return objectReturn;
@@ -165,6 +168,7 @@ export class ClientFormComponent implements OnInit {
         const address = object.address;
 
         const step2 = {
+            addressId: object.enderecoId,
             cidadeId: address.city,
             estadoId: address.state,
             rua: address.rua,
