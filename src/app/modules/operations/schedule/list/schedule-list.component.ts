@@ -1,3 +1,4 @@
+import { get } from 'lodash-es';
 import { DialogService } from './../../../../../@fuse/services/dialogs/dialog.service';
 import { Router } from '@angular/router';
 import { ApiService } from './../../../../api/services/api.service';
@@ -43,7 +44,7 @@ export class ScheduleListComponent implements OnInit {
         private readonly router: Router,
         private readonly dc: ChangeDetectorRef,
         private readonly dialogService: DialogService
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.loadingRows();
@@ -57,6 +58,21 @@ export class ScheduleListComponent implements OnInit {
 
     newForm(): void {
         this.router.navigate([`${this.rota}/form`]);
+    }
+
+    getElement(type: string, element: any): string {
+        switch (type) {
+            case 'confirmado':
+                return element ? 'SIM' : 'NÃO';
+            case 'cancelado':
+                return element ? 'SIM' : 'NÃO';
+            case 'servico':
+                return get(element, 'descricao', 'Serviço não informado');
+            case 'cliente':
+                return get(element, 'nome', 'Cliente não informado');
+            default:
+                return '';
+        }
     }
 
     editRow(row): void {
@@ -98,5 +114,51 @@ export class ScheduleListComponent implements OnInit {
                     );
                 }
             });
+    }
+
+    cancelRow(row) {
+        let width = null;
+
+        if (+this.widthScreen < 450) {
+            width = '265px;';
+        }
+
+        const obj = {
+            cancelado: true,
+            confirmado: false,
+            id: row.id
+        };
+
+        this.dialogService
+            .confirm(
+                'Com essa ação, o agendamento será cancelado, permanentemente!',
+                'Cancelar agendamento',
+                true,
+                { btnOkText: 'Cancelar Agendamento', btnCancelText: 'Voltar', width }
+            ).then(r => {
+                if (r) {
+                    this._api.updateSchedule(obj).subscribe(
+                        (res) => {
+                            this.loadingRows();
+                            this.dc.detectChanges();
+
+                            this.alert = {
+                                type: 'success',
+                                message: 'Agendamento cancelado com sucesso',
+                            };
+                        },
+                        (err) => {
+                            this.alert = {
+                                type: 'error',
+                                message: 'Ocorreu um erro, tente novamente!',
+                            };
+                        }
+                    );
+                }
+            });
+    }
+
+    getClass(row): string {
+        return row.cancelado ? 'canceled' : '';
     }
 }

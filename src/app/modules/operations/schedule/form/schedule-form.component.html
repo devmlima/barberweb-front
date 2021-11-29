@@ -63,6 +63,7 @@
     <!-- Main -->
     <div class="flex-auto p-6 sm:p-10 overflow-y-auto" cdkScrollable>
         <form class="p-4 bg-card shadow rounded overflow-hidden" [formGroup]="formGroup">
+            <span *ngIf="!isNew" [ngClass]="getClass()">Agendamento {{getSchedule()}}</span>
             <mat-vertical-stepper [linear]="true" #verticalStepper>
                 <mat-step [formGroupName]="'step1'" [stepControl]="formGroup.get('step1')" #verticalStepperStep1>
                     <ng-template matStepLabel>Informações Básicas</ng-template>
@@ -76,8 +77,30 @@
 
                     <div class="flex">
                         <mat-form-field class="flex-auto">
+                            <mat-label>Data</mat-label>
+                            <input minlength="10" maxlength="10" matInput [formControlName]="'dataOperacao'"
+                                [placeholder]="'DD/MM/YYYY'" />
+                            <mat-icon class="icon-size-5" matPrefix>today</mat-icon>
+                            <mat-error *ngIf="
+                                    formGroup
+                                        .get('step1')
+                                        .get('dataOperacao')
+                                        .hasError('required')
+                                ">
+                                Campo obrigatório
+                            </mat-error>
+                            <mat-error *ngIf="
+                            this.formGroup.get('step1').get('dataOperacao').errors?.minlength
+                                ">
+                                O formato da data deve ser assim: DIA/MES/ANO
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
                             <mat-label>Hora</mat-label>
-                            <input matInput [formControlName]="'hora'" [placeholder]="'Hora'" />
+                            <input matInput [formControlName]="'hora'" [placeholder]="'HH:MM'" />
                             <mat-icon class="icon-size-5" matPrefix>schedule</mat-icon>
                             <mat-error *ngIf="
                                     formGroup
@@ -86,6 +109,11 @@
                                         .hasError('required')
                                 ">
                                 Campo obrigatório
+                            </mat-error>
+                            <mat-error *ngIf="
+                            this.formGroup.get('step1').get('hora').errors?.minlength
+                        ">
+                                O formato da hora deve ser assim: HORA:MINUTOS
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -107,7 +135,7 @@
                         <button class="px-8 mr-2" mat-flat-button [color]="'warn'" type="button" (click)="back()">
                             Cancelar
                         </button>
-                        <button class="px-8" mat-flat-button [color]="'primary'" type="submit" (click)="save()">
+                        <button [disabled]="disable" class="px-8" mat-flat-button [color]="'primary'" type="submit" (click)="save()">
                             Salvar
                         </button>
                     </div>
