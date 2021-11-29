@@ -30,6 +30,7 @@ export class ScheduleListComponent implements OnInit {
         type: 'success',
         message: '',
     };
+    loading: boolean = true;
     showAlert: boolean = false;
     dataSource: any = [];
     displayedColumns: string[] = ['servicoId', 'clienteId', 'hora', 'confirmado', 'cancelado', 'actions'];
@@ -53,6 +54,7 @@ export class ScheduleListComponent implements OnInit {
     loadingRows(): void {
         this._api.scheduleFindAll().subscribe((res) => {
             this.dataSource = res;
+            this.loading = false;
         });
     }
 
@@ -95,10 +97,12 @@ export class ScheduleListComponent implements OnInit {
             )
             .then((res) => {
                 if (res) {
+                    this.loading = true;
                     this._api.deleteSchedule(row.id).subscribe(
                         (res) => {
                             this.loadingRows();
                             this.dc.detectChanges();
+                            this.loading = false;
 
                             this.alert = {
                                 type: 'success',
@@ -106,6 +110,7 @@ export class ScheduleListComponent implements OnInit {
                             };
                         },
                         (err) => {
+                            this.loading = false;
                             this.alert = {
                                 type: 'error',
                                 message: 'Ocorreu um erro, tente novamente!',

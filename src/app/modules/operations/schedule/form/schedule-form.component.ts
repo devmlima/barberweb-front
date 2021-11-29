@@ -21,11 +21,12 @@ export class ScheduleFormComponent implements OnInit {
     };
     showAlert: boolean = false;
     confirm: boolean = true;
-    disable: boolean = true;
+    disable: boolean = false;
     formGroup: FormGroup;
     rota = 'operations/schedule';
     isNew = true;
     id: number = null;
+    loading: boolean = true;
 
     constructor(
         private readonly _formBuilder: FormBuilder,
@@ -62,7 +63,11 @@ export class ScheduleFormComponent implements OnInit {
                         } else {
                             this.isNew = true;
                         }
+
+                        this.loading = false;
                     });
+            } else {
+                this.loading = false;
             }
         });
     }

@@ -24,6 +24,7 @@ export class ServiceFormComponent implements OnInit {
     rota = 'operations/services';
     isNew = true;
     id: number = null;
+    loading: boolean = true;
 
     constructor(
         private readonly _formBuilder: FormBuilder,
@@ -50,10 +51,14 @@ export class ServiceFormComponent implements OnInit {
                     if (res) {
                         this.convertForm(res);
                         this.isNew = false;
+                        this.loading = false;
                     } else {
                         this.isNew = true;
+                        this.loading = false;
                     }
                 });
+            } else {
+                this.loading = false;
             }
         });
     }

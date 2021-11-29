@@ -34,6 +34,7 @@ export class ServiceListComponent implements OnInit {
 
     rota = 'operations/services';
     widthScreen = window.screen.width;
+    loading: boolean = true;
 
     @ViewChild(MatTable) table: MatTable<ServiceModel>;
 
@@ -51,6 +52,7 @@ export class ServiceListComponent implements OnInit {
     loadingRows(): void {
         this._api.serviceFindAll().subscribe((res) => {
             this.dataSource = res;
+            this.loading = false;
         });
     }
 
@@ -78,10 +80,13 @@ export class ServiceListComponent implements OnInit {
             )
             .then((res) => {
                 if (res) {
+                    console.log(row)
+                    this.loading = true;
                     this._api.deleteService(row.id).subscribe(
                         (res) => {
                             this.loadingRows();
                             this.dc.detectChanges();
+                            this.loading = false;
 
                             this.alert = {
                                 type: 'success',
@@ -89,6 +94,7 @@ export class ServiceListComponent implements OnInit {
                             };
                         },
                         (err) => {
+                            this.loading = false;
                             this.alert = {
                                 type: 'error',
                                 message: 'Ocorreu um erro, tente novamente!',

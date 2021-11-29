@@ -17,6 +17,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'grid_view',
                 link: '/dashboards/dashboard-principal',
+                disabled: true,
+                badge: {
+                    title: 'EM BREVE',
+                    classes: 'px-2.5 bg-teal-400 text-black rounded-full'
+                }
             },
         ],
     },
@@ -53,10 +58,6 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'event',
                 link: '/operations/schedule',
-                badge: {
-                    title: 'NOVO',
-                    classes: 'px-2.5 bg-teal-400 text-black rounded-full'
-                }
             },
         ],
     },
@@ -86,10 +87,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'perm_contact_calendar',
                 link: '/authentication/profile',
+                disabled: true,
                 badge: {
-                    title: 'NOVO',
+                    title: 'EM BREVE',
                     classes: 'px-2.5 bg-teal-400 text-black rounded-full'
-                }
+                },
             },
         ],
     },

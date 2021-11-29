@@ -26,6 +26,7 @@ export class ClientFormComponent implements OnInit {
     isNew = true;
     id: number = null;
     uf: string = '';
+    loading: boolean = true;
 
     constructor(
         private readonly _formBuilder: FormBuilder,
@@ -63,10 +64,14 @@ export class ClientFormComponent implements OnInit {
                     if (res) {
                         this.convertForm(res);
                         this.isNew = false;
+                        this.loading = false;
                     } else {
                         this.isNew = true;
+                        this.loading = false;
                     }
                 });
+            } else {
+                this.loading = false;
             }
         });
     }

@@ -1,4 +1,8 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+<div *ngIf="loading" class="loading">
+    <img src="assets/icons/loadingapp.svg" alt="Carregando...">
+</div>
+
+<div *ngIf="!loading" class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
     <!-- Header -->
     <div class="
             flex flex-col

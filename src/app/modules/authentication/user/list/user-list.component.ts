@@ -35,6 +35,7 @@ export class UserListComponent implements OnInit {
 
     rota = 'authentication/user';
     widthScreen = window.screen.width;
+    loading: boolean = true;
 
     @ViewChild(MatTable) table: MatTable<UserModel>;
 
@@ -52,6 +53,7 @@ export class UserListComponent implements OnInit {
     loadingRows(): void {
         this._api.getUsers().subscribe((res) => {
             this.dataSource = res;
+            this.loading = false;
         });
     }
 
@@ -79,17 +81,19 @@ export class UserListComponent implements OnInit {
             )
             .then((res) => {
                 if (res) {
+                    this.loading = true;
                     this._api.deleteUser(row.id).subscribe(
                         (res) => {
                             this.loadingRows();
                             this.dc.detectChanges();
-
+                            this.loading = false;
                             this.alert = {
                                 type: 'success',
                                 message: 'Registro removido com sucesso',
                             };
                         },
                         (err) => {
+                            this.loading = false;
                             this.alert = {
                                 type: 'error',
                                 message: 'Ocorreu um erro, tente novamente!',

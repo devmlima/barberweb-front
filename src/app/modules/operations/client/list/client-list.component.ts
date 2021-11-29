@@ -34,6 +34,7 @@ export class ClientListComponent implements OnInit {
 
     rota = 'operations/client';
     widthScreen = window.screen.width;
+    loading: boolean = true;
 
     @ViewChild(MatTable) table: MatTable<ClientModel>;
 
@@ -51,6 +52,7 @@ export class ClientListComponent implements OnInit {
     loadingRows(): void {
         this._api.clientFindAll().subscribe((res) => {
             this.dataSource = res;
+            this.loading = false;
         });
     }
 
@@ -78,17 +80,19 @@ export class ClientListComponent implements OnInit {
             )
             .then((res) => {
                 if (res) {
+                    this.loading = true;
                     this._api.deleteClient(row.id).subscribe(
                         (res) => {
                             this.loadingRows();
                             this.dc.detectChanges();
-
+                            this.loading = false;
                             this.alert = {
                                 type: 'success',
                                 message: 'Registro removido com sucesso',
                             };
                         },
                         (err) => {
+                            this.loading = false;
                             this.alert = {
                                 type: 'error',
                                 message: 'Ocorreu um erro, tente novamente!',
