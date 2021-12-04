@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'https://barberweb.herokuapp.com',
+    apiUrl: 'http://localhost:3000',
     firebaseConfig: {
         apiKey: 'AIzaSyCsGMfeYctpbBn30HbxxkplEVF16OqZU3Y',
         authDomain: 'barber-web-1eefd.firebaseapp.com',

@@ -35,6 +35,7 @@ export class ProfileListComponent implements OnInit {
 
     rota = 'authentication/profile';
     widthScreen = window.screen.width;
+    loading: boolean = true;
 
     @ViewChild(MatTable) table: MatTable<ProfileModel>;
 
@@ -52,6 +53,7 @@ export class ProfileListComponent implements OnInit {
     loadingRows(): void {
         this._api.profileFindAll().subscribe((res) => {
             this.dataSource = res;
+            this.loading = false;
         });
     }
 
@@ -79,6 +81,7 @@ export class ProfileListComponent implements OnInit {
             )
             .then((res) => {
                 if (res) {
+                    this.loading = true;
                     this._api.deleteProfile(row.id).subscribe(
                         (res) => {
                             this.loadingRows();
@@ -88,12 +91,15 @@ export class ProfileListComponent implements OnInit {
                                 type: 'success',
                                 message: 'Registro removido com sucesso',
                             };
+                            this.showAlert = true;
                         },
                         (err) => {
+                            this.loading = false;
                             this.alert = {
                                 type: 'error',
-                                message: 'Ocorreu um erro, tente novamente!',
+                                message: err,
                             };
+                            this.showAlert = true;
                         }
                     );
                 }

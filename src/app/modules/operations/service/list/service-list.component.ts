@@ -80,7 +80,6 @@ export class ServiceListComponent implements OnInit {
             )
             .then((res) => {
                 if (res) {
-                    console.log(row)
                     this.loading = true;
                     this._api.deleteService(row.id).subscribe(
                         (res) => {
@@ -92,13 +91,15 @@ export class ServiceListComponent implements OnInit {
                                 type: 'success',
                                 message: 'Registro removido com sucesso',
                             };
+                            this.showAlert = true;
                         },
                         (err) => {
                             this.loading = false;
                             this.alert = {
                                 type: 'error',
-                                message: 'Ocorreu um erro, tente novamente!',
+                                message: err,
                             };
+                            this.showAlert = true;
                         }
                     );
                 }

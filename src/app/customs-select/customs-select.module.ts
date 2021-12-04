@@ -1,3 +1,4 @@
+import { ProfileSelectModule } from './profile-select/profile-select.module';
 import { StateSelectModule } from './state-select/state-select.module';
 import { CitySelectModule } from './city-select/city-select.module';
 
@@ -25,12 +26,14 @@ import { ClientSelectModule } from './client-select/client-select.module';
         StateSelectModule,
         ServiceSelectModule,
         ClientSelectModule,
+        ProfileSelectModule,
     ],
     exports: [
         CitySelectModule,
         StateSelectModule,
         ServiceSelectModule,
         ClientSelectModule,
+        ProfileSelectModule,
     ],
 })
 export class CustomsSelectModule {}

@@ -78,15 +78,15 @@ export class MyDataComponent implements OnInit {
                         type: 'success',
                         message: 'Registro criado com sucesso',
                     };
-
+                    this.showAlert = true;
                     this._router.navigateByUrl(this.rota);
                 },
                 (err) => {
                     this.alert = {
                         type: 'error',
-                        message:
-                            'Ocorreu um erro, verifique as informações preenchidas!',
+                        message: err,
                     };
+                    this.showAlert = true;
                 }
             );
         } else {

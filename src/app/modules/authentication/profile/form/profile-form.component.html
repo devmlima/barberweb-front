@@ -1,7 +1,6 @@
 <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
     <!-- Header -->
-    <div
-        class="
+    <div class="
             flex flex-col
             sm:flex-row
             flex-0
@@ -11,54 +10,42 @@
             border-b
             bg-card
             dark:bg-transparent
-        "
-    >
+        ">
         <div class="flex-1 min-w-0">
             <!-- Breadcrumbs -->
             <div>
                 <div class="hidden sm:flex flex-wrap items-center font-medium">
                     <div>
-                        <a class="whitespace-nowrap text-primary-500"
-                            >Autenticação</a
-                        >
+                        <a class="whitespace-nowrap text-primary-500">Autenticação</a>
                     </div>
                     <div class="flex items-center ml-1 whitespace-nowrap">
-                        <mat-icon
-                            class="icon-size-5 text-secondary"
-                            [svgIcon]="'heroicons_solid:chevron-right'"
-                        ></mat-icon>
+                        <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-right'">
+                        </mat-icon>
                         <span class="ml-1 text-secondary">Perfil</span>
                     </div>
                     <div class="flex items-center ml-1 whitespace-nowrap">
-                        <mat-icon
-                            class="icon-size-5 text-secondary"
-                            [svgIcon]="'heroicons_solid:chevron-right'"
-                        ></mat-icon>
+                        <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-right'">
+                        </mat-icon>
                         <span class="ml-1 text-secondary">Form</span>
                     </div>
                 </div>
                 <div class="flex sm:hidden">
-                    <a
-                        class="
+                    <a class="
                             inline-flex
                             items-center
                             -ml-1.5
                             text-secondary
                             font-medium
-                        "
-                    >
-                        <mat-icon
-                            class="icon-size-5 text-secondary"
-                            [svgIcon]="'heroicons_solid:chevron-left'"
-                        ></mat-icon>
+                        ">
+                        <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-left'">
+                        </mat-icon>
                         <span class="ml-1">Back</span>
                     </a>
                 </div>
             </div>
             <!-- Title -->
             <div class="mt-2">
-                <h2
-                    class="
+                <h2 class="
                         text-3xl
                         md:text-4xl
                         font-extrabold
@@ -66,8 +53,7 @@
                         leading-7
                         sm:leading-10
                         truncate
-                    "
-                >
+                    ">
                     Formulario de Perfis
                 </h2>
             </div>
@@ -76,50 +62,125 @@
 
     <!-- Main -->
     <div class="flex-auto p-6 sm:p-10 overflow-y-auto" cdkScrollable>
-        <form
-            class="p-4 bg-card shadow rounded overflow-hidden"
-            [formGroup]="formGroup"
-        >
+        <form class="p-4 bg-card shadow rounded overflow-hidden" [formGroup]="formGroup">
             <mat-vertical-stepper [linear]="true" #verticalStepper>
-                <mat-step
-                    [formGroupName]="'step1'"
-                    [stepControl]="formGroup.get('step1')"
-                    #verticalStepperStep1
-                >
+                <mat-step [formGroupName]="'step1'" [stepControl]="formGroup.get('step1')" #verticalStepperStep1>
                     <ng-template matStepLabel>Informações Básicas</ng-template>
                     <div class="flex">
                         <mat-form-field class="flex-auto">
                             <mat-label>Descrição</mat-label>
-                            <input
-                                matInput
-                                [formControlName]="'descricao'"
-                                [placeholder]="'Descrição'"
-                            />
-                            <mat-icon class="icon-size-5" matPrefix
-                                >badge</mat-icon
-                            >
-                            <mat-error
-                                *ngIf="
+                            <input matInput [formControlName]="'descricao'" [placeholder]="'Descrição'" />
+                            <mat-icon class="icon-size-5" matPrefix>badge</mat-icon>
+                            <mat-error *ngIf="
                                     formGroup
                                         .get('step1')
                                         .get('descricao')
                                         .hasError('required')
-                                "
-                            >
+                                ">
                                 Campo obrigatório
                             </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="flex justify-end">
-                        <button
-                            class="px-8"
-                            mat-flat-button
-                            [color]="'primary'"
-                            [disabled]="formGroup.get('step1').invalid"
-                            type="button"
-                            matStepperNext
-                        >
+                        <button class="px-8" mat-flat-button [color]="'primary'"
+                            [disabled]="formGroup.get('step1').invalid" type="button" matStepperNext>
+                            Próximo
+                        </button>
+                    </div>
+                </mat-step>
+
+                <mat-step [formGroupName]="'step1'" [stepControl]="formGroup.get('step1')" #verticalStepperStep1>
+                    <ng-template matStepLabel>Permissões</ng-template>
+                    <div class="flex" style="margin-bottom: 22px;">
+                        <table class="container-permissions" style="width: 100%;">
+                            <tr>
+                                <th>Rotina</th>
+                                <th>Leitura</th>
+                                <th>Escrita</th>
+                                <th>Todos</th>
+                            </tr>
+                            <tr>
+                                <td>Cliente</td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('client', 'reading')" [disabled]="permissions.client.writing"
+                                        (change)="handleCheck('client', 'reading')"></mat-checkbox>
+                                </td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('client', 'writing')" [disabled]="permissions.client.all"
+                                        (change)="handleCheck('client', 'writing')"></mat-checkbox>
+                                </td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('client', 'all')"
+                                        (change)="handleCheck('client', 'all')"></mat-checkbox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Serviço</td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('service', 'reading')" [disabled]="permissions.service.writing"
+                                        (change)="handleCheck('service', 'reading')"></mat-checkbox>
+                                </td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('service', 'writing')" [disabled]="permissions.service.all"
+                                        (change)="handleCheck('service', 'writing')"></mat-checkbox>
+                                </td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('service', 'all')"
+                                        (change)="handleCheck('service', 'all')"></mat-checkbox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Agenda</td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('schedule', 'reading')" [disabled]="permissions.schedule.writing"
+                                        (change)="handleCheck('schedule', 'reading')"></mat-checkbox>
+                                </td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('schedule', 'writing')" [disabled]="permissions.schedule.all"
+                                        (change)="handleCheck('schedule', 'writing')"></mat-checkbox>
+                                </td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('schedule', 'all')"
+                                        (change)="handleCheck('schedule', 'all')"></mat-checkbox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Usuário</td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('user', 'reading')" [disabled]="permissions.user.writing"
+                                        (change)="handleCheck('user', 'reading')"></mat-checkbox>
+                                </td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('user', 'writing')" [disabled]="permissions.user.all"
+                                        (change)="handleCheck('user', 'writing')"></mat-checkbox>
+                                </td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('user', 'all')"
+                                        (change)="handleCheck('user', 'all')"></mat-checkbox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Perfil</td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('profile', 'reading')" [disabled]="permissions.profile.writing"
+                                        (change)="handleCheck('profile', 'reading')"></mat-checkbox>
+                                </td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('profile', 'writing')" [disabled]="permissions.profile.all"
+                                        (change)="handleCheck('profile', 'writing')"></mat-checkbox>
+                                </td>
+                                <td>
+                                    <mat-checkbox [checked]="getPermitions('profile', 'all')"
+                                        (change)="handleCheck('profile', 'all')"></mat-checkbox>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button class="px-8" mat-flat-button [color]="'primary'"
+                            [disabled]="formGroup.get('step1').invalid" type="button" matStepperNext>
                             Próximo
                         </button>
                     </div>
@@ -131,22 +192,10 @@
                         Formulário completo e liberado para salvar
                     </p>
                     <div class="flex justify-end mt-8">
-                        <button
-                            class="px-8 mr-2"
-                            mat-flat-button
-                            [color]="'warn'"
-                            type="button"
-                            (click)="back()"
-                        >
+                        <button class="px-8 mr-2" mat-flat-button [color]="'warn'" type="button" (click)="back()">
                             Cancelar
                         </button>
-                        <button
-                            class="px-8"
-                            mat-flat-button
-                            [color]="'primary'"
-                            type="submit"
-                            (click)="save()"
-                        >
+                        <button class="px-8" mat-flat-button [color]="'primary'" type="submit" (click)="save()">
                             Salvar
                         </button>
                     </div>
@@ -154,4 +203,11 @@
             </mat-vertical-stepper>
         </form>
     </div>
+    
 </div>
+
+<!-- Alert -->
+<fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
+[@shake]="alert.type === 'error'">
+{{alert.message}}
+</fuse-alert>

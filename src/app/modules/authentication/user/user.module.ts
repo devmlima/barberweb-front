@@ -1,3 +1,4 @@
+import { CustomsSelectModule } from './../../../customs-select/customs-select.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,7 +29,8 @@ import { DialogsModule } from '@fuse/services/dialogs/dialogs.module';
         MatInputModule,
         MatProgressSpinnerModule,
         SharedModule,
-        DialogsModule
+        DialogsModule,
+        CustomsSelectModule,
     ],
 })
 export class UserModule {}

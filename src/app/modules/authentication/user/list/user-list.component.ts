@@ -91,13 +91,15 @@ export class UserListComponent implements OnInit {
                                 type: 'success',
                                 message: 'Registro removido com sucesso',
                             };
+                            this.showAlert = true;
                         },
                         (err) => {
                             this.loading = false;
                             this.alert = {
                                 type: 'error',
-                                message: 'Ocorreu um erro, tente novamente!',
+                                message: err,
                             };
+                            this.showAlert = true;
                         }
                     );
                 }
