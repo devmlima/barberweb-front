@@ -1,3 +1,4 @@
+import { FuseAlertModule } from '@fuse/components/alert';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,7 +30,8 @@ import { ProfileFormComponent } from './form/profile-form.component';
         MatInputModule,
         MatProgressSpinnerModule,
         SharedModule,
-        DialogsModule
+        DialogsModule,
+        FuseAlertModule
     ],
 })
 export class ProfileModule {}

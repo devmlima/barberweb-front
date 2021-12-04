@@ -162,6 +162,9 @@
                             >
                         </mat-form-field>
                     </div>
+                    <div>
+                        <profile-select formControlName="perfilId"></profile-select>
+                    </div>
                     <div class="flex justify-end">
                         <button
                             class="px-8"
@@ -188,7 +191,6 @@
                             <mat-label>Senha</mat-label>
                             <input
                                 [placeholder]="'Senha'"
-                                type="password"
                                 id="senha"
                                 matInput
                                 [formControlName]="'senha'"
@@ -296,3 +298,9 @@
         </form>
     </div>
 </div>
+
+<!-- Alert -->
+<fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
+    [@shake]="alert.type === 'error'">
+    {{alert.message}}
+</fuse-alert>

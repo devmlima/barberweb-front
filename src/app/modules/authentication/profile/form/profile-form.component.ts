@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from './../../../../api/services/api.service';
 import { FuseAlertType } from './../../../../../@fuse/components/alert/alert.types';
 import { fuseAnimations } from './../../../../../@fuse/animations/public-api';
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ChangeDetectorRef } from '@angular/core';
 import { iif } from 'rxjs';
 
 @Component({
@@ -25,18 +25,46 @@ export class ProfileFormComponent implements OnInit {
     isNew = true;
     id: number = null;
 
+    permissions = {
+        client: {
+            reading: true,
+            writing: false,
+            all: false,
+        },
+        service: {
+            reading: true,
+            writing: false,
+            all: false,
+        },
+        schedule: {
+            reading: true,
+            writing: false,
+            all: false,
+        },
+        user: {
+            reading: true,
+            writing: false,
+            all: false,
+        },
+        profile: {
+            reading: true,
+            writing: false,
+            all: false,
+        }
+    };
+
     constructor(
         private readonly _formBuilder: FormBuilder,
         private readonly _router: Router,
         private readonly _route: ActivatedRoute,
-        private readonly _apiService: ApiService
-    ) {}
+        private readonly _apiService: ApiService,
+        private readonly _dc: ChangeDetectorRef,
+    ) { }
 
     ngOnInit(): void {
         this.formGroup = this._formBuilder.group({
             step1: this._formBuilder.group({
                 descricao: ['', [Validators.required]],
-                permissoes: ['', []],
             }),
         });
 
@@ -73,14 +101,16 @@ export class ProfileFormComponent implements OnInit {
                         message: 'Registro criado com sucesso',
                     };
 
+                    this.showAlert = true;
                     this._router.navigateByUrl(this.rota);
                 },
                 (err) => {
                     this.alert = {
                         type: 'error',
-                        message:
-                            'Ocorreu um erro, verifique as informações preenchidas!',
+                        message: err,
                     };
+
+                    this.showAlert = true;
                 }
             );
         } else {
@@ -97,6 +127,25 @@ export class ProfileFormComponent implements OnInit {
         this._router.navigate([`${this.rota}`]);
     }
 
+    getPermitions(group: string, action: string) {
+       return this.permissions[group][action] || false;
+    }
+
+    handleCheck(group: string, action: string) {
+        this.permissions[group][action] = !this.permissions[group][action];
+
+        if (action === 'writing' && this.permissions[group][action]) {
+            this.permissions[group].reading = true;
+        }
+
+        if (action === 'all') {
+            this.permissions[group].reading = true;
+            this.permissions[group].writing = true;
+        }
+
+        this._dc.detectChanges();
+    }
+
     private convertModel(object) {
         const objectReturn = {
             id: null,
@@ -106,7 +155,7 @@ export class ProfileFormComponent implements OnInit {
 
         objectReturn.id = this.id;
         objectReturn.descricao = get(object, 'step1.descricao', '');
-        objectReturn.permissoes = get(object, 'step1.permissoes', '');
+        objectReturn.permissoes = JSON.stringify(this.permissions);
 
         return objectReturn;
     }
@@ -114,10 +163,18 @@ export class ProfileFormComponent implements OnInit {
     private convertForm(object) {
         const step1 = {
             descricao: object.descricao,
-            permissoes: object.permissoes,
         };
 
         this.formGroup.get('step1').patchValue(step1);
+        if (object.permissoes) {
+            const { client, schedule, service, user, profile } = JSON.parse(object.permissoes);
+
+            client ? this.permissions.client = client : null;
+            schedule ? this.permissions.schedule = schedule : null;
+            service ? this.permissions.service = service : null;
+            user ? this.permissions.user = user : null;
+            profile ? this.permissions.profile = profile : null;
+        }
 
         return object;
     }

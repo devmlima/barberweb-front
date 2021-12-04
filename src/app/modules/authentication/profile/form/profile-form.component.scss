@@ -1,0 +1,10 @@
+.container-permissions {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.container-permissions tr {
+    display: flex;
+    justify-content: space-between;
+}

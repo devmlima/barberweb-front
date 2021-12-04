@@ -39,9 +39,10 @@ export class UserFormComponent implements OnInit {
                 email: ['', [Validators.required, Validators.email]],
                 nome: ['', Validators.required],
                 cpf: ['', []],
+                perfilId: ['', []],
             }),
             step2: this._formBuilder.group({
-                senha: ['', [Validators.minLength(8)]],
+                senha: ['', []],
             }),
             step3: this._formBuilder.group({}),
         });
@@ -64,6 +65,8 @@ export class UserFormComponent implements OnInit {
                     }
                 });
             } else {
+                this.isNew = true;
+                this.formGroup.get('step2').get('senha').setValidators(Validators.required);
                 this.loading = false;
             }
         });
@@ -82,15 +85,15 @@ export class UserFormComponent implements OnInit {
                         type: 'success',
                         message: 'Registro criado com sucesso',
                     };
-
+                    this.showAlert = true;
                     this._router.navigateByUrl(this.rota);
                 },
                 (err) => {
                     this.alert = {
                         type: 'error',
-                        message:
-                            'Ocorreu um erro, verifique as informações preenchidas!',
+                        message: err,
                     };
+                    this.showAlert = true;
                 }
             );
         } else {
@@ -116,6 +119,7 @@ export class UserFormComponent implements OnInit {
             celular: null,
             senha: null,
             dataNascimento: null,
+            perfilId: null,
         };
 
         objectReturn.id = this.id;
@@ -124,6 +128,7 @@ export class UserFormComponent implements OnInit {
         objectReturn.email = get(object, 'step1.email', '');
         objectReturn.celular = get(object, 'step1.celular', '');
         objectReturn.dataNascimento = get(object, 'step1.dataNascimento', '');
+        objectReturn.perfilId = get(object, 'step1.perfilId.id', '');
 
         if (this.id) {
             delete objectReturn.senha;
@@ -139,6 +144,7 @@ export class UserFormComponent implements OnInit {
             email: object.email,
             nome: object.nome,
             cpf: object.cpf,
+            perfilId: object.profile,
         };
 
         const step2 = {};

@@ -139,7 +139,8 @@
                         <button class="px-8 mr-2" mat-flat-button [color]="'warn'" type="button" (click)="back()">
                             Cancelar
                         </button>
-                        <button [disabled]="disable" class="px-8" mat-flat-button [color]="'primary'" type="submit" (click)="save()">
+                        <button [disabled]="disable" class="px-8" mat-flat-button [color]="'primary'" type="submit"
+                            (click)="save()">
                             Salvar
                         </button>
                     </div>
@@ -148,3 +149,9 @@
         </form>
     </div>
 </div>
+
+<!-- Alert -->
+<fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
+    [@shake]="alert.type === 'error'">
+    {{alert.message}}
+</fuse-alert>

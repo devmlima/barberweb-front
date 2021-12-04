@@ -90,8 +90,10 @@ export class ApiService {
             )
             .pipe(
                 catchError((error) => {
+                    console.log(error)
+
                     return throwError(
-                        get(error, 'error.message', null) ||
+                        get(error, 'error.text', null) ||
                             'Erro ao atualizar o usuário, verifique sua rede de dados.'
                     );
                 })
@@ -156,8 +158,8 @@ export class ApiService {
             .pipe(
                 catchError((error) => {
                     return throwError(
-                        get(error, 'error.message', null) ||
-                            'Erro ao atualizar o usuário, verifique sua rede de dados.'
+                        get(error, 'error.text', null) ||
+                            'Erro ao atualizar o perfil, verifique sua rede de dados.'
                     );
                 })
             );
@@ -217,8 +219,8 @@ export class ApiService {
             .pipe(
                 catchError((error) => {
                     return throwError(
-                        get(error, 'error.message', null) ||
-                            'Erro ao atualizar o usuário, verifique sua rede de dados.'
+                        get(error, 'error.text', null) ||
+                            'Erro ao atualizar o cliente, verifique sua rede de dados.'
                     );
                 })
             );
@@ -278,8 +280,8 @@ export class ApiService {
             .pipe(
                 catchError((error) => {
                     return throwError(
-                        get(error, 'error.message', null) ||
-                            'Erro ao atualizar o usuário, verifique sua rede de dados.'
+                        get(error, 'error.text', null) ||
+                            'Erro ao atualizar o serviço, verifique sua rede de dados.'
                     );
                 })
             );
@@ -339,8 +341,8 @@ export class ApiService {
             .pipe(
                 catchError((error) => {
                     return throwError(
-                        get(error, 'error.message', null) ||
-                            'Erro ao atualizar o usuário, verifique sua rede de dados.'
+                        get(error, 'error.text', null) ||
+                            'Erro ao atualizar o agendamento, verifique sua rede de dados.'
                     );
                 })
             );

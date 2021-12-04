@@ -159,3 +159,9 @@
         </form>
     </div>
 </div>
+
+<!-- Alert -->
+<fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
+    [@shake]="alert.type === 'error'">
+    {{alert.message}}
+</fuse-alert>
