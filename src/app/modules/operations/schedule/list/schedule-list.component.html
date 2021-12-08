@@ -81,6 +81,12 @@
                     {{ getElement('cliente', element.client) }}
                 </td>
             </ng-container>
+            <ng-container matColumnDef="dataOperacao">
+                <th mat-header-cell *matHeaderCellDef>Cliente</th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.dataOperacao }}
+                </td>
+            </ng-container>
             <ng-container matColumnDef="hora">
                 <th mat-header-cell *matHeaderCellDef>Hora</th>
                 <td mat-cell *matCellDef="let element">
