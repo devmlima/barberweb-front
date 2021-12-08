@@ -33,7 +33,7 @@ export class ScheduleListComponent implements OnInit {
     loading: boolean = true;
     showAlert: boolean = false;
     dataSource: any = [];
-    displayedColumns: string[] = ['servicoId', 'clienteId', 'hora', 'confirmado', 'cancelado', 'actions'];
+    displayedColumns: string[] = ['servicoId', 'clienteId', 'dataOperacao', 'hora', 'confirmado', 'cancelado', 'actions'];
 
     rota = 'operations/schedule';
     widthScreen = window.screen.width;
