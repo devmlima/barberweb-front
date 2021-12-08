@@ -74,7 +74,7 @@ export class ServiceListComponent implements OnInit {
         this.dialogService
             .confirm(
                 'Com essa ação, o perfil do usuário será removido, permanentemente!',
-                'Remover Perfil do usuário',
+                'Remover Serviço',
                 true,
                 { btnOkText: 'Remover', width }
             )
