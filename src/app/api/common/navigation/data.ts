@@ -59,6 +59,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'event',
                 link: '/operations/schedule',
             },
+            {
+                id: 'cutsMade',
+                title: 'Realizados',
+                type: 'basic',
+                icon: 'done',
+                link: '/operations/cutsMade',
+            },
         ],
     },
     {

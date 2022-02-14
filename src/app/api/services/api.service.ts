@@ -81,6 +81,23 @@ export class ApiService {
             );
     }
 
+    updatePassword(dados: any): Observable<any> {
+        return this.http
+            .post(
+                environment.apiUrl + '/users/updatePassword',
+                dados,
+                this.getHeaders(true)
+            )
+            .pipe(
+                catchError((error) => {
+                    return throwError(
+                        get(error, 'error.message', null) ||
+                            'Erro ao realizar criar o usuário, verifique sua rede de dados.'
+                    );
+                })
+            );
+    }
+
     updateUser(dados: any): Observable<any> {
         return this.http
             .put(
@@ -406,5 +423,66 @@ export class ApiService {
             );
         }
         return this.http.get(environment.apiUrl + `/client/searchCep`, params);
+    }
+
+    createcutsMade(dados: any): Observable<any> {
+        return this.http
+            .post(
+                environment.apiUrl + '/cutsMade/create',
+                dados,
+                this.getHeaders(true)
+            )
+            .pipe(
+                catchError((error) => {
+                    return throwError(
+                        get(error, 'error.message', null) ||
+                            'Erro ao realizar criar o usuário, verifique sua rede de dados.'
+                    );
+                })
+            );
+    }
+
+    updatecutsMade(dados: any): Observable<any> {
+        return this.http
+            .put(
+                environment.apiUrl + '/cutsMade/update',
+                dados,
+                this.getHeaders(true)
+            )
+            .pipe(
+                catchError((error) => {
+                    return throwError(
+                        get(error, 'error.text', null) ||
+                            'Erro ao atualizar o agendamento, verifique sua rede de dados.'
+                    );
+                })
+            );
+    }
+
+    cutsMadeFindById(id: number): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(
+            environment.apiUrl + `/cutsMade/findById/${id}`,
+            params
+        );
+    }
+
+    cutsMadeFindAll(filter = null): Observable<any> {
+        const params: any = this.getHeaders(true);
+        if (filter) {
+            params.params = new HttpParams().set(
+                'filter',
+                JSON.stringify(filter)
+            );
+        }
+        return this.http.get(environment.apiUrl + `/cutsMade/find`, params);
+    }
+
+    deletecutsMade(id): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.delete(
+            environment.apiUrl + `/cutsMade/delete/${id}`,
+            params
+        );
     }
 }

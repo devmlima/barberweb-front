@@ -194,6 +194,13 @@ export const appRoutes: Route[] = [
                         'app/modules/operations/schedule/schedule.module'
                     ).then((m) => m.ScheduleModule),
             },
+            {
+                path: 'cutsMade',
+                loadChildren: () =>
+                    import(
+                        'app/modules/operations/cutsMade/cutsMade.module'
+                    ).then((m) => m.CutsMadeModule),
+            },
         ],
     },
 ];

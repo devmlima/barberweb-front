@@ -13,37 +13,38 @@ import {
 } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 
-export interface ScheduleModel {
+export interface CutsMadeModel {
     nome: string;
     email: string;
 }
 
 @Component({
-    selector: 'schedule-list',
-    templateUrl: './schedule-list.component.html',
-    styleUrls: ['./schedule-list.component.scss'],
+    selector: 'cutsMade-list',
+    templateUrl: './cutsMade-list.component.html',
+    styleUrls: ['./cutsMade-list.component.scss'],
     encapsulation: ViewEncapsulation.None,
     animations: fuseAnimations,
 })
-export class ScheduleListComponent implements OnInit {
+export class CutsMadeListComponent implements OnInit {
     alert: { type: FuseAlertType; message: string } = {
         type: 'success',
         message: '',
     };
     loading: boolean = true;
+    showAlert: boolean = false;
     dataSource: any = [];
-    displayedColumns: string[] = ['servicoId', 'clienteId', 'dataOperacao', 'hora', 'valor', 'confirmado', 'cancelado', 'actions'];
+    displayedColumns: string[] = ['servicoId', 'clienteId', 'usuarioId', 'data', 'hora', 'confirmado', 'cancelado', 'actions'];
 
-    rota = 'operations/schedule';
+    rota = 'operations/cutsMade';
     widthScreen = window.screen.width;
 
-    @ViewChild(MatTable) table: MatTable<ScheduleModel>;
+    @ViewChild(MatTable) table: MatTable<CutsMadeModel>;
 
     constructor(
         private readonly _api: ApiService,
         private readonly router: Router,
         private readonly dc: ChangeDetectorRef,
-        private readonly dialogService: DialogService,
+        private readonly dialogService: DialogService
     ) { }
 
     ngOnInit(): void {
@@ -51,7 +52,7 @@ export class ScheduleListComponent implements OnInit {
     }
 
     loadingRows(): void {
-        this._api.scheduleFindAll().subscribe((res) => {
+        this._api.cutsMadeFindAll().subscribe((res) => {
             this.dataSource = res;
             this.loading = false;
         });
@@ -64,13 +65,16 @@ export class ScheduleListComponent implements OnInit {
     getElement(type: string, element: any): string {
         switch (type) {
             case 'confirmado':
-                return element ? 'SIM' : 'NÃO';
+                // o contrário do que cancelado, então é dessa forma mesmo
+                return element ? 'NÃO' : 'SIM';
             case 'cancelado':
                 return element ? 'SIM' : 'NÃO';
             case 'servico':
                 return get(element, 'descricao', 'Serviço não informado');
             case 'cliente':
                 return get(element, 'nome', 'Cliente não informado');
+            case 'usuario':
+                return get(element, 'nome', 'Colaborador não informado');
             default:
                 return '';
         }
@@ -89,15 +93,15 @@ export class ScheduleListComponent implements OnInit {
 
         this.dialogService
             .confirm(
-                'Com essa ação, o agendamento será removido, permanentemente!',
-                'Remover agendamento',
+                'Com essa ação, o realizado será removido, permanentemente!',
+                'Remover realizado',
                 true,
                 { btnOkText: 'Remover', width }
             )
             .then((res) => {
                 if (res) {
                     this.loading = true;
-                    this._api.deleteSchedule(row.id).subscribe(
+                    this._api.deletecutsMade(row.id).subscribe(
                         (res) => {
                             this.loadingRows();
                             this.dc.detectChanges();
@@ -107,7 +111,7 @@ export class ScheduleListComponent implements OnInit {
                                 type: 'success',
                                 message: 'Registro removido com sucesso',
                             };
-
+                            this.showAlert = true;
                         },
                         (err) => {
                             this.loading = false;
@@ -115,7 +119,7 @@ export class ScheduleListComponent implements OnInit {
                                 type: 'error',
                                 message: err,
                             };
-
+                            this.showAlert = true;
                         }
                     );
                 }
@@ -143,7 +147,7 @@ export class ScheduleListComponent implements OnInit {
                 { btnOkText: 'Cancelar Agendamento', btnCancelText: 'Voltar', width }
             ).then(r => {
                 if (r) {
-                    this._api.updateSchedule(obj).subscribe(
+                    this._api.updatecutsMade(obj).subscribe(
                         (res) => {
                             this.loadingRows();
                             this.dc.detectChanges();
@@ -152,52 +156,21 @@ export class ScheduleListComponent implements OnInit {
                                 type: 'success',
                                 message: 'Agendamento cancelado com sucesso',
                             };
-
+                            this.showAlert = true;
                         },
                         (err) => {
                             this.alert = {
                                 type: 'error',
                                 message: err,
                             };
-
+                            this.showAlert = true;
                         }
                     );
                 }
             });
     }
 
-    createMade(row) {
-        this._api.createcutsMade({
-            descricao: row.service.descricao,
-            clienteId: row.clienteId,
-            servicoId: row.servicoId,
-            valor: row.valor,
-            cancelado: row.cancelado,
-            hora: row.hora,
-            data: row.dataOperacao,
-            agendamentoId: row.id
-        }).subscribe(res => {
-            this.loadingRows();
-            this.dc.detectChanges();
-
-            this.alert = {
-                type: 'success',
-                message: 'Corte realizado',
-            };
-            this.dialogService.showToast('Corte realizado com sucesso!', null, null);
-        }, err => {
-            this.alert = {
-                type: 'error',
-                message: err,
-            };
-        });
-    }
-
     getClass(row): string {
         return row.cancelado ? 'canceled' : '';
-    }
-
-    getClassSucess(row): string {
-        return row.confirmado ? 'sucess' : '';
     }
 }

@@ -20,7 +20,7 @@
             <div>
                 <div class="hidden sm:flex flex-wrap items-center font-medium">
                     <div>
-                        <a class="whitespace-nowrap text-primary-500">Autenticação</a>
+                        <a class="whitespace-nowrap text-primary-500">Operação</a>
                     </div>
                     <div class="flex items-center ml-1 whitespace-nowrap">
                         <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-right'">
@@ -93,9 +93,15 @@
                     {{ element.hora }}
                 </td>
             </ng-container>
-            <ng-container matColumnDef="confirmado">
-                <th mat-header-cell *matHeaderCellDef>Confirmado</th>
+            <ng-container matColumnDef="valor">
+                <th mat-header-cell *matHeaderCellDef>Valor do Serviço</th>
                 <td mat-cell *matCellDef="let element">
+                   R$ {{ element.valor }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="confirmado">
+                <th mat-header-cell *matHeaderCellDef>Realizado</th>
+                <td [ngClass]="getClassSucess(element)" mat-cell *matCellDef="let element">
                     {{ getElement('confirmado', element.confirmado)}}
                 </td>
             </ng-container>
@@ -115,7 +121,7 @@
                         <mat-icon>more_horiz</mat-icon>
                     </button>
                     <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">
-                        <button mat-menu-item (click)="editRow(element)">
+                        <button *ngIf="!element.cancelado" mat-menu-item (click)="editRow(element)">
                             <mat-icon>edit</mat-icon>
                             <span>Editar</span>
                         </button>
@@ -123,9 +129,13 @@
                             <mat-icon>delete</mat-icon>
                             <span>Excluir</span>
                         </button>
-                        <button mat-menu-item (click)="cancelRow(element)">
+                        <button *ngIf="!element.cancelado" mat-menu-item (click)="cancelRow(element)">
                             <mat-icon>cancel</mat-icon>
                             <span>Cancelar Agendamento</span>
+                        </button>
+                        <button *ngIf="!element.cancelado" mat-menu-item (click)="createMade(element)">
+                            <mat-icon>done</mat-icon>
+                            <span>Agendamento Realizado</span>
                         </button>
                     </mat-menu>
                 </mat-cell>
@@ -147,9 +157,3 @@
         Nenhum registro encontrado
     </div>
 </div>
-
-<!-- Alert -->
-<fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
-    [@shake]="alert.type === 'error'">
-    {{alert.message}}
-</fuse-alert>

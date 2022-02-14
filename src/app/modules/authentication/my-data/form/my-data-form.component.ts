@@ -1,3 +1,4 @@
+import { DialogService } from './../../../../../@fuse/services/dialogs/dialog.service';
 import { UserLoggedService } from './../../../../api/services/userLogged.service';
 import { get } from 'lodash';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -5,8 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from './../../../../api/services/api.service';
 import { FuseAlertType } from './../../../../../@fuse/components/alert/alert.types';
 import { fuseAnimations } from './../../../../../@fuse/animations/public-api';
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { iif } from 'rxjs';
+import { Component, ViewEncapsulation, OnInit, ChangeDetectorRef } from '@angular/core';
 
 @Component({
     selector: 'my-data-form',
@@ -21,19 +21,23 @@ export class MyDataComponent implements OnInit {
         message: '',
     };
     showAlert: boolean = false;
+    notValid: boolean = false;
     formGroup: FormGroup;
     rota = '/signed-in-redirect';
     isNew = true;
     isHabilit = false;
     id: number = null;
+    loading = false;
 
     constructor(
         private readonly _formBuilder: FormBuilder,
         private readonly _router: Router,
         private readonly _route: ActivatedRoute,
         private readonly _apiService: ApiService,
-        private readonly _userLoggedService: UserLoggedService
-    ) {}
+        private readonly _userLoggedService: UserLoggedService,
+        private readonly _dialogService: DialogService,
+        private readonly _dc: ChangeDetectorRef,
+    ) { }
 
     ngOnInit(): void {
         this.formGroup = this._formBuilder.group({
@@ -44,7 +48,9 @@ export class MyDataComponent implements OnInit {
                 celular: ['', []],
             }),
             step2: this._formBuilder.group({
-                senha: ['', [Validators.minLength(8)]],
+                senhaAtual: ['', [Validators.minLength(8)]],
+                novaSenha: ['', [Validators.minLength(8)]],
+                confirmarSenha: ['', [Validators.minLength(8)]],
             }),
             step3: this._formBuilder.group({}),
         });
@@ -55,7 +61,6 @@ export class MyDataComponent implements OnInit {
     loadingInstance(): void {
         this._route.params.subscribe((params) => {
             const userLogged = this._userLoggedService.get();
-            console.log(userLogged);
             this.id = userLogged.id;
             if (this.id) {
                 this._apiService.userFindById(this.id).subscribe((res) => {
@@ -103,11 +108,35 @@ export class MyDataComponent implements OnInit {
         this._router.navigate([`${this.rota}`]);
     }
 
-    modifyPassword(isHabilit: boolean = false) {
-        if (isHabilit) {
-            this.isHabilit = true;
-            return;
+    async modifyPassword() {
+        this.loading = true;
+        this._apiService.updatePassword({
+            newPassword: this.formGroup.controls.step2.value.novaSenha,
+            actualPassword: this.formGroup.controls.step2.value.senhaAtual
+        })
+            .subscribe(res => {
+                this.loading = false;
+                if (res && res.error) {
+                    this._dialogService.showToast(`${res.error}`, null, null);
+                } else {
+                    this._dialogService.showToast('Senha alterada com sucesso!', null, null);
+                }
+            })
+    }
+
+    verifyPassword() {
+        const password1 = this.formGroup.controls.step2.value.novaSenha;
+        const password2 = this.formGroup.controls.step2.value.confirmarSenha;
+        const isValid = password1 === password2;
+
+        if (!isValid) {
+            this.notValid = true;
+            (this.formGroup.controls.step2 as any).controls.confirmarSenha.setErrors('notValid')
+        } else {
+            this.notValid = false;
         }
+
+        this._dc.detectChanges();
     }
 
     private convertModel(object) {

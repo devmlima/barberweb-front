@@ -20,12 +20,12 @@
             <div>
                 <div class="hidden sm:flex flex-wrap items-center font-medium">
                     <div>
-                        <a class="whitespace-nowrap text-primary-500">Operações</a>
+                        <a class="whitespace-nowrap text-primary-500">Operação</a>
                     </div>
                     <div class="flex items-center ml-1 whitespace-nowrap">
                         <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-right'">
                         </mat-icon>
-                        <span class="ml-1 text-secondary">Agenda</span>
+                        <span class="ml-1 text-secondary">Realizado</span>
                     </div>
                     <div class="flex items-center ml-1 whitespace-nowrap">
                         <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-right'">
@@ -58,7 +58,7 @@
                         sm:leading-10
                         truncate
                     ">
-                    Formulario de Agendamento
+                    Formulario de Realizado
                 </h2>
             </div>
         </div>
@@ -67,6 +67,7 @@
     <!-- Main -->
     <div class="flex-auto p-6 sm:p-10 overflow-y-auto" cdkScrollable>
         <form class="p-4 bg-card shadow rounded overflow-hidden" [formGroup]="formGroup">
+            <span *ngIf="!isNew" [ngClass]="getClass()">Agendamento {{getSchedule()}}</span>
             <mat-vertical-stepper [linear]="true" #verticalStepper>
                 <mat-step [formGroupName]="'step1'" [stepControl]="formGroup.get('step1')" #verticalStepperStep1>
                     <ng-template matStepLabel>Informações Básicas</ng-template>
@@ -80,10 +81,9 @@
 
                     <div class="flex">
                         <mat-form-field class="flex-auto">
-                            <mat-label>Valor do serviço</mat-label>
-                            <input matInput [formControlName]="'valor'"
-                                [placeholder]="'Valor serviço'" />
-                            <mat-icon class="icon-size-5" matPrefix>pin</mat-icon>
+                            <mat-label>Valor</mat-label>
+                            <input matInput [formControlName]="'valor'" [placeholder]="'Valor'" />
+                            <mat-icon class="icon-size-5" matPrefix>paid</mat-icon>
                             <mat-error *ngIf="
                                     formGroup
                                         .get('step1')

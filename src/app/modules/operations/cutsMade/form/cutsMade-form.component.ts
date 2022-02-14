@@ -8,13 +8,13 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { iif } from 'rxjs';
 
 @Component({
-    selector: 'schedule-form',
-    templateUrl: './schedule-form.component.html',
-    styleUrls: ['./schedule-form.component.scss'],
+    selector: 'cutsMade-form',
+    templateUrl: './cutsMade-form.component.html',
+    styleUrls: ['./cutsMade-form.component.scss'],
     encapsulation: ViewEncapsulation.None,
     animations: fuseAnimations,
 })
-export class ScheduleFormComponent implements OnInit {
+export class CutsMadeFormComponent implements OnInit {
     alert: { type: FuseAlertType; message: string } = {
         type: 'success',
         message: '',
@@ -23,7 +23,7 @@ export class ScheduleFormComponent implements OnInit {
     confirm: boolean = true;
     disable: boolean = false;
     formGroup: FormGroup;
-    rota = 'operations/schedule';
+    rota = 'operations/cutsMade';
     isNew = true;
     id: number = null;
     loading: boolean = true;
@@ -40,10 +40,10 @@ export class ScheduleFormComponent implements OnInit {
             step1: this._formBuilder.group({
                 clienteId: [null, [Validators.required]],
                 servicoId: [null, [Validators.required]],
-                valor: [null, [Validators.required]],
+                usuarioId: [null, [Validators.required]],
+                valor: ['', []],
                 hora: ['', [Validators.required, Validators.minLength(5)]],
                 dataOperacao: ['', [Validators.required, Validators.minLength(10)]],
-                confirmado: [false, []],
                 cancelado: [false, []],
             }),
         });
@@ -56,7 +56,7 @@ export class ScheduleFormComponent implements OnInit {
             this.id = params.id;
             if (this.id) {
                 this._apiService
-                    .scheduleFindById(params.id)
+                    .cutsMadeFindById(params.id)
                     .subscribe((res) => {
                         if (res) {
                             this.convertForm(res);
@@ -78,8 +78,8 @@ export class ScheduleFormComponent implements OnInit {
             const object = this.convertModel(this.formGroup.value);
             iif(
                 () => this.isNew,
-                this._apiService.createSchedule(object),
-                this._apiService.updateSchedule(object)
+                this._apiService.createcutsMade(object),
+                this._apiService.updatecutsMade(object)
             ).subscribe(
                 (res) => {
                     this.alert = {
@@ -111,7 +111,7 @@ export class ScheduleFormComponent implements OnInit {
         this._router.navigate([`${this.rota}`]);
     }
 
-    getSchedule(): string {
+    getCutsMade(): string {
         return this.confirm ? 'CONFIRMADO' : 'CANCELADO';
     }
 
@@ -123,20 +123,18 @@ export class ScheduleFormComponent implements OnInit {
         const objectReturn = {
             id: null,
             hora: null,
-            confirmado: null,
             cancelado: null,
+            usuarioId: null,
             clienteId: null,
             servicoId: null,
             dataOperacao: null,
-            valor: null,
         };
 
         objectReturn.id = this.id;
         objectReturn.hora = object.step1.hora;
-        objectReturn.confirmado = object.step1.confirmado;
         objectReturn.cancelado = object.step1.cancelado;
         objectReturn.dataOperacao = object.step1.dataOperacao;
-        objectReturn.valor = object.step1.valor;
+        objectReturn.usuarioId = get(object, 'step1.usuario.id', null);
         objectReturn.clienteId = get(object, 'step1.clienteId.id', null);
         objectReturn.servicoId = get(object, 'step1.servicoId.id', null);
 
@@ -148,15 +146,13 @@ export class ScheduleFormComponent implements OnInit {
             id: object.id,
             hora: object.hora,
             dataOperacao: object.dataOperacao,
+            usuarioId: object.user,
             clienteId: object.client,
             servicoId: object.service,
-            confirmado: object.confirmado,
             cancelado: object.cancelado,
-            valor: object.valor,
         };
 
         this.formGroup.get('step1').patchValue(step1);
-        this.confirm = step1.confirmado;
 
         if (step1.cancelado) {
             this.formGroup.disable();
