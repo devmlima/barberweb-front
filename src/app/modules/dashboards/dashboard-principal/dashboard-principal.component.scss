@@ -1,0 +1,60 @@
+@import "../../../../@fuse/scss/fuse";
+
+.all {
+    margin: 16px;
+}
+
+.container-contents {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.content {
+    background-color: #FFF;
+    border-radius: 8px;
+
+    width: 30%;
+    height: 6em;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+}
+
+.content span {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.container-canvas {
+    background-color: #FFF;
+    margin-top: 14px;
+
+    display: flex;
+    
+    width: 95%;
+    height: 33em;
+    margin-left: 40px;
+    border-radius: 8px;
+
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 752px)  {
+    .container-contents {
+        flex-direction: column;
+    }
+
+    .content {
+        width: 95%;
+        margin: 12px 40px;
+
+        justify-content: center
+    }
+}

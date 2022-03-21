@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from './../../../shared/shared.module';
 import { DialogsModule } from '@fuse/services/dialogs/dialogs.module';
 import { dashboardRoutes } from './dashboard-principal.routing';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { dashboardRoutes } from './dashboard-principal.routing';
         MatInputModule,
         MatProgressSpinnerModule,
         SharedModule,
-        DialogsModule
+        DialogsModule,
+        ChartsModule,
     ],
 })
 export class DashboardModule {}

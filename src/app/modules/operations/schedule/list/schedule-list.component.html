@@ -117,7 +117,7 @@
                 </mat-header-cell>
                 <mat-cell class="actions-cell" *matCellDef="let element">
                     <button type="button" mat-icon-button [matMenuTriggerFor]="actionsMenu"
-                        (click)="$event.stopPropagation()">
+                        (click)="$event.stopPropagation()" *ngIf="!element.confirmado">
                         <mat-icon>more_horiz</mat-icon>
                     </button>
                     <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">
