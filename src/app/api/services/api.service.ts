@@ -485,4 +485,24 @@ export class ApiService {
             params
         );
     }
+
+    dashCutsAll(): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(environment.apiUrl + `/dashboard/cutsAll`, params);
+    }
+
+    dashFaturamentAll(): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(environment.apiUrl + `/dashboard/faturamentAll`, params);
+    }
+
+    userMonth(): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(environment.apiUrl + `/dashboard/userMonth`, params);
+    }
+
+    faturamentForUser(): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(environment.apiUrl + `/dashboard/faturamentForUser`, params);
+    }
 }

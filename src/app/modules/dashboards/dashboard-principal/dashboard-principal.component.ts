@@ -1,3 +1,4 @@
+import { ApiService } from './../../../api/services/api.service';
 import { defaultChartConfig, defaultLineChartConfig } from './dashboard.helper';
 import { FuseAlertType } from './../../../../@fuse/components/alert/alert.types';
 import { fuseAnimations } from './../../../../@fuse/animations/public-api';
@@ -35,30 +36,73 @@ export class DashboardPrincipalComponent implements OnInit {
         }]
     };
 
+    configScheduleCanceled: any = {
+        labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+        dataset: [{
+            label: 'Qtd. de Agendamentos Cancelados',
+            data: [0, 2, 2, 8, 1, 1, 13],
+        }]
+    };
+
     configFaturament: any = {
         labels: ['15/03/2022', '16/03/2022', '17/03/2022', '18/03/2022', '19/03/2022', '20/03/2022', '21/03/2022'],
         dataset: [{
-            label: 'Faturamento em R$ dos ultimos 7 dias',
+            label: 'Faturamento em R$ nos ultimos 7 dias',
             data: [430.31,  800.20,  1090.02,  4590.91,  5871.37,  0.0,  90.01],
             hoverOffset: 4
         }]
     };
 
     configUser: any = {
-        labels: ['Matheus', 'Gabi', 'Pamela'],
+        labels: [],
         dataset: [{
-            label: 'Faturamento em R$ dos ultimos 7 dias',
-            data: [4300.31,  2800.20,  3100.02,],
+            data: [],
             hoverOffset: 4
         }]
     };
 
     chartOptions = defaultChartConfig;
     chartLineOptions = defaultLineChartConfig;
+    countCutsAll = 0;
+    faturament = `R$ 0`;
+    userMonth = ``;
 
-    constructor() { }
+    constructor(
+        private readonly apiService: ApiService,
+    ) { }
 
     ngOnInit(): void {
-        console.log('to na dash')
+        this.loading = true;
+
+        this.cutsAll();
+        this.faturamentAll();
+        this.userBest();
+        this.faturamentForUser();
+    }
+
+    cutsAll() {
+        this.apiService.dashCutsAll().subscribe(res => {
+            this.countCutsAll = res;
+        });
+    }
+
+    faturamentAll() {
+        this.apiService.dashFaturamentAll().subscribe(res => {
+            this.faturament = res;
+        });
+    }
+
+    userBest() {
+        this.apiService.userMonth().subscribe(res => {
+            this.userMonth = res;
+        });
+    }
+
+    faturamentForUser() {
+        this.apiService.faturamentForUser().subscribe(res => {
+            this.configUser.labels = res.labels;
+            this.configUser.dataset[0].data = res.data;
+            this.loading = false;
+        });
     }
 }

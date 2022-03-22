@@ -52,31 +52,24 @@
                 </h2>
             </div>
         </div>
-        <!-- Actions -->
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <button class="ml-3" mat-flat-button [color]="'accent'" (click)="newForm()">
-                <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
-                Filtros
-            </button>
-        </div>
     </div>
 
     <!-- dashs -->
     <div class="all overflow-y-auto">
         <div class="container-contents" cdkScrollable>
             <div class="content">
-                <label>Funcionário do mês</label>
-                <span>Matheus Lima</span>
+                <label>Funcionário destaque</label>
+                <span>{{userMonth}}</span>
             </div>
 
             <div class="content">
                 <label>Quantidade total de cortes</label>
-                <span>60</span>
+                <span>{{countCutsAll}}</span>
             </div>
 
             <div class="content">
                 <label>Valor total faturado</label>
-                <span>R$ 38.549,35</span>
+                <span>{{faturament}}</span>
             </div>
         </div>
 
@@ -100,6 +93,12 @@
 
         <div class="container-canvas" cdkScrollable>
             <canvas baseChart [datasets]="configSchedule.dataset" [labels]="configSchedule.labels"
+                [options]="chartOptions" chartType="bar">
+            </canvas>
+        </div>
+
+        <div class="container-canvas" cdkScrollable>
+            <canvas baseChart [datasets]="configScheduleCanceled.dataset" [labels]="configSchedule.labels"
                 [options]="chartOptions" chartType="bar">
             </canvas>
         </div>
