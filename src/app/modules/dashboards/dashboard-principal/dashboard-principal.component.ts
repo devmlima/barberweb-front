@@ -1,9 +1,9 @@
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { fuseAnimations } from './../../../../@fuse/animations/public-api';
+import { FuseAlertType } from './../../../../@fuse/components/alert/alert.types';
 import { ApiService } from './../../../api/services/api.service';
 import { defaultChartConfig, defaultLineChartConfig } from './dashboard.helper';
-import { FuseAlertType } from './../../../../@fuse/components/alert/alert.types';
-import { fuseAnimations } from './../../../../@fuse/animations/public-api';
 
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
 @Component({
     selector: 'dashboard-principal',
@@ -45,10 +45,10 @@ export class DashboardPrincipalComponent implements OnInit {
     };
 
     configFaturament: any = {
-        labels: ['15/03/2022', '16/03/2022', '17/03/2022', '18/03/2022', '19/03/2022', '20/03/2022', '21/03/2022'],
+        labels: [],
         dataset: [{
-            label: 'Faturamento em R$ nos ultimos 7 dias',
-            data: [430.31,  800.20,  1090.02,  4590.91,  5871.37,  0.0,  90.01],
+            label: 'Faturamento em R$ nos últimos 7 dias',
+            data: [],
             hoverOffset: 4
         }]
     };
@@ -77,7 +77,11 @@ export class DashboardPrincipalComponent implements OnInit {
         this.cutsAll();
         this.faturamentAll();
         this.userBest();
+        this.faturamentLastSevenDays();
         this.faturamentForUser();
+        this.servicesMades();
+        this.schedules();
+        this.schedulesCanceled();
     }
 
     cutsAll() {
@@ -98,10 +102,39 @@ export class DashboardPrincipalComponent implements OnInit {
         });
     }
 
+    faturamentLastSevenDays() {
+        this.apiService.faturamentLastSevenDays().subscribe(res => {
+            this.configFaturament.labels = res.labels;
+            this.configFaturament.dataset[0].data = res.data;
+        });
+    }
+    
     faturamentForUser() {
         this.apiService.faturamentForUser().subscribe(res => {
             this.configUser.labels = res.labels;
             this.configUser.dataset[0].data = res.data;
+        });
+    }
+    
+    servicesMades() {
+        this.apiService.servicesMades().subscribe(res => {
+            this.configServices.labels = res.labels;
+            this.configServices.dataset[0].data = res.data;
+        });
+    }
+    
+    schedules() {
+        this.apiService.schedules().subscribe(res => {
+            this.configSchedule.labels = res.labels;
+            this.configSchedule.dataset[0].data = res.data;
+        });
+    }
+    
+    schedulesCanceled() {
+        this.apiService.schedulesCanceled().subscribe(res => {
+            this.configScheduleCanceled.labels = res.labels;
+            this.configScheduleCanceled.dataset[0].data = res.data;
+
             this.loading = false;
         });
     }

@@ -1,17 +1,16 @@
-import { environment } from './../../../environments/environment';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable, Injector } from '@angular/core';
+import { Router } from '@angular/router';
+import { get } from 'lodash';
+import { Observable, throwError } from 'rxjs';
 /* eslint-disable arrow-body-style */
 /* eslint-disable @typescript-eslint/member-ordering */
-
 import { catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
-
-import { Router } from '@angular/router';
-import { Injector, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-
-import { get } from 'lodash';
-
+import { environment } from './../../../environments/environment';
 import { UserLoggedService } from './userLogged.service';
+
+
+
 
 @Injectable()
 export class ApiService {
@@ -504,5 +503,25 @@ export class ApiService {
     faturamentForUser(): Observable<any> {
         const params: any = this.getHeaders(true);
         return this.http.get(environment.apiUrl + `/dashboard/faturamentForUser`, params);
+    }
+
+    faturamentLastSevenDays(): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(environment.apiUrl + `/dashboard/faturamentLastSevenDays`, params);
+    }
+
+    servicesMades(): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(environment.apiUrl + `/dashboard/servicesMades`, params);
+    }
+
+    schedules(): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(environment.apiUrl + `/dashboard/schedules`, params);
+    }
+
+    schedulesCanceled(): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.get(environment.apiUrl + `/dashboard/schedulesCanceled`, params);
     }
 }

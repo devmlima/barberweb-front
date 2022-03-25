@@ -46,6 +46,12 @@
     justify-content: center;
 }
 
+.loading {
+    display: flex;
+    margin: 0 auto;
+    z-index: 1;
+}
+
 @media only screen and (max-width: 752px)  {
     .container-contents {
         flex-direction: column;
