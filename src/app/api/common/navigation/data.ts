@@ -68,6 +68,35 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type: 'divider'
     },
     {
+        id: 'report',
+        title: 'Relatórios',
+        classes: {
+            title: 'color-navigation'
+        },
+        subtitle: 'Relatórios da barbearia',
+        type: 'group',
+        children: [
+            {
+                id: 'client',
+                title: 'Rel. Clientes',
+                type: 'basic',
+                icon: 'groups',
+                link: '/report/client',
+            },
+            {
+                id: 'services',
+                title: 'Rel. Serviços Realizados',
+                type: 'basic',
+                icon: 'design_services',
+                link: '/report/service',
+            },
+        ],
+    },
+    {
+        id: 'divider',
+        type: 'divider'
+    },
+    {
         id: 'auth',
         title: 'Autenticação',
         classes: {

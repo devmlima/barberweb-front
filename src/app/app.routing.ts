@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable max-len */
 import { Route } from '@angular/router';
+import { InitialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
-import { InitialDataResolver } from 'app/app.resolvers';
 
 // @formatter:off
 // tslint:disable:max-line-length
@@ -125,6 +125,33 @@ export const appRoutes: Route[] = [
                     import(
                         'app/modules/dashboards/dashboard-principal/dashboard-principal.module'
                     ).then((m) => m.DashboardModule),
+            },
+        ],
+    },
+
+    // Reports routes
+    {
+        path: 'report',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        component: LayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+        children: [
+            {
+                path: 'client',
+                loadChildren: () =>
+                    import(
+                        'app/modules/reports/rel-client/rel-client.module'
+                    ).then((m) => m.RelClientModule),
+            },
+            {
+                path: 'service',
+                loadChildren: () =>
+                    import(
+                        'app/modules/reports/rel-services/rel-services.module'
+                    ).then((m) => m.RelServicesModule),
             },
         ],
     },
