@@ -1,0 +1,14 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between center">
+    Filtro avançado
+    <button tabindex="-1" mat-icon-button (click)="close()" matTooltip="Fechar">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content>
+    <client-select [(ngModel)]="client" ></client-select>
+    <service-select [(ngModel)]="service" ></service-select>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="end center">
+    <button mat-raised-button (click)="close()">Voltar</button>
+    <button [color]="'accent'" mat-raised-button class="accent" (click)="salvar()">Filtrar</button>
+</mat-dialog-actions>

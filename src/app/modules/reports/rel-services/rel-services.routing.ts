@@ -3,7 +3,7 @@ import { RelServicesComponent } from './rel-services.component';
 
 export const relServicesRoutes: Route[] = [
     {
-        path: 'service',
+        path: '',
         component: RelServicesComponent,
     },
 ];

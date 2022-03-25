@@ -140,7 +140,7 @@ export const appRoutes: Route[] = [
         },
         children: [
             {
-                path: 'client',
+                path: 'rel-client',
                 loadChildren: () =>
                     import(
                         'app/modules/reports/rel-client/rel-client.module'

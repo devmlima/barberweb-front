@@ -1,0 +1,17 @@
+
+.loading {
+    display: flex;
+    margin: 0 auto;
+    z-index: 1;
+}
+
+.content {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-table {
+    width: 70%;
+}

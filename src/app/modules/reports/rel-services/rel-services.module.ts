@@ -9,12 +9,16 @@ import { RouterModule } from '@angular/router';
 import { DialogsModule } from '@fuse/services/dialogs/dialogs.module';
 import { ChartsModule } from 'ng2-charts';
 import { SharedModule } from '../../../shared/shared.module';
+import { FilterServiceDialog } from './dialogs/filter-service.dialog';
 import { RelServicesComponent } from './rel-services.component';
 import { relServicesRoutes } from './rel-services.routing';
 
 @NgModule({
     declarations: [
-        RelServicesComponent
+        RelServicesComponent,
+        
+        // dialogs
+        FilterServiceDialog,
     ],
     imports: [
         RouterModule.forChild(relServicesRoutes),

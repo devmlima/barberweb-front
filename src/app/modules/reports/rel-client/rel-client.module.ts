@@ -7,17 +7,23 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import { DialogsModule } from '@fuse/services/dialogs/dialogs.module';
-import { ChartsModule } from 'ng2-charts';
+import { CustomsSelectModule } from './../../../customs-select/customs-select.module';
 import { SharedModule } from './../../../shared/shared.module';
+import { FilterClientDialog } from './dialogs/filter-client.dialog';
 import { RelClientComponent } from './rel-client.component';
 import { relClientRoutes } from './rel-client.routing';
 
 
 @NgModule({
     declarations: [
-        RelClientComponent
+        RelClientComponent,
+
+        // dialogs
+        FilterClientDialog
     ],
     imports: [
+        CustomsSelectModule,
+
         RouterModule.forChild(relClientRoutes),
         MatButtonModule,
         MatCheckboxModule,
@@ -27,7 +33,6 @@ import { relClientRoutes } from './rel-client.routing';
         MatProgressSpinnerModule,
         SharedModule,
         DialogsModule,
-        ChartsModule,
     ],
 })
-export class RelClientModule {}
+export class RelClientModule { }

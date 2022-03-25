@@ -81,7 +81,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Rel. Clientes',
                 type: 'basic',
                 icon: 'groups',
-                link: '/report/client',
+                link: '/report/rel-client',
             },
             {
                 id: 'services',

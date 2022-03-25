@@ -3,7 +3,7 @@ import { RelClientComponent } from './rel-client.component';
 
 export const relClientRoutes: Route[] = [
     {
-        path: 'client',
+        path: '',
         component: RelClientComponent,
     },
 ];
