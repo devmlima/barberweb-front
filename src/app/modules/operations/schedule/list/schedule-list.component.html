@@ -63,6 +63,10 @@
                 <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
                 Novo
             </button>
+            <button class="ml-3" mat-flat-button [color]="'accent'" (click)="newForm()">
+                <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
+                Gerar planilha
+            </button>
         </div>
     </div>
 
@@ -121,10 +125,6 @@
                         <mat-icon>more_horiz</mat-icon>
                     </button>
                     <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">
-                        <button *ngIf="!element.cancelado" mat-menu-item (click)="print(element)">
-                            <mat-icon>print</mat-icon>
-                            <span>Imprimir</span>
-                        </button>
                         <button *ngIf="!element.cancelado" mat-menu-item (click)="editRow(element)">
                             <mat-icon>edit</mat-icon>
                             <span>Editar</span>

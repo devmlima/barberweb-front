@@ -1,17 +1,13 @@
-import { get } from 'lodash-es';
-import { DialogService } from './../../../../../@fuse/services/dialogs/dialog.service';
-import { Router } from '@angular/router';
-import { ApiService } from './../../../../api/services/api.service';
-import { FuseAlertType } from './../../../../../@fuse/components/alert/alert.types';
-import { fuseAnimations } from './../../../../../@fuse/animations/public-api';
 import {
-    Component,
-    ViewEncapsulation,
-    OnInit,
-    ChangeDetectorRef,
-    ViewChild,
+    ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation
 } from '@angular/core';
 import { MatTable } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { get } from 'lodash-es';
+import { fuseAnimations } from './../../../../../@fuse/animations/public-api';
+import { FuseAlertType } from './../../../../../@fuse/components/alert/alert.types';
+import { DialogService } from './../../../../../@fuse/services/dialogs/dialog.service';
+import { ApiService } from './../../../../api/services/api.service';
 
 export interface CutsMadeModel {
     nome: string;
@@ -33,7 +29,7 @@ export class CutsMadeListComponent implements OnInit {
     loading: boolean = true;
     showAlert: boolean = false;
     dataSource: any = [];
-    displayedColumns: string[] = ['servicoId', 'clienteId', 'usuarioId', 'data', 'hora', 'confirmado', 'cancelado', 'actions'];
+    displayedColumns: string[] = ['servicoId', 'clienteId', 'usuarioId', 'data', 'hora', 'valor', 'confirmado', 'cancelado', 'actions'];
 
     rota = 'operations/cutsMade';
     widthScreen = window.screen.width;
@@ -62,6 +58,77 @@ export class CutsMadeListComponent implements OnInit {
         this.router.navigate([`${this.rota}/form`]);
     }
 
+
+    print(row): void {
+        let width = null;
+
+        if (+this.widthScreen < 450) {
+            width = '265px;';
+        }
+
+        this.dialogService
+            .confirm(
+                'Tem certeza que deseja deseja imprimir este comprovante?',
+                'Imprimir comprovante',
+                true,
+                { btnOkText: 'SIM', width }
+            )
+            .then((res) => {
+                if (res) {
+                    this.loading = true;
+                    const day = row.data.split('/')[0];
+                    const month = this.renderMonth(row.data.split('/')[1])
+                    const year = row.data.split('/')[2];
+
+                    const data = {
+                        date: `${day} ${month} ${year}, ${row.hora}`,
+                        valor: `R$ ${row.valor.replace('.', ',')}`,
+                        pagador: String(row.client.nome).toUpperCase(),
+                        servico: String(row.service.descricao).toUpperCase()
+                    };
+
+                    this._api.print(data).subscribe(res => {
+                        this.loading = false;
+                        if (res) {
+                            window.open(res, '_blank');
+                        }
+                    });
+                }
+            });
+
+    }
+
+    renderMonth(month) {
+        switch (+month) {
+            case 1:
+                return 'JAN';
+            case 2:
+                return 'FEV';
+            case 3:
+                return 'MAR';
+            case 4:
+                return 'ABR';
+            case 5:
+                return 'MAI';
+            case 6:
+                return 'JUN';
+            case 7:
+                return 'JUL';
+            case 8:
+                return 'AGO';
+            case 9:
+                return 'SET';
+            case 10:
+                return 'OUT';
+            case 11:
+                return 'NOV';
+            case 12:
+                return 'DEZ';
+            default:
+                return 'JAN'
+        }
+    }
+
     getElement(type: string, element: any): string {
         switch (type) {
             case 'confirmado':
@@ -75,6 +142,12 @@ export class CutsMadeListComponent implements OnInit {
                 return get(element, 'nome', 'Cliente não informado');
             case 'usuario':
                 return get(element, 'nome', 'Colaborador não informado');
+            case 'valor':
+                if (!element) {
+                    return '';
+                }
+
+                return `R$ ${String(element).replace('.', ',')}`
             default:
                 return '';
         }

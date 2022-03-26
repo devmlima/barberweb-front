@@ -546,4 +546,9 @@ export class ApiService {
         }
         return this.http.get(environment.apiUrl + `/dashboard/relServices`, params);
     }
+
+    print(data): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.post(environment.apiUrl + `/cutsMade/print`, data, params);
+    }
 }

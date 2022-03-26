@@ -76,10 +76,6 @@ export class ScheduleListComponent implements OnInit {
         this.router.navigate([`${this.rota}/form`, { id: row.id }]);
     }
 
-    print(row): void {
-        this.router.navigate([`${this.rota}/form`, { id: row.id }]);
-    }
-
     deleteRow(row) {
         let width = null;
 
