@@ -2,7 +2,7 @@
     <img src="assets/icons/loadingapp.svg" alt="Carregando...">
 </div>
 
-<div *ngIf="!loading" class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
     <!-- Header -->
     <div class="
             flex flex-col
@@ -70,9 +70,9 @@
         </div>
     </div>
 
-    <div class="flex-auto content p-6 sm:p-10 overflow-y-auto" cdkScrollable
+    <div *ngIf="!loading && dataSource.length > 0" class="flex-auto content-rel p-6 sm:p-10 overflow-y-auto" cdkScrollable
         [ngClass]="{ hidden: dataSource.length == 0 }">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 content-table">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 content-rel-table">
             <ng-container matColumnDef="servico">
                 <th mat-header-cell *matHeaderCellDef>SERVIÇO</th>
                 <td mat-cell *matCellDef="let element">
@@ -96,4 +96,8 @@
         </table>
     </div>
 
+</div>
+
+<div class="content-rel-img" *ngIf="!loading && dataSource.length === 0">
+    <img src="../../../../assets/images/search-rel.svg" alt="Imagem de pesquisar">
 </div>

@@ -126,6 +126,12 @@
                             <span>Cancelar</span>
                         </button>
                     </mat-menu>
+                    <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">
+                        <button mat-menu-item (click)="cancelRow(element)">
+                            <mat-icon>confirm</mat-icon>
+                            <span>Gerar comprovante</span>
+                        </button>
+                    </mat-menu>
                 </mat-cell>
             </ng-container>
 

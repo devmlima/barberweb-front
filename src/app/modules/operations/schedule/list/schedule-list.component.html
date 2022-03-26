@@ -121,6 +121,10 @@
                         <mat-icon>more_horiz</mat-icon>
                     </button>
                     <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">
+                        <button *ngIf="!element.cancelado" mat-menu-item (click)="print(element)">
+                            <mat-icon>print</mat-icon>
+                            <span>Imprimir</span>
+                        </button>
                         <button *ngIf="!element.cancelado" mat-menu-item (click)="editRow(element)">
                             <mat-icon>edit</mat-icon>
                             <span>Editar</span>

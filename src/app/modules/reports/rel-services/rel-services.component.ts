@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { fuseAnimations } from '../../../../@fuse/animations/public-api';
+import { ApiService } from './../../../api/services/api.service';
 import { FilterServiceDialog } from './dialogs/filter-service.dialog';
 
 @Component({
@@ -14,33 +15,13 @@ import { FilterServiceDialog } from './dialogs/filter-service.dialog';
 export class RelServicesComponent implements OnInit {
     loading = false;
     displayedColumns: string[] = ['servico', 'totalClientes', 'total'];
-    dataSource = [
-        {
-            servico: 'Corte + Barba',
-            totalClientes: 6,
-            total: 'R$ 470,00'
-        },
-        {
-            servico: 'Corte + Barba + Pintura',
-            totalClientes: 3,
-            total: 'R$ 195,00'
-        },
-        {
-            servico: 'Corte + Barba + Sobrancelha',
-            totalClientes: 4,
-            total: 'R$ 280,00'
-        },
-        {
-            servico: 'Totais',
-            totalClientes: 13,
-            total: 'R$ 1045,00'
-        },
-    ];
+    dataSource = [];
 
     @ViewChild(MatTable) table: MatTable<any>;
 
     constructor(
         protected _dialog: MatDialog,
+        private readonly _api: ApiService,
     ) { }
 
     ngOnInit(): void {
@@ -56,11 +37,16 @@ export class RelServicesComponent implements OnInit {
             })
             .afterClosed()
             .subscribe((res) => {
-                console.log(res);
+                this.search(res);
             }
             );
     }
 
-    search(): void {
+    search(query = null): void {
+        this.loading = true;
+        this._api.relServices(query).subscribe(res => {
+            this.loading = false;
+            this.dataSource = res;
+        })
     }
 }

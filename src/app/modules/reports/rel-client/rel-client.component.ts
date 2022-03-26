@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { fuseAnimations } from './../../../../@fuse/animations/public-api';
+import { ApiService } from './../../../api/services/api.service';
 import { FilterClientDialog } from './dialogs/filter-client.dialog';
 
 @Component({
@@ -14,43 +15,13 @@ import { FilterClientDialog } from './dialogs/filter-client.dialog';
 export class RelClientComponent implements OnInit {
     loading = false;
     displayedColumns: string[] = ['cliente', 'servico', 'data', 'total'];
-    dataSource = [
-        {
-            cliente: 'Lucio',
-            servico: 'Corte + Barba',
-            data: '25/03/2022',
-            total: 'R$ 470,00'
-        },
-        {
-            cliente: 'Jorge',
-            servico: 'Corte + Barba',
-            data: '17/03/2022',
-            total: 'R$ 100,00'
-        },
-        {
-            cliente: 'Jhon',
-            servico: 'Corte + Barba + Pintura',
-            data: '17/03/2022',
-            total: 'R$ 195,00'
-        },
-        {
-            cliente: 'Roberto',
-            servico: 'Corte + Barba + Sobrancelha',
-            data: '25/03/2022',
-            total: 'R$ 280,00'
-        },
-        {
-            cliente: 'Totais',
-            servico: '-',
-            data: '-',
-            total: 'R$ 1045,00'
-        },
-    ];
+    dataSource = [];
 
     @ViewChild(MatTable) table: MatTable<any>;
 
     constructor(
         protected _dialog: MatDialog,
+        private readonly _api: ApiService,
     ) { }
 
     ngOnInit(): void {
@@ -66,11 +37,16 @@ export class RelClientComponent implements OnInit {
             })
             .afterClosed()
             .subscribe((res) => {
-                console.log(res);
+               this.search(res);
             }
             );
     }
 
-    search(): void {
+    search(query = null): void {
+        this.loading = true;
+        this._api.relClient(query).subscribe(res => {
+            this.loading = false;
+            this.dataSource = res;
+        })
     }
 }

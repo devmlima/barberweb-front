@@ -5,13 +5,20 @@
     z-index: 1;
 }
 
-.content {
+.content-rel {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
     align-items: center;
 }
 
-.content-table {
+.content-rel-table {
     width: 70%;
+}
+
+.content-rel-img {
+    display: flex;
+    flex: 1;
+    max-width: 35em;
+    margin: 0 auto;
 }

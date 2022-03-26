@@ -18,7 +18,7 @@ export class ApiService {
         private http: HttpClient,
         private injector: Injector,
         private readonly _userLogged: UserLoggedService
-    ) {}
+    ) { }
 
     private getHeaders(appendAuth: boolean = false): any {
         let headers: HttpHeaders = new HttpHeaders();
@@ -40,7 +40,7 @@ export class ApiService {
                 catchError((error) => {
                     return throwError(
                         get(error, 'error.message', null) ||
-                            'Erro ao realizar login, verifique sua rede de dados.'
+                        'Erro ao realizar login, verifique sua rede de dados.'
                     );
                 })
             );
@@ -57,7 +57,7 @@ export class ApiService {
                 catchError((error) => {
                     return throwError(
                         get(error, 'error.message', null) ||
-                            'Erro ao realizar o cadastro, verifique sua rede de dados.'
+                        'Erro ao realizar o cadastro, verifique sua rede de dados.'
                     );
                 })
             );
@@ -74,7 +74,7 @@ export class ApiService {
                 catchError((error) => {
                     return throwError(
                         get(error, 'error.message', null) ||
-                            'Erro ao realizar criar o usuário, verifique sua rede de dados.'
+                        'Erro ao realizar criar o usuário, verifique sua rede de dados.'
                     );
                 })
             );
@@ -91,7 +91,7 @@ export class ApiService {
                 catchError((error) => {
                     return throwError(
                         get(error, 'error.message', null) ||
-                            'Erro ao realizar criar o usuário, verifique sua rede de dados.'
+                        'Erro ao realizar criar o usuário, verifique sua rede de dados.'
                     );
                 })
             );
@@ -110,7 +110,7 @@ export class ApiService {
 
                     return throwError(
                         get(error, 'error.text', null) ||
-                            'Erro ao atualizar o usuário, verifique sua rede de dados.'
+                        'Erro ao atualizar o usuário, verifique sua rede de dados.'
                     );
                 })
             );
@@ -158,7 +158,7 @@ export class ApiService {
                 catchError((error) => {
                     return throwError(
                         get(error, 'error.message', null) ||
-                            'Erro ao realizar criar o usuário, verifique sua rede de dados.'
+                        'Erro ao realizar criar o usuário, verifique sua rede de dados.'
                     );
                 })
             );
@@ -175,7 +175,7 @@ export class ApiService {
                 catchError((error) => {
                     return throwError(
                         get(error, 'error.text', null) ||
-                            'Erro ao atualizar o perfil, verifique sua rede de dados.'
+                        'Erro ao atualizar o perfil, verifique sua rede de dados.'
                     );
                 })
             );
@@ -219,7 +219,7 @@ export class ApiService {
                 catchError((error) => {
                     return throwError(
                         get(error, 'error.message', null) ||
-                            'Erro ao realizar criar o usuário, verifique sua rede de dados.'
+                        'Erro ao realizar criar o usuário, verifique sua rede de dados.'
                     );
                 })
             );
@@ -236,7 +236,7 @@ export class ApiService {
                 catchError((error) => {
                     return throwError(
                         get(error, 'error.text', null) ||
-                            'Erro ao atualizar o cliente, verifique sua rede de dados.'
+                        'Erro ao atualizar o cliente, verifique sua rede de dados.'
                     );
                 })
             );
@@ -280,7 +280,7 @@ export class ApiService {
                 catchError((error) => {
                     return throwError(
                         get(error, 'error.message', null) ||
-                            'Erro ao realizar criar o usuário, verifique sua rede de dados.'
+                        'Erro ao realizar criar o usuário, verifique sua rede de dados.'
                     );
                 })
             );
@@ -297,7 +297,7 @@ export class ApiService {
                 catchError((error) => {
                     return throwError(
                         get(error, 'error.text', null) ||
-                            'Erro ao atualizar o serviço, verifique sua rede de dados.'
+                        'Erro ao atualizar o serviço, verifique sua rede de dados.'
                     );
                 })
             );
@@ -341,7 +341,7 @@ export class ApiService {
                 catchError((error) => {
                     return throwError(
                         get(error, 'error.message', null) ||
-                            'Erro ao realizar criar o usuário, verifique sua rede de dados.'
+                        'Erro ao realizar criar o usuário, verifique sua rede de dados.'
                     );
                 })
             );
@@ -358,7 +358,7 @@ export class ApiService {
                 catchError((error) => {
                     return throwError(
                         get(error, 'error.text', null) ||
-                            'Erro ao atualizar o agendamento, verifique sua rede de dados.'
+                        'Erro ao atualizar o agendamento, verifique sua rede de dados.'
                     );
                 })
             );
@@ -435,7 +435,7 @@ export class ApiService {
                 catchError((error) => {
                     return throwError(
                         get(error, 'error.message', null) ||
-                            'Erro ao realizar criar o usuário, verifique sua rede de dados.'
+                        'Erro ao realizar criar o usuário, verifique sua rede de dados.'
                     );
                 })
             );
@@ -452,7 +452,7 @@ export class ApiService {
                 catchError((error) => {
                     return throwError(
                         get(error, 'error.text', null) ||
-                            'Erro ao atualizar o agendamento, verifique sua rede de dados.'
+                        'Erro ao atualizar o agendamento, verifique sua rede de dados.'
                     );
                 })
             );
@@ -523,5 +523,27 @@ export class ApiService {
     schedulesCanceled(): Observable<any> {
         const params: any = this.getHeaders(true);
         return this.http.get(environment.apiUrl + `/dashboard/schedulesCanceled`, params);
+    }
+
+    relClient(filter): Observable<any> {
+        const params: any = this.getHeaders(true);
+        if (filter) {
+            params.params = new HttpParams().set(
+                'params',
+                JSON.stringify(filter)
+            );
+        }
+        return this.http.get(environment.apiUrl + `/dashboard/relClient`, params);
+    }
+
+    relServices(filter): Observable<any> {
+        const params: any = this.getHeaders(true);
+        if (filter) {
+            params.params = new HttpParams().set(
+                'params',
+                JSON.stringify(filter)
+            );
+        }
+        return this.http.get(environment.apiUrl + `/dashboard/relServices`, params);
     }
 }

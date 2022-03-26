@@ -1,17 +1,13 @@
-import { get } from 'lodash-es';
-import { DialogService } from './../../../../../@fuse/services/dialogs/dialog.service';
-import { Router } from '@angular/router';
-import { ApiService } from './../../../../api/services/api.service';
-import { FuseAlertType } from './../../../../../@fuse/components/alert/alert.types';
-import { fuseAnimations } from './../../../../../@fuse/animations/public-api';
 import {
-    Component,
-    ViewEncapsulation,
-    OnInit,
-    ChangeDetectorRef,
-    ViewChild,
+    ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation
 } from '@angular/core';
 import { MatTable } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { get } from 'lodash-es';
+import { fuseAnimations } from './../../../../../@fuse/animations/public-api';
+import { FuseAlertType } from './../../../../../@fuse/components/alert/alert.types';
+import { DialogService } from './../../../../../@fuse/services/dialogs/dialog.service';
+import { ApiService } from './../../../../api/services/api.service';
 
 export interface ScheduleModel {
     nome: string;
@@ -77,6 +73,10 @@ export class ScheduleListComponent implements OnInit {
     }
 
     editRow(row): void {
+        this.router.navigate([`${this.rota}/form`, { id: row.id }]);
+    }
+
+    print(row): void {
         this.router.navigate([`${this.rota}/form`, { id: row.id }]);
     }
 
