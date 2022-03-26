@@ -59,6 +59,13 @@ export const appRoutes: Route[] = [
                         (m) => m.AuthSignUpModule
                     ),
             },
+            {
+                path: 'private',
+                loadChildren: () =>
+                    import('app/modules/auth/poli-private/poli-private.module').then(
+                        (m) => m.PoliPrivateModule
+                    ),
+            },
         ],
     },
 

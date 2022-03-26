@@ -1,14 +1,14 @@
-import { SignUpCompanyDialog } from './dialogs/signUpCompany.dialog';
-import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
-import { DialogService } from './../../../../@fuse/services/dialogs/dialog.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { UserLoggedService } from './../../../api/services/userLogged.service';
-import { ApiService } from './../../../api/services/api.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertType } from '@fuse/components/alert';
+import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { DialogService } from './../../../../@fuse/services/dialogs/dialog.service';
+import { ApiService } from './../../../api/services/api.service';
+import { UserLoggedService } from './../../../api/services/userLogged.service';
+import { SignUpCompanyDialog } from './dialogs/signUpCompany.dialog';
 
 @Component({
     selector: 'auth-sign-up',

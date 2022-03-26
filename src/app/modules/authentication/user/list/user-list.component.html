@@ -111,7 +111,7 @@
                 <ng-container matColumnDef="profile">
                     <th mat-header-cell *matHeaderCellDef>Perfil</th>
                     <td mat-cell *matCellDef="let element">
-                        {{ element.profile.descricao.toUpperCase() }}
+                        {{ element.profile?.descricao.toUpperCase() }}
                     </td>
                 </ng-container>
 

@@ -1,14 +1,14 @@
-import { UserLoggedService } from './../../../api/services/userLogged.service';
-import { ApiService } from './../../../api/services/api.service';
-
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { FuseAlertType } from '@fuse/components/alert';
 import { fuseAnimations } from '@fuse/animations';
+import { FuseAlertType } from '@fuse/components/alert';
+import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { ApiService } from './../../../api/services/api.service';
+import { UserLoggedService } from './../../../api/services/userLogged.service';
 
-import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
+
+
 
 @Component({
     selector: 'auth-sign-in',
