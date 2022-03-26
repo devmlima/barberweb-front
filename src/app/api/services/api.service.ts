@@ -551,4 +551,9 @@ export class ApiService {
         const params: any = this.getHeaders(true);
         return this.http.post(environment.apiUrl + `/cutsMade/print`, data, params);
     }
+
+    excel(): Observable<any> {
+        const params: any = this.getHeaders(true);
+        return this.http.post(environment.apiUrl + `/schedule/excel`, {}, params);
+    }
 }

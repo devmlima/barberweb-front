@@ -1,16 +1,18 @@
 <div class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0">
-    <div class="relative hidden md:flex flex-auto items-center justify-center w-1/2 h-full p-16 lg:px-28 overflow-hidden bg-gray-800 dark:border-l">
-        <svg class="absolute inset-0 pointer-events-none"
-             viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <div
+        class="relative hidden md:flex flex-auto items-center justify-center w-1/2 h-full p-16 lg:px-28 overflow-hidden bg-gray-800 dark:border-l">
+        <svg class="absolute inset-0 pointer-events-none" viewBox="0 0 960 540" width="100%" height="100%"
+            preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
             <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
                 <circle r="234" cx="196" cy="23"></circle>
                 <circle r="234" cx="790" cy="491"></circle>
             </g>
         </svg>
-        <svg class="absolute -top-16 -right-16 text-gray-700"
-             viewBox="0 0 220 192" width="220" height="192" fill="none">
+        <svg class="absolute -top-16 -right-16 text-gray-700" viewBox="0 0 220 192" width="220" height="192"
+            fill="none">
             <defs>
-                <pattern id="837c3e70-6c3a-44e6-8854-cc48c737b659" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                <pattern id="837c3e70-6c3a-44e6-8854-cc48c737b659" x="0" y="0" width="20" height="20"
+                    patternUnits="userSpaceOnUse">
                     <rect x="0" y="0" width="4" height="4" fill="currentColor"></rect>
                 </pattern>
             </defs>
@@ -26,7 +28,8 @@
             </div>
         </div>
     </div>
-    <div class="md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-4 sm:p-12 md:p-16 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card">
+    <div
+        class="md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-4 sm:p-12 md:p-16 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card">
         <div class="w-full max-w-180 sm:w-180 mx-auto sm:mx-0">
             <!-- Logo -->
             <div class="w-28">
@@ -37,36 +40,23 @@
             <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">Cadastrar</div>
             <div class="flex items-baseline mt-0.5 font-medium">
                 <div>Já possui conta?</div>
-                <a
-                    class="ml-1 hover:underline"
-                    style="color: #FF941A;"
-                    [routerLink]="['/sign-in']">ENTRE
+                <a class="ml-1 hover:underline" style="color: #FF941A;" [routerLink]="['/sign-in']">ENTRE
                 </a>
             </div>
 
             <!-- Alert -->
-            <fuse-alert
-                class="mt-8 -mb-4"
-                *ngIf="showAlert"
-                [appearance]="'outline'"
-                [showIcon]="false"
-                [type]="alert.type"
-                [@shake]="alert.type === 'error'">
+            <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
+                [type]="alert.type" [@shake]="alert.type === 'error'">
                 {{alert.message}}
             </fuse-alert>
 
             <!-- Sign Up form -->
-            <form
-                class="mt-8"
-                [formGroup]="formGroup">
+            <form class="mt-8" [formGroup]="formGroup">
 
                 <!-- Name field -->
                 <mat-form-field class="w-full">
                     <mat-label>Nome</mat-label>
-                    <input
-                        id="nome"
-                        matInput
-                        formControlName="nome">
+                    <input id="nome" matInput formControlName="nome">
                     <mat-error *ngIf="formGroup.get('nome').hasError('required')">
                         Campo obrigatório
                     </mat-error>
@@ -75,10 +65,7 @@
                 <!-- Email field -->
                 <mat-form-field class="w-full">
                     <mat-label>Email</mat-label>
-                    <input
-                        id="email"
-                        matInput
-                        formControlName="email">
+                    <input id="email" matInput formControlName="email">
                     <mat-error *ngIf="formGroup.get('email').hasError('required')">
                         Campo obrigatório
                     </mat-error>
@@ -90,24 +77,13 @@
                 <!-- senha field -->
                 <mat-form-field class="w-full">
                     <mat-label>Senha</mat-label>
-                    <input
-                        id="senha"
-                        matInput
-                        type="password"
-                        formControlName="senha"
-                        #senhaField>
-                    <button
-                        mat-icon-button
-                        type="button"
+                    <input id="senha" matInput type="password" formControlName="senha" #senhaField>
+                    <button mat-icon-button type="button"
                         (click)="senhaField.type === 'password' ? senhaField.type = 'text' : senhaField.type = 'password'"
                         matSuffix>
-                        <mat-icon
-                            class="icon-size-5"
-                            *ngIf="senhaField.type === 'password'"
+                        <mat-icon class="icon-size-5" *ngIf="senhaField.type === 'password'"
                             [svgIcon]="'heroicons_solid:eye'"></mat-icon>
-                        <mat-icon
-                            class="icon-size-5"
-                            *ngIf="senhaField.type === 'text'"
+                        <mat-icon class="icon-size-5" *ngIf="senhaField.type === 'text'"
                             [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
                     </button>
                     <mat-error *ngIf="formGroup.get('senha').hasError('required')">
@@ -118,43 +94,29 @@
                 <!-- Company field -->
                 <mat-form-field class="w-full">
                     <mat-label>Razão Social</mat-label>
-                    <input
-                        id="company-confirm"
-                        matInput
-                        formControlName="razaoSocial">
-                        <mat-error *ngIf="formGroup.get('razaoSocial').hasError('required')">
-                            Campo obrigatório
-                        </mat-error>
+                    <input id="company-confirm" matInput formControlName="razaoSocial">
+                    <mat-error *ngIf="formGroup.get('razaoSocial').hasError('required')">
+                        Campo obrigatório
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="w-full">
                     <mat-label>CPF ou CPNJ</mat-label>
-                    <input
-                        id="company-confirm"
-                        matInput
-                        [value]="formGroup.get('cpfCnpj').value | cpfCnpjPipe"
-                        maxlength="18"
-                        numberOnly
-                        formControlName="cpfCnpj">
-                        <mat-error *ngIf="formGroup.get('cpfCnpj').hasError('required')">
-                            Campo obrigatório
-                        </mat-error>
+                    <input id="company-confirm" matInput [value]="formGroup.get('cpfCnpj').value | cpfCnpjPipe"
+                        maxlength="18" numberOnly formControlName="cpfCnpj">
+                    <mat-error *ngIf="formGroup.get('cpfCnpj').hasError('required')">
+                        Campo obrigatório
+                    </mat-error>
                 </mat-form-field>
 
                 <!-- Submit button -->
-                <button
-                    class="fuse-mat-button-large w-full mt-6"
-                    mat-flat-button
-                    style="background-color: #FF941A;"
-                    [disabled]="formGroup.disabled"
-                    (click)="signUp()">
+                <button class="fuse-mat-button-large w-full mt-6" mat-flat-button style="background-color: #FF941A;"
+                    [disabled]="formGroup.disabled" (click)="signUp()">
                     <span *ngIf="!formGroup.disabled" style="color: #FFF; font-weight: bold;">
                         Criar conta
                     </span>
-                    <mat-progress-spinner
-                        *ngIf="formGroup.disabled"
-                        [diameter]="24"
-                        [mode]="'indeterminate'"></mat-progress-spinner>
+                    <mat-progress-spinner *ngIf="formGroup.disabled" [diameter]="24" [mode]="'indeterminate'">
+                    </mat-progress-spinner>
                 </button>
 
                 <!-- Separator -->
@@ -166,22 +128,9 @@
 
                 <!-- Single sign-on buttons -->
                 <div class="flex items-center mt-8 space-x-4">
-                    <button
-                        class="flex-auto"
-                        type="button"
-                        (click)="authenticate('facebook')"
-                        mat-stroked-button>
+                    <button class="flex-auto" type="button" (click)="authenticate('google')" mat-stroked-button>
                         <div class="w-8">
-                            <img src="assets/icons/facebook.svg"  />
-                        </div>
-                    </button>
-                    <button
-                        class="flex-auto"
-                        type="button"
-                        (click)="authenticate('google')"
-                        mat-stroked-button>
-                        <div class="w-8">
-                            <img src="assets/icons/google.svg"  />
+                            <img src="assets/icons/google.svg" />
                         </div>
                     </button>
                 </div>

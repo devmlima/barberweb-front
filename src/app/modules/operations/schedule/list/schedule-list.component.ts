@@ -76,6 +76,16 @@ export class ScheduleListComponent implements OnInit {
         this.router.navigate([`${this.rota}/form`, { id: row.id }]);
     }
 
+    gerar(row): void {
+        this.loading = true;
+        this._api.excel().subscribe(res => {
+            this.loading = false;
+            if (res) {
+                window.location.href = res;
+            }
+        });
+    }
+
     deleteRow(row) {
         let width = null;
 
